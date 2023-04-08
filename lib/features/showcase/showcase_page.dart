@@ -557,6 +557,7 @@ class _ShowcasePageState extends State<ShowcasePage> {
                                 .titleMedium!
                                 .copyWith(
                                   fontWeight: FontWeight.bold,
+                                  fontSize: 14,
                                 ),
                           ),
                           PetctAllowedFoodCard(
@@ -579,6 +580,7 @@ class _ShowcasePageState extends State<ShowcasePage> {
                                 .titleMedium!
                                 .copyWith(
                                   fontWeight: FontWeight.bold,
+                                  fontSize: 14,
                                 ),
                           ),
                           PetctForbiddenFoodCard(

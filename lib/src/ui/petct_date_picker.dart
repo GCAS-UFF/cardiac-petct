@@ -5,11 +5,13 @@ class PetctDatePicker extends StatelessWidget {
   final Function(DateTime?) onValue;
   final TextEditingController controller;
   final Function(String?) validator;
+  final String? hintText;
   const PetctDatePicker(
       {super.key,
       required this.onValue,
       required this.controller,
-      required this.validator});
+      required this.validator,
+      this.hintText = 'Data'});
 
   @override
   Widget build(BuildContext context) {
@@ -18,10 +20,8 @@ class PetctDatePicker extends StatelessWidget {
         final DateTime? date = await showDatePicker(
           context: context,
           initialDate: DateTime.now(),
-          firstDate: DateTime.now(),
-          lastDate: DateTime.now().add(
-            const Duration(days: 360),
-          ),
+          firstDate: DateTime(1900),
+          lastDate: DateTime.now(),
         );
         onValue(date);
       },
@@ -29,7 +29,7 @@ class PetctDatePicker extends StatelessWidget {
         child: PetctTextFormField(
           controller: controller,
           readOnly: true,
-          hintText: 'Data',
+          hintText: hintText,
           validator: (value) => validator(value),
           suffixIcon: const Icon(Icons.arrow_drop_down_outlined),
         ),
