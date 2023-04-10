@@ -5,12 +5,14 @@ class PetcetDropdownButton extends StatelessWidget {
   final String? seletedItem;
   final Function(String?) onChanged;
   final String? Function(String?)? validator;
+  final String? hintText;
   const PetcetDropdownButton(
       {super.key,
       required this.items,
       required this.seletedItem,
       required this.onChanged,
-      this.validator});
+      this.validator,
+      this.hintText = 'Data'});
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +27,7 @@ class PetcetDropdownButton extends StatelessWidget {
           )
           .toList(),
       value: seletedItem,
+      hint: Text(hintText!),
       onChanged: (value) => onChanged(value),
       validator: validator,
     );
