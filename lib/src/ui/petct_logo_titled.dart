@@ -1,4 +1,4 @@
-import 'package:cardiac_petct/src/resources/images.dart';
+import 'package:cardiac_petct/src/shared/resources/images.dart';
 import 'package:flutter/material.dart';
 
 class PetctLogoTitled extends StatelessWidget {
