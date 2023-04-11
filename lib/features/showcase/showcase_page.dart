@@ -10,6 +10,7 @@ import 'package:cardiac_petct/src/ui/petct_notification_card.dart';
 import 'package:cardiac_petct/src/ui/petct_outlined_button.dart';
 import 'package:cardiac_petct/src/ui/petct_percent_indicator.dart';
 import 'package:cardiac_petct/src/ui/petct_progress_card.dart';
+import 'package:cardiac_petct/src/ui/petct_radio_button.dart';
 import 'package:cardiac_petct/src/ui/petct_select_item_quantity.dart';
 import 'package:cardiac_petct/src/ui/petct_switch_theme_mode.dart';
 import 'package:cardiac_petct/src/ui/petct_text_button.dart';
@@ -314,62 +315,35 @@ class _ShowcasePageState extends State<ShowcasePage> {
                   ),
                   Row(
                     children: [
-                      Column(
-                        children: [
-                          const Text(
-                            'Sim',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Radio(
-                            value: 'Sim',
-                            groupValue: radioValue,
-                            onChanged: (value) {
-                              setState(() {
-                                radioValue = 'Sim';
-                              });
-                            },
-                          ),
-                        ],
+                      PetctRadioButton(
+                        title: 'Sim',
+                        value: 'Sim',
+                        groupValue: radioValue,
+                        onChanged: (value) {
+                          setState(() {
+                            radioValue = 'Sim';
+                          });
+                        },
                       ),
-                      Column(
-                        children: [
-                          const Text(
-                            'Não',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Radio(
-                            value: 'Não',
-                            groupValue: radioValue,
-                            onChanged: (value) {
-                              setState(() {
-                                radioValue = 'Não';
-                              });
-                            },
-                          ),
-                        ],
+                      PetctRadioButton(
+                        title: 'Não',
+                        value: 'Não',
+                        groupValue: radioValue,
+                        onChanged: (value) {
+                          setState(() {
+                            radioValue = 'Não';
+                          });
+                        },
                       ),
-                      Column(
-                        children: [
-                          const Text(
-                            'Talvez',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Radio(
-                            value: 'Talvez',
-                            groupValue: radioValue,
-                            onChanged: (value) {
-                              setState(() {
-                                radioValue = 'Talvez';
-                              });
-                            },
-                          ),
-                        ],
+                      PetctRadioButton(
+                        title: 'Talvez',
+                        value: 'Talvez',
+                        groupValue: radioValue,
+                        onChanged: (value) {
+                          setState(() {
+                            radioValue = 'Talvez';
+                          });
+                        },
                       ),
                     ],
                   ),
