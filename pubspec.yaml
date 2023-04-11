@@ -16,6 +16,9 @@ dependencies:
   device_preview: ^1.1.0
   percent_indicator: ^4.2.3
   email_validator: ^2.1.17
+  flutter_modular: ^5.0.3
+  flutter_bloc: ^8.1.2
+  firebase_core: ^2.9.0
 
 dev_dependencies:
   flutter_test:

@@ -1,4 +1,4 @@
-import 'package:cardiac_petct/features/auth/presentation/widgets/petct_about_diet_dialog.dart';
+import 'package:cardiac_petct/features/auth/widgets/petct_about_diet_dialog.dart';
 import 'package:cardiac_petct/src/ui/petct_elevated_button.dart';
 import 'package:cardiac_petct/src/ui/petct_logo_titled.dart';
 import 'package:cardiac_petct/src/ui/petct_outlined_button.dart';
@@ -6,9 +6,10 @@ import 'package:cardiac_petct/src/ui/petct_switch_theme_mode.dart';
 import 'package:cardiac_petct/src/ui/petct_text_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
-class StartPage extends StatelessWidget {
-  const StartPage({super.key});
+class AuthPage extends StatelessWidget {
+  const AuthPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +52,9 @@ class StartPage extends StatelessWidget {
                 children: [
                   Expanded(
                     child: PetctElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Modular.to.pushNamed('/registration');
+                      },
                       child: const Text(
                         'Primeiro acesso',
                       ),
@@ -66,7 +69,9 @@ class StartPage extends StatelessWidget {
                 children: [
                   Expanded(
                     child: PetctOutlinedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Modular.to.pushNamed('/login');
+                      },
                       child: const Text(
                         'Entrar',
                       ),

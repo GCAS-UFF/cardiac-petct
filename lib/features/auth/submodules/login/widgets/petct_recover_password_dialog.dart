@@ -5,6 +5,7 @@ import 'package:cardiac_petct/src/ui/petct_elevated_button.dart';
 import 'package:cardiac_petct/src/ui/petct_text_button.dart';
 import 'package:cardiac_petct/src/ui/petct_text_form_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 class PetctRecoverPasswordDialog extends StatefulWidget {
   const PetctRecoverPasswordDialog({super.key});
@@ -83,7 +84,9 @@ class _PetctRecoverPasswordDialogState extends State<PetctRecoverPasswordDialog>
               children: [
                 Expanded(
                   child: PetctTextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Modular.to.pop();
+                    },
                     child: const Text(
                       'Voltar',
                     ),
