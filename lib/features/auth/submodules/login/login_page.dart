@@ -1,4 +1,4 @@
-import 'package:cardiac_petct/features/auth/presentation/widgets/petct_recover_password_dialog.dart';
+import 'package:cardiac_petct/features/auth/submodules/login/widgets/petct_recover_password_dialog.dart';
 import 'package:cardiac_petct/src/input_validators/validations_mixin.dart';
 import 'package:cardiac_petct/src/ui/petct_elevated_button.dart';
 import 'package:cardiac_petct/src/ui/petct_logo_titled.dart';
@@ -7,6 +7,7 @@ import 'package:cardiac_petct/src/ui/petct_text_button.dart';
 import 'package:cardiac_petct/src/ui/petct_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -23,12 +24,15 @@ class _LoginPageState extends State<LoginPage> with ValidationsMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           mainAxisSize: MainAxisSize.max,
           children: [
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Modular.to.pop();
+              },
               icon: const Icon(
                 FeatherIcons.arrowLeft,
               ),

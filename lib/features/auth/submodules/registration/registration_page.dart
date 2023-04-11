@@ -7,6 +7,7 @@ import 'package:cardiac_petct/src/ui/petct_switch_theme_mode.dart';
 import 'package:cardiac_petct/src/ui/petct_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 class RegistrationPage extends StatefulWidget {
   const RegistrationPage({super.key});
@@ -33,12 +34,15 @@ class _RegistrationPageState extends State<RegistrationPage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           mainAxisSize: MainAxisSize.max,
           children: [
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Modular.to.pop();
+              },
               icon: const Icon(
                 FeatherIcons.arrowLeft,
               ),
