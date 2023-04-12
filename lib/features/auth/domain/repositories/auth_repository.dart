@@ -5,9 +5,9 @@ import 'package:dartz/dartz.dart';
 abstract class AuthRepository {
   Future<Either<Failure, bool>> confirmEmailVerified();
 
-  Future<void> login(String email, String password);
+  Future<Either<Failure, void>> login(String email, String password);
 
-  Future<void> recoverPassword();
+  Future<Either<Failure, void>> recoverPassword(String email);
 
   Future<Either<Failure, void>> registration(
       UserEntity userEntity, String password);

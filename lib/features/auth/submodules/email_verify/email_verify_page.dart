@@ -21,14 +21,6 @@ class _EmailVerifyPageState extends State<EmailVerifyPage> {
       body: BlocConsumer(
         bloc: cubit,
         listener: (context, state) {
-          if (state.runtimeType == EmailVerifySuccessState) {
-            var snackBar = const SnackBar(
-              content: Text(
-                'Verificado',
-              ),
-            );
-            ScaffoldMessenger.of(context).showSnackBar(snackBar);
-          }
           if (state.runtimeType == EmailVerifyEmailSentState) {
             var snackBar = const SnackBar(
               content: Text(
