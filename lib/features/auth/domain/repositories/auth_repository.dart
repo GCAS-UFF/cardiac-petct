@@ -3,7 +3,7 @@ import 'package:cardiac_petct/features/auth/domain/entities/user_entity.dart';
 import 'package:dartz/dartz.dart';
 
 abstract class AuthRepository {
-  Future<void> confirmEmailVerified();
+  Future<Either<Failure, bool>> confirmEmailVerified();
 
   Future<void> login(String email, String password);
 
@@ -12,7 +12,7 @@ abstract class AuthRepository {
   Future<Either<Failure, void>> registration(
       UserEntity userEntity, String password);
 
-  Future<void> sendEmailVerification();
+  Future<Either<Failure, void>> sendEmailVerification();
 
   Future<void> signout();
 }

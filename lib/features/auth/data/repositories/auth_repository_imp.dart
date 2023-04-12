@@ -12,9 +12,17 @@ class AuthRepositoryImp implements AuthRepository {
 
   AuthRepositoryImp(this.authRemoteDatasource, this.networkInfo);
   @override
-  Future<void> confirmEmailVerified() {
-    // TODO: implement confirmEmailVerified
-    throw UnimplementedError();
+  Future<Either<Failure, bool>> confirmEmailVerified() async {
+    if (await networkInfo.isConnected) {
+      try {
+        final result = await authRemoteDatasource.confirmEmailVerified();
+        return Right(result);
+      } on Failure catch (e) {
+        return Left(e);
+      }
+    } else {
+      return Left(NoInternetConnectionFailure());
+    }
   }
 
   @override
@@ -46,9 +54,17 @@ class AuthRepositoryImp implements AuthRepository {
   }
 
   @override
-  Future<void> sendEmailVerification() {
-    // TODO: implement sendEmailVerification
-    throw UnimplementedError();
+  Future<Either<Failure, void>> sendEmailVerification() async {
+    if (await networkInfo.isConnected) {
+      try {
+        final result = await authRemoteDatasource.sendEmailVerification();
+        return Right(result);
+      } on Failure catch (e) {
+        return Left(e);
+      }
+    } else {
+      return Left(NoInternetConnectionFailure());
+    }
   }
 
   @override

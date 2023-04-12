@@ -6,6 +6,8 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 abstract class AuthRemoteDatasource {
   Future<void> registration(UserModel userModel, String password);
+  Future<bool> confirmEmailVerified();
+  Future<void> sendEmailVerification();
 }
 
 class AuthRemoteDatasourceImp implements AuthRemoteDatasource {
@@ -30,7 +32,7 @@ class AuthRemoteDatasourceImp implements AuthRemoteDatasource {
         Modular.to.navigate('/email-verify/');
         return;
       }
-      return Modular.to.navigate('/auth/');
+      return Modular.to.navigate('/home/');
     });
   }
 
@@ -49,6 +51,30 @@ class AuthRemoteDatasourceImp implements AuthRemoteDatasource {
       if (e.code == 'email-already-in-use') {
         throw UserAlreadyInUse();
       }
+    }
+  }
+
+  @override
+  Future<bool> confirmEmailVerified() async {
+    try {
+      await firebaseAuth.currentUser!.reload();
+      final firebaseUser = firebaseAuth.currentUser;
+      return firebaseUser!.emailVerified;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'email-already-in-use') {
+        throw UserAlreadyInUse();
+      } else {
+        rethrow;
+      }
+    }
+  }
+
+  @override
+  Future<void> sendEmailVerification() async {
+    try {
+      await firebaseAuth.currentUser!.sendEmailVerification();
+    } on FirebaseAuthException {
+      rethrow;
     }
   }
 }
