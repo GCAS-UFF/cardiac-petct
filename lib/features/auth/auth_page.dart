@@ -53,7 +53,7 @@ class AuthPage extends StatelessWidget {
                   Expanded(
                     child: PetctElevatedButton(
                       onPressed: () {
-                        Modular.to.pushNamed('/registration');
+                        Modular.to.pushNamed('/auth/registration/');
                       },
                       child: const Text(
                         'Primeiro acesso',
@@ -70,7 +70,7 @@ class AuthPage extends StatelessWidget {
                   Expanded(
                     child: PetctOutlinedButton(
                       onPressed: () {
-                        Modular.to.pushNamed('/login');
+                        Modular.to.pushNamed('/auth/login/');
                       },
                       child: const Text(
                         'Entrar',

@@ -38,10 +38,19 @@ class _ShowcasePageState extends State<ShowcasePage> {
   String? radioValue;
   String? selectedDropdownItem;
   bool itemSelected = false;
-  List<String> dropdownItems = [
-    'Opção 1',
-    'Opção 2',
-    'Opção 3',
+  List<DropdownMenuItem<String>> dropdownItems = [
+    const DropdownMenuItem<String>(
+      value: '1',
+      child: Text('Opção 1'),
+    ),
+    const DropdownMenuItem<String>(
+      value: '2',
+      child: Text('Opção 2'),
+    ),
+    const DropdownMenuItem<String>(
+      value: '3',
+      child: Text('Opção 3'),
+    ),
   ];
 
   @override
