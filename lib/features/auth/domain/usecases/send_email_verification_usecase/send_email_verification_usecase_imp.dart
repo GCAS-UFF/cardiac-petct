@@ -1,12 +1,12 @@
-import 'package:cardiac_petct/features/auth/domain/repositories/send_email_verification_repository.dart';
+import 'package:cardiac_petct/features/auth/domain/repositories/auth_repository.dart';
 import 'package:cardiac_petct/features/auth/domain/usecases/send_email_verification_usecase/send_email_verification_usecase.dart';
 
 class SendEmailVerificationUsecaseImp implements SendEmailVerificationUsecase {
-  final SendEmailVerificationRepository sendEmailVerificationRepository;
-  SendEmailVerificationUsecaseImp(this.sendEmailVerificationRepository);
+  final AuthRepository authRepository;
+  SendEmailVerificationUsecaseImp(this.authRepository);
 
   @override
   Future<void> call() async {
-    return await sendEmailVerificationRepository();
+    return await authRepository.sendEmailVerification();
   }
 }

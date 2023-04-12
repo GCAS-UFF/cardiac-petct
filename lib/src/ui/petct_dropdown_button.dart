@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class PetcetDropdownButton extends StatelessWidget {
-  final List<String> items;
+  final List<DropdownMenuItem<String>> items;
   final String? seletedItem;
   final Function(String?) onChanged;
   final String? Function(String?)? validator;
@@ -12,20 +12,13 @@ class PetcetDropdownButton extends StatelessWidget {
       required this.seletedItem,
       required this.onChanged,
       this.validator,
-      this.hintText = 'Data'});
+      this.hintText = ''});
 
   @override
   Widget build(BuildContext context) {
     return DropdownButtonFormField<String>(
       isExpanded: true,
-      items: items
-          .map(
-            (value) => DropdownMenuItem<String>(
-              value: value,
-              child: Text(value),
-            ),
-          )
-          .toList(),
+      items: items,
       value: seletedItem,
       hint: Text(hintText!),
       onChanged: (value) => onChanged(value),

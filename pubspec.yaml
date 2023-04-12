@@ -19,6 +19,10 @@ dependencies:
   flutter_modular: ^5.0.3
   flutter_bloc: ^8.1.2
   firebase_core: ^2.9.0
+  firebase_database: ^10.1.0
+  firebase_auth: ^4.4.0
+  internet_connection_checker: ^1.0.0+1
+  dartz: ^0.10.1
 
 dev_dependencies:
   flutter_test:

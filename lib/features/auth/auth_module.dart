@@ -10,10 +10,7 @@ class AuthModule extends Module {
 
   @override
   List<ModularRoute> get routes => [
-        ChildRoute(
-          '/',
-          child: (context, args) => const AuthPage(),
-        ),
+        ChildRoute('/', child: (context, args) => const AuthPage()),
         ModuleRoute('/login', module: LoginModule()),
         ModuleRoute('/registration', module: RegistrationModule()),
         ModuleRoute('/email-verify', module: EmailVerifyModule()),
