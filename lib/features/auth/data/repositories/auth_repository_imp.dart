@@ -84,8 +84,16 @@ class AuthRepositoryImp implements AuthRepository {
   }
 
   @override
-  Future<void> signout() {
-    // TODO: implement signout
-    throw UnimplementedError();
+  Future<Either<Failure, void>> signout() async {
+    if (await networkInfo.isConnected) {
+      try {
+        final result = await authRemoteDatasource.signOut();
+        return Right(result);
+      } on Failure catch (e) {
+        return Left(e);
+      }
+    } else {
+      return Left(NoInternetConnectionFailure());
+    }
   }
 }
