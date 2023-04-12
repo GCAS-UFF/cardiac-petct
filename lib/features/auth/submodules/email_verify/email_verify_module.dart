@@ -8,7 +8,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 class EmailVerifyModule extends Module {
   @override
   List<Bind<Object>> get binds => [
-        Bind.singleton((i) => EmailVerifyCubit(i(), i())),
+        Bind.lazySingleton((i) => EmailVerifyCubit(i(), i())),
         Bind.lazySingleton((i) => ConfirmEmailVerifiedUsecaseImp(i())),
         Bind.lazySingleton((i) => SendEmailVerificationUsecaseImp(i())),
         Bind.lazySingleton((i) => AuthRepositoryImp(i(), i())),

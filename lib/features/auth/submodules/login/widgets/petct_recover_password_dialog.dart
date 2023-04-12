@@ -1,3 +1,5 @@
+import 'package:cardiac_petct/features/auth/submodules/login/login_cubit.dart';
+import 'package:cardiac_petct/features/auth/submodules/login/widgets/petct_recover_password_email_sent_dialog.dart';
 import 'package:cardiac_petct/src/input_validators/validations_mixin.dart';
 import 'package:cardiac_petct/src/shared/resources/images.dart';
 
@@ -5,6 +7,7 @@ import 'package:cardiac_petct/src/ui/petct_elevated_button.dart';
 import 'package:cardiac_petct/src/ui/petct_text_button.dart';
 import 'package:cardiac_petct/src/ui/petct_text_form_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class PetctRecoverPasswordDialog extends StatefulWidget {
@@ -19,6 +22,7 @@ class _PetctRecoverPasswordDialogState extends State<PetctRecoverPasswordDialog>
     with ValidationsMixin {
   final TextEditingController _emailController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final LoginCubit cubit = Modular.get();
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -29,72 +33,108 @@ class _PetctRecoverPasswordDialogState extends State<PetctRecoverPasswordDialog>
         ),
       ),
       content: SingleChildScrollView(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Image.asset(
-              Images.petctLogo,
-              width: 78,
-            ),
-            const SizedBox(
-              height: 22,
-            ),
-            Text(
-              'Recuperação de senha',
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
-            const SizedBox(
-              height: 26,
-            ),
-            // Email
-            Form(
-              key: _formKey,
-              child: PetctTextFormField(
-                controller: _emailController,
-                hintText: 'Email',
-                validator: (value) => combine(
-                  [
-                    () => isNotEmpty(value),
-                    () => isEmailValid(value),
+        child: BlocConsumer(
+          bloc: cubit,
+          listener: (context, state) {
+            if (state.runtimeType == LoginSuccessState) {
+              Modular.to.pop();
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return const PetctRecoverPasswordEmailSentDialog();
+                },
+              );
+            }
+            if (state.runtimeType == LoginErrorState) {
+              Modular.to.pop();
+              final errorState = state as LoginErrorState;
+              var snackBar = SnackBar(
+                content: Text(
+                  errorState.failure.errorMessage,
+                ),
+              );
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            }
+          },
+          builder: (context, state) {
+            return Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Image.asset(
+                  Images.petctLogo,
+                  width: 78,
+                ),
+                const SizedBox(
+                  height: 22,
+                ),
+                Text(
+                  'Recuperação de senha',
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+                const SizedBox(
+                  height: 26,
+                ),
+                // Email
+                Form(
+                  key: _formKey,
+                  child: PetctTextFormField(
+                    controller: _emailController,
+                    hintText: 'Email',
+                    validator: (value) => combine(
+                      [
+                        () => isNotEmpty(value),
+                        () => isEmailValid(value),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 22,
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: PetctElevatedButton(
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            cubit.sentRecoverPasswordEmail(
+                                _emailController.text);
+                          }
+                        },
+                        child: state.runtimeType == LoginLoadingState
+                            ? Center(
+                                child: CircularProgressIndicator(
+                                  color:
+                                      Theme.of(context).colorScheme.onPrimary,
+                                ),
+                              )
+                            : const Text(
+                                'Enviar',
+                              ),
+                      ),
+                    ),
                   ],
                 ),
-              ),
-            ),
-            const SizedBox(
-              height: 22,
-            ),
-            Row(
-              children: [
-                Expanded(
-                  child: PetctElevatedButton(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {}
-                    },
-                    child: const Text(
-                      'Enviar',
+                const SizedBox(
+                  height: 32,
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: PetctTextButton(
+                        onPressed: () {
+                          Modular.to.pop();
+                        },
+                        child: const Text(
+                          'Voltar',
+                        ),
+                      ),
                     ),
-                  ),
+                  ],
                 ),
               ],
-            ),
-            const SizedBox(
-              height: 32,
-            ),
-            Row(
-              children: [
-                Expanded(
-                  child: PetctTextButton(
-                    onPressed: () {
-                      Modular.to.pop();
-                    },
-                    child: const Text(
-                      'Voltar',
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ],
+            );
+          },
         ),
       ),
     );

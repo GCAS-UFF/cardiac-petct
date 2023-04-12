@@ -8,6 +8,8 @@ abstract class AuthRemoteDatasource {
   Future<void> registration(UserModel userModel, String password);
   Future<bool> confirmEmailVerified();
   Future<void> sendEmailVerification();
+  Future<void> login(String email, String password);
+  Future<void> recoverPassword(String email);
 }
 
 class AuthRemoteDatasourceImp implements AuthRemoteDatasource {
@@ -47,6 +49,7 @@ class AuthRemoteDatasourceImp implements AuthRemoteDatasource {
           firebaseDatabase.ref().child('Users').child(firebaseUser!.uid);
       userModel = userModel.copyWith(id: firebaseUser.uid);
       await userReference.set(userModel.toMap());
+      sendEmailVerification();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'email-already-in-use') {
         throw UserAlreadyInUse();
@@ -74,6 +77,37 @@ class AuthRemoteDatasourceImp implements AuthRemoteDatasource {
     try {
       await firebaseAuth.currentUser!.sendEmailVerification();
     } on FirebaseAuthException {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> login(String email, String password) async {
+    try {
+      await firebaseAuth.signInWithEmailAndPassword(
+          email: email, password: password);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'wrong-password') {
+        throw WrongPassword();
+      }
+      if (e.code == 'user-not-found') {
+        throw UserNotFound();
+      }
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> recoverPassword(String email) async {
+    try {
+      await firebaseAuth.sendPasswordResetEmail(email: email);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        throw UserNotFound();
+      }
+      if (e.code == 'invalid-email') {
+        throw InvalidEmail();
+      }
       rethrow;
     }
   }

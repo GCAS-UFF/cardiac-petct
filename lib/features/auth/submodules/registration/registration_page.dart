@@ -221,9 +221,18 @@ class _RegistrationPageState extends State<RegistrationPage>
                                         user, passwordController.text);
                                   }
                                 },
-                                child: const Text(
-                                  'Cadastrar',
-                                ),
+                                child: state.runtimeType ==
+                                        RegistrationLoadingState
+                                    ? Center(
+                                        child: CircularProgressIndicator(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .onPrimary,
+                                        ),
+                                      )
+                                    : const Text(
+                                        'Cadastrar',
+                                      ),
                               ),
                             ),
                           ],

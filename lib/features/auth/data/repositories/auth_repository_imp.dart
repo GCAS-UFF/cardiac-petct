@@ -26,15 +26,31 @@ class AuthRepositoryImp implements AuthRepository {
   }
 
   @override
-  Future<void> login(String email, String password) {
-    // TODO: implement login
-    throw UnimplementedError();
+  Future<Either<Failure, void>> login(String email, String password) async {
+    if (await networkInfo.isConnected) {
+      try {
+        final result = await authRemoteDatasource.login(email, password);
+        return Right(result);
+      } on Failure catch (e) {
+        return Left(e);
+      }
+    } else {
+      return Left(NoInternetConnectionFailure());
+    }
   }
 
   @override
-  Future<void> recoverPassword() {
-    // TODO: implement recoverPassword
-    throw UnimplementedError();
+  Future<Either<Failure, void>> recoverPassword(String email) async {
+    if (await networkInfo.isConnected) {
+      try {
+        final result = await authRemoteDatasource.recoverPassword(email);
+        return Right(result);
+      } on Failure catch (e) {
+        return Left(e);
+      }
+    } else {
+      return Left(NoInternetConnectionFailure());
+    }
   }
 
   @override

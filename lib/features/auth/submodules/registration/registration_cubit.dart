@@ -9,6 +9,7 @@ class RegistrationCubit extends Cubit<RegistrationState> {
       : super(RegistrationInitialsState());
 
   Future<void> registration(UserEntity userEntity, String password) async {
+    emit(RegistrationLoadingState());
     final result = await registrationUsecase(userEntity, password);
     result.fold((l) => emit(RegistrationErrorState(l)),
         (r) => emit(RegistrationSuccessState()));

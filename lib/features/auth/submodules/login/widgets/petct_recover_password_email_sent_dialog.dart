@@ -1,8 +1,9 @@
 import 'package:cardiac_petct/src/ui/petct_outlined_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
-class PetctEmailVerifySentDialog extends StatelessWidget {
-  const PetctEmailVerifySentDialog({super.key});
+class PetctRecoverPasswordEmailSentDialog extends StatelessWidget {
+  const PetctRecoverPasswordEmailSentDialog({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,7 @@ class PetctEmailVerifySentDialog extends StatelessWidget {
             height: 32,
           ),
           Text(
-            'Email de confirmação enviado',
+            'Email de recuperação de senha enviado',
             style: Theme.of(context).textTheme.titleMedium,
           ),
           const SizedBox(
@@ -30,7 +31,9 @@ class PetctEmailVerifySentDialog extends StatelessWidget {
             children: [
               Expanded(
                 child: PetctOutlinedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Modular.to.pop();
+                  },
                   child: const Text(
                     'Ok',
                   ),

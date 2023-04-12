@@ -15,4 +15,7 @@ abstract class Failure {
   }
 }
 
-class NoInternetConnectionFailure extends Failure {}
+class NoInternetConnectionFailure extends Failure {
+  NoInternetConnectionFailure()
+      : super(errorMessage: 'Sem conexão com a internet.');
+}
