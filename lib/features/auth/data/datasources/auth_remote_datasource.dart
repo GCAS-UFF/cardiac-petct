@@ -10,6 +10,7 @@ abstract class AuthRemoteDatasource {
   Future<void> sendEmailVerification();
   Future<void> login(String email, String password);
   Future<void> recoverPassword(String email);
+  Future<void> signOut();
 }
 
 class AuthRemoteDatasourceImp implements AuthRemoteDatasource {
@@ -108,6 +109,15 @@ class AuthRemoteDatasourceImp implements AuthRemoteDatasource {
       if (e.code == 'invalid-email') {
         throw InvalidEmail();
       }
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> signOut() async {
+    try {
+      await firebaseAuth.signOut();
+    } on FirebaseAuthException {
       rethrow;
     }
   }
