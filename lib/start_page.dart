@@ -1,8 +1,5 @@
-import 'package:cardiac_petct/features/auth/data/datasources/auth_remote_datasource.dart';
 import 'package:cardiac_petct/src/services/firebase_autorizator_service.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class StartPage extends StatefulWidget {

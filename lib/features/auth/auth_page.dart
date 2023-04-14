@@ -1,6 +1,4 @@
-import 'package:cardiac_petct/features/auth/data/datasources/auth_remote_datasource.dart';
 import 'package:cardiac_petct/features/auth/widgets/petct_about_diet_dialog.dart';
-import 'package:cardiac_petct/src/services/firebase_autorizator_service.dart';
 import 'package:cardiac_petct/src/ui/petct_elevated_button.dart';
 import 'package:cardiac_petct/src/ui/petct_logo_titled.dart';
 import 'package:cardiac_petct/src/ui/petct_outlined_button.dart';
