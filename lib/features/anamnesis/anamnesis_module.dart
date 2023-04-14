@@ -1,4 +1,3 @@
-import 'package:cardiac_petct/features/anamnesis/anamnesis_cubit.dart';
 import 'package:cardiac_petct/features/anamnesis/data/datasources/anamnesis_remote_datasource.dart';
 import 'package:cardiac_petct/features/anamnesis/data/repositories/anamnesis_repository_imp.dart';
 import 'package:cardiac_petct/features/anamnesis/domain/usecases/send_anamnesis_answers_usecase_imp.dart';

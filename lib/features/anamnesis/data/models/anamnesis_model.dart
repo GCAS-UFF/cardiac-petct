@@ -18,7 +18,7 @@ class AnamnesisModel extends AnamnesisEntity {
     super.physicalExerciseFrequency,
     super.chronicDiseaseAndCommorbities,
   });
-
+  @override
   AnamnesisModel copyWith({
     double? weight,
     double? height,
@@ -50,6 +50,7 @@ class AnamnesisModel extends AnamnesisEntity {
     );
   }
 
+  @override
   Map<String, dynamic> toMap() {
     return {
       'weight': weight,
@@ -98,7 +99,7 @@ class AnamnesisModel extends AnamnesisEntity {
       chronicDiseaseAndCommorbities: entity.chronicDiseaseAndCommorbities,
     );
   }
-
+  @override
   String toJson() => json.encode(toMap());
 
   factory AnamnesisModel.fromJson(String source) =>
