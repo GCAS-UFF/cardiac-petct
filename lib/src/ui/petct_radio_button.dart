@@ -5,8 +5,10 @@ class PetctRadioButton extends StatelessWidget {
   final String? groupValue;
   final Function(String?) onChanged;
   final String value;
+  final bool? horizontal;
   const PetctRadioButton(
       {super.key,
+      this.horizontal = false,
       required this.title,
       required this.groupValue,
       required this.onChanged,
@@ -16,16 +18,31 @@ class PetctRadioButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(
-          title,
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
+        if (!horizontal!)
+          Text(
+            title,
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
           ),
-        ),
-        Radio(
-          value: value,
-          groupValue: groupValue,
-          onChanged: onChanged,
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Radio(
+              value: value,
+              groupValue: groupValue,
+              onChanged: onChanged,
+            ),
+            if (horizontal!)
+              Expanded(
+                child: Text(
+                  title,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+          ],
         ),
       ],
     );

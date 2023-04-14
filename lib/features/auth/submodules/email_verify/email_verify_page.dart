@@ -5,6 +5,7 @@ import 'package:cardiac_petct/src/ui/petct_outlined_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class EmailVerifyPage extends StatefulWidget {
   const EmailVerifyPage({super.key});
@@ -65,8 +66,14 @@ class _EmailVerifyPageState extends State<EmailVerifyPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Image.asset(
-                      Images.emailVerifyIllustration,
+                    SizedBox(
+                      width: 200,
+                      child: FittedBox(
+                        fit: BoxFit.fitWidth,
+                        child: SvgPicture.asset(
+                          Images.emailVerifyIllustration,
+                        ),
+                      ),
                     ),
                   ],
                 ),
