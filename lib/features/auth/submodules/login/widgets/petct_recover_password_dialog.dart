@@ -9,6 +9,7 @@ import 'package:cardiac_petct/src/ui/petct_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:localization/localization.dart';
 
 class PetctRecoverPasswordDialog extends StatefulWidget {
   const PetctRecoverPasswordDialog({super.key});
@@ -68,7 +69,7 @@ class _PetctRecoverPasswordDialogState extends State<PetctRecoverPasswordDialog>
                   height: 22,
                 ),
                 Text(
-                  'Recuperação de senha',
+                  'recover-password-title'.i18n(),
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
                 const SizedBox(
@@ -79,7 +80,7 @@ class _PetctRecoverPasswordDialogState extends State<PetctRecoverPasswordDialog>
                   key: _formKey,
                   child: PetctTextFormField(
                     controller: _emailController,
-                    hintText: 'Email',
+                    hintText: 'email-hint'.i18n(),
                     validator: (value) => combine(
                       [
                         () => isNotEmpty(value),
@@ -108,8 +109,8 @@ class _PetctRecoverPasswordDialogState extends State<PetctRecoverPasswordDialog>
                                       Theme.of(context).colorScheme.onPrimary,
                                 ),
                               )
-                            : const Text(
-                                'Enviar',
+                            : Text(
+                                'send-label'.i18n(),
                               ),
                       ),
                     ),
@@ -125,8 +126,8 @@ class _PetctRecoverPasswordDialogState extends State<PetctRecoverPasswordDialog>
                         onPressed: () {
                           Modular.to.pop();
                         },
-                        child: const Text(
-                          'Voltar',
+                        child: Text(
+                          'back-label'.i18n(),
                         ),
                       ),
                     ),

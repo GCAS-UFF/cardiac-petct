@@ -4,6 +4,7 @@ import 'package:cardiac_petct/src/ui/petct_elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:localization/localization.dart';
 
 class AnamnesisDonePage extends StatefulWidget {
   const AnamnesisDonePage({super.key});
@@ -24,8 +25,8 @@ class _AnamnesisDonePageState extends State<AnamnesisDonePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            const Text(
-              'Parabéns, você concluiu o questionário',
+            Text(
+              'congratulations-form-done'.i18n(),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -46,7 +47,7 @@ class _AnamnesisDonePageState extends State<AnamnesisDonePage> {
                     onPressed: () {
                       cubit.sendAnamnesisForm();
                     },
-                    child: const Text('Finalizar'),
+                    child: Text('finish-label'.i18n()),
                   ),
                 ),
               ],

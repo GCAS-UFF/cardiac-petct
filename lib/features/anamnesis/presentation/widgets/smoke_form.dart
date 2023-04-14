@@ -4,6 +4,7 @@ import 'package:cardiac_petct/src/ui/petct_radio_button.dart';
 import 'package:cardiac_petct/src/ui/petct_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:localization/localization.dart';
 
 class SmokeForm extends StatefulWidget {
   const SmokeForm({super.key});
@@ -18,7 +19,7 @@ class _SmokeFormState extends State<SmokeForm> with ValidationsMixin {
   final TextEditingController cigarettesPerDayController =
       TextEditingController();
   final TextEditingController howLongController = TextEditingController();
-  bool get shouldValidate => (smokesController.text == 'sim');
+  bool get shouldValidate => (smokesController.text == 'yes');
 
   @override
   void initState() {
@@ -32,8 +33,7 @@ class _SmokeFormState extends State<SmokeForm> with ValidationsMixin {
       howLongController.text = cubit.anamnesisEntity.smokesHowLong.toString();
     }
 
-    smokesController.text =
-        cubit.anamnesisEntity.smokes == true ? 'sim' : 'não';
+    smokesController.text = cubit.anamnesisEntity.smokes == true ? 'yes' : 'no';
   }
 
   @override
@@ -43,7 +43,7 @@ class _SmokeFormState extends State<SmokeForm> with ValidationsMixin {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Text(
-          'Fuma?',
+          'smokes-title'.i18n(),
           style: Theme.of(context).textTheme.titleMedium,
         ),
         const SizedBox(
@@ -52,7 +52,7 @@ class _SmokeFormState extends State<SmokeForm> with ValidationsMixin {
         Row(
           children: [
             PetctRadioButton(
-              title: 'Sim',
+              title: 'yes-answer'.i18n(),
               groupValue: smokesController.text,
               onChanged: (value) {
                 setState(() {
@@ -63,10 +63,10 @@ class _SmokeFormState extends State<SmokeForm> with ValidationsMixin {
                   }
                 });
               },
-              value: 'sim',
+              value: 'yes',
             ),
             PetctRadioButton(
-              title: 'Não',
+              title: 'no-answer'.i18n(),
               groupValue: smokesController.text,
               onChanged: (value) {
                 setState(() {
@@ -80,7 +80,7 @@ class _SmokeFormState extends State<SmokeForm> with ValidationsMixin {
                   }
                 });
               },
-              value: 'não',
+              value: 'no',
             )
           ],
         ),
@@ -92,7 +92,7 @@ class _SmokeFormState extends State<SmokeForm> with ValidationsMixin {
               ),
               PetctTextFormField(
                 controller: howLongController,
-                hintText: 'Fuma há quantos anos?',
+                hintText: 'how-long-smokes-question'.i18n(),
                 textInputType: TextInputType.number,
                 validator: shouldValidate ? isNotEmpty : null,
                 onChanged: (value) {
@@ -107,7 +107,7 @@ class _SmokeFormState extends State<SmokeForm> with ValidationsMixin {
               ),
               PetctTextFormField(
                 controller: cigarettesPerDayController,
-                hintText: 'Quantos cigarros por dia em média?',
+                hintText: 'how-many-cigaretter-per-day-question'.i18n(),
                 textInputType: TextInputType.number,
                 validator: shouldValidate ? isNotEmpty : null,
                 onChanged: (value) {

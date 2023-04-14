@@ -1,0 +1,13 @@
+{
+    "login-title": "Iniciar sesión",
+    "email-title": "Correo electrónico",
+    "password-hint": "Contraseña",
+    "sign-in-label": "Iniciar sesión",
+    "forgot-password-label": "¿Olvidaste la contraseña?",
+    "recover-password-title": "Recuperación de contraseña",
+    "email-hint": "Correo electrónico",
+    "send-label": "Enviar",
+    "back-label": "Atrás",
+    "recover-email-sent": "Correo electrónico de recuperación de contraseña enviado",
+    "ok-label": "Está bien"
+}

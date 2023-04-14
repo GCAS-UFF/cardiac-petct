@@ -1,5 +1,6 @@
 import 'package:cardiac_petct/src/ui/petct_outlined_button.dart';
 import 'package:flutter/material.dart';
+import 'package:localization/localization.dart';
 
 class PetctEmailVerifySentDialog extends StatelessWidget {
   const PetctEmailVerifySentDialog({super.key});
@@ -20,7 +21,7 @@ class PetctEmailVerifySentDialog extends StatelessWidget {
             height: 32,
           ),
           Text(
-            'Email de confirmação enviado',
+            'email-sent'.i18n(),
             style: Theme.of(context).textTheme.titleMedium,
           ),
           const SizedBox(
@@ -31,8 +32,8 @@ class PetctEmailVerifySentDialog extends StatelessWidget {
               Expanded(
                 child: PetctOutlinedButton(
                   onPressed: () {},
-                  child: const Text(
-                    'Ok',
+                  child: Text(
+                    'ok-label'.i18n(),
                   ),
                 ),
               ),

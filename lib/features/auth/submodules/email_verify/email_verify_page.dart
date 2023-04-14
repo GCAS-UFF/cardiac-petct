@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:localization/localization.dart';
 
 class EmailVerifyPage extends StatefulWidget {
   const EmailVerifyPage({super.key});
@@ -23,9 +24,9 @@ class _EmailVerifyPageState extends State<EmailVerifyPage> {
         bloc: cubit,
         listener: (context, state) {
           if (state.runtimeType == EmailVerifyEmailSentState) {
-            var snackBar = const SnackBar(
+            var snackBar = SnackBar(
               content: Text(
-                'Email enviado com sucesso',
+                'email-successfully-sent'.i18n(),
               ),
             );
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -50,14 +51,14 @@ class _EmailVerifyPageState extends State<EmailVerifyPage> {
               mainAxisSize: MainAxisSize.max,
               children: [
                 Text(
-                  'Confirmação de email',
+                  'email-confirmation-title'.i18n(),
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
                 const SizedBox(
                   height: 12,
                 ),
                 Text(
-                  'Acesse sua conta de email e clique no link de verificação.',
+                  'email-confirmation-text'.i18n(),
                   style: Theme.of(context).textTheme.bodyMedium,
                 ),
                 const SizedBox(
@@ -66,14 +67,9 @@ class _EmailVerifyPageState extends State<EmailVerifyPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SizedBox(
-                      width: 200,
-                      child: FittedBox(
-                        fit: BoxFit.fitWidth,
-                        child: SvgPicture.asset(
-                          Images.emailVerifyIllustration,
-                        ),
-                      ),
+                    SvgPicture.asset(
+                      Images.emailVerifyIllustration,
+                      width: 250,
                     ),
                   ],
                 ),
@@ -87,8 +83,8 @@ class _EmailVerifyPageState extends State<EmailVerifyPage> {
                         onPressed: () async {
                           cubit.confirmEmailVerified();
                         },
-                        child: const Text(
-                          'Email confirmado',
+                        child: Text(
+                          'email-verified-label'.i18n(),
                         ),
                       ),
                     ),
@@ -104,8 +100,8 @@ class _EmailVerifyPageState extends State<EmailVerifyPage> {
                         onPressed: () async {
                           cubit.sendEmailVerification();
                         },
-                        child: const Text(
-                          'Reenviar email',
+                        child: Text(
+                          'resend-confirmation-email'.i18n(),
                         ),
                       ),
                     ),

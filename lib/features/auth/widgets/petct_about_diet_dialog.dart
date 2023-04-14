@@ -2,6 +2,7 @@ import 'package:cardiac_petct/src/ui/petct_outlined_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:localization/localization.dart';
 
 class PetctAboutDietDialog extends StatelessWidget {
   const PetctAboutDietDialog({super.key});
@@ -29,7 +30,7 @@ class PetctAboutDietDialog extends StatelessWidget {
                 width: 8,
               ),
               Text(
-                'Sobre a dieta',
+                'about-diet-title'.i18n(),
                 style: Theme.of(context)
                     .textTheme
                     .titleMedium!
@@ -44,18 +45,18 @@ class PetctAboutDietDialog extends StatelessWidget {
             text: TextSpan(
               children: [
                 TextSpan(
-                  text: 'Você deverá seguir uma',
+                  text: 'about-diet-text-one'.i18n(),
                   style: Theme.of(context)
                       .textTheme
                       .titleMedium!
                       .copyWith(fontWeight: FontWeight.w300),
                 ),
                 TextSpan(
-                  text: ' dieta cetogênica ',
+                  text: ' ${'about-diet-text-two'.i18n()} ',
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
                 TextSpan(
-                  text: 'para o preparo do exame',
+                  text: 'about-diet-text-three'.i18n(),
                   style: Theme.of(context)
                       .textTheme
                       .titleMedium!
@@ -67,10 +68,10 @@ class PetctAboutDietDialog extends StatelessWidget {
           const SizedBox(
             height: 16,
           ),
-          Text('O que é uma dieta cetogênica?',
+          Text('about-diet-text-four'.i18n(),
               style: Theme.of(context).textTheme.titleMedium),
           Text(
-            'É uma dieta extremamente baixa em carboidratos, nutrientes presentes em alimentos como massas, cereais como o arroz e o milho, doces e em alguns tipos de legumes. ',
+            'about-diet-text-five'.i18n(),
             style: Theme.of(context).textTheme.titleMedium!.copyWith(
                   fontWeight: FontWeight.w300,
                 ),
@@ -78,10 +79,10 @@ class PetctAboutDietDialog extends StatelessWidget {
           const SizedBox(
             height: 16,
           ),
-          Text('E por que devo seguir essa dieta?',
+          Text('about-diet-text-six'.i18n(),
               style: Theme.of(context).textTheme.titleMedium),
           Text(
-            'Porque o consumo de carboidratos antes da realização do exame pode comprometer a imagem do exame e levar a um diagnóstico impreciso',
+            'about-diet-text-seven'.i18n(),
             style: Theme.of(context).textTheme.titleMedium!.copyWith(
                   fontWeight: FontWeight.w300,
                 ),
@@ -96,8 +97,8 @@ class PetctAboutDietDialog extends StatelessWidget {
                   onPressed: () {
                     Modular.to.pop();
                   },
-                  child: const Text(
-                    'Ok',
+                  child: Text(
+                    'ok-label'.i18n(),
                   ),
                 ),
               ),

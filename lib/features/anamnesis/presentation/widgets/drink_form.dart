@@ -4,6 +4,7 @@ import 'package:cardiac_petct/src/ui/petct_dropdown_button.dart';
 import 'package:cardiac_petct/src/ui/petct_radio_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:localization/localization.dart';
 
 class DrinkForm extends StatefulWidget {
   const DrinkForm({super.key});
@@ -18,47 +19,46 @@ class _SmokeFormState extends State<DrinkForm> with ValidationsMixin {
   final TextEditingController drinksTypeController = TextEditingController();
   final TextEditingController drinksFrequencyController =
       TextEditingController();
-  bool get shouldValidate => (drinksController.text == 'sim');
+  bool get shouldValidate => (drinksController.text == 'yes');
   String? selectedDrinkType;
   String? selectedDrinkFrequency;
   List<DropdownMenuItem<String>> drinksType = [
-    const DropdownMenuItem<String>(
-      value: 'Cerveja',
+    DropdownMenuItem<String>(
+      value: 'drink-type-beer'.i18n(),
       child: Text(
-        'Cerveja',
+        'drink-type-beer'.i18n(),
       ),
     ),
-    const DropdownMenuItem<String>(
-      value: 'Vinho',
+    DropdownMenuItem<String>(
+      value: 'drink-type-wine'.i18n(),
       child: Text(
-        'Vinho',
+        'drink-type-wine'.i18n(),
       ),
     ),
-    const DropdownMenuItem<String>(
-      value: 'Cachaça',
+    DropdownMenuItem<String>(
+      value: 'drink-type-liquor'.i18n(),
       child: Text(
-        'Cachaça',
+        'drink-type-liquor'.i18n(),
       ),
     ),
-    const DropdownMenuItem<String>(
-      value: 'Vodka/Whiskey',
+    DropdownMenuItem<String>(
+      value: 'drink-type-vodka-whiskey'.i18n(),
       child: Text(
-        'Vodka/Whiskey',
+        'drink-type-vodka-whiskey'.i18n(),
       ),
     ),
   ];
 
   final List<String> drinkFrequency = [
-    '1 dose por dia ou até 7 doses na semana',
-    'entre 1 e 3 doses por dia ou até 21 doses na semana',
-    'mais que 3 doses por dia ou até 21 doses na semana'
+    'drink-frequency-option-one'.i18n(),
+    'drink-frequency-option-two'.i18n(),
+    'drink-frequency-option-three'.i18n()
   ];
 
   @override
   void initState() {
     super.initState();
-    drinksController.text =
-        cubit.anamnesisEntity.drinks == true ? 'sim' : 'não';
+    drinksController.text = cubit.anamnesisEntity.drinks == true ? 'yes' : 'no';
     if (cubit.anamnesisEntity.drinksType != null) {
       drinksTypeController.text = cubit.anamnesisEntity.drinksType!;
       selectedDrinkType = drinksTypeController.text;
@@ -80,7 +80,7 @@ class _SmokeFormState extends State<DrinkForm> with ValidationsMixin {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Text(
-          'Consome bebidas alcoólicas?',
+          'drink-question'.i18n(),
           style: Theme.of(context).textTheme.titleMedium,
         ),
         const SizedBox(
@@ -89,7 +89,7 @@ class _SmokeFormState extends State<DrinkForm> with ValidationsMixin {
         Row(
           children: [
             PetctRadioButton(
-              title: 'Sim',
+              title: 'yes-answer'.i18n(),
               groupValue: drinksController.text,
               onChanged: (value) {
                 setState(() {
@@ -100,10 +100,10 @@ class _SmokeFormState extends State<DrinkForm> with ValidationsMixin {
                   }
                 });
               },
-              value: 'sim',
+              value: 'yes',
             ),
             PetctRadioButton(
-              title: 'Não',
+              title: 'no-answer'.i18n(),
               groupValue: drinksController.text,
               onChanged: (value) {
                 setState(() {
@@ -115,7 +115,7 @@ class _SmokeFormState extends State<DrinkForm> with ValidationsMixin {
                   }
                 });
               },
-              value: 'não',
+              value: 'no',
             )
           ],
         ),
@@ -127,7 +127,7 @@ class _SmokeFormState extends State<DrinkForm> with ValidationsMixin {
               ),
               PetcetDropdownButton(
                 items: drinksType,
-                hintText: 'Qual a bebida mais consumida?',
+                hintText: 'most-consumed-drink-question'.i18n(),
                 seletedItem: selectedDrinkType,
                 validator: shouldValidate ? isNotEmpty : null,
                 onChanged: (value) {

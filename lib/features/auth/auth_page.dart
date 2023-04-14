@@ -9,6 +9,7 @@ import 'package:cardiac_petct/src/ui/petct_text_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:localization/localization.dart';
 
 class AuthPage extends StatefulWidget {
   const AuthPage({super.key});
@@ -37,14 +38,14 @@ class _AuthPageState extends State<AuthPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const PetctLogoTitled(
-                title: 'App Endocardite',
+              PetctLogoTitled(
+                title: 'app-name-title'.i18n(),
               ),
               const SizedBox(
                 height: 68,
               ),
               Text(
-                'Crie uma conta para visualizar as dietas sugeridas, acompanhar o progresso até o dia do exame e receber alertas de refeições',
+                'create-account-text'.i18n(),
                 textAlign: TextAlign.center,
                 style: Theme.of(context)
                     .textTheme
@@ -61,8 +62,8 @@ class _AuthPageState extends State<AuthPage> {
                       onPressed: () {
                         Modular.to.pushNamed('/auth/registration/');
                       },
-                      child: const Text(
-                        'Primeiro acesso',
+                      child: Text(
+                        'first-access-label'.i18n(),
                       ),
                     ),
                   ),
@@ -78,8 +79,8 @@ class _AuthPageState extends State<AuthPage> {
                       onPressed: () {
                         Modular.to.pushNamed('/auth/login/');
                       },
-                      child: const Text(
-                        'Entrar',
+                      child: Text(
+                        'sign-in-label'.i18n(),
                       ),
                     ),
                   ),
@@ -106,8 +107,8 @@ class _AuthPageState extends State<AuthPage> {
                     const SizedBox(
                       width: 8,
                     ),
-                    const Text(
-                      'Sobre a dieta',
+                     Text(
+                      'about-diet-label'.i18n(),
                     ),
                     const Icon(
                       FeatherIcons.info,
