@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:localization/localization.dart';
 
 class RegistrationPage extends StatefulWidget {
   const RegistrationPage({super.key});
@@ -32,22 +33,22 @@ class _RegistrationPageState extends State<RegistrationPage>
   String? genderText;
   DateTime? birthdate;
   List<DropdownMenuItem<String>> genderItems = [
-    const DropdownMenuItem(
+    DropdownMenuItem(
       value: 'male',
       child: Text(
-        'Homem',
+        'male-gender'.i18n(),
       ),
     ),
-    const DropdownMenuItem(
+    DropdownMenuItem(
       value: 'female',
       child: Text(
-        'Mulher',
+        'female-gender'.i18n(),
       ),
     ),
-    const DropdownMenuItem(
+    DropdownMenuItem(
       value: 'not-informed',
       child: Text(
-        'Não informar',
+        'not-informed-gender'.i18n(),
       ),
     ),
   ];
@@ -99,7 +100,7 @@ class _RegistrationPageState extends State<RegistrationPage>
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      'Cadastro',
+                      'registration-title'.i18n(),
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
                     const SizedBox(
@@ -108,7 +109,7 @@ class _RegistrationPageState extends State<RegistrationPage>
                     // Name
                     PetctTextFormField(
                       controller: nameController,
-                      hintText: 'Nome',
+                      hintText: 'name-hint'.i18n(),
                       validator: (val) => combine(
                         [
                           () => isNotEmpty(val),
@@ -129,7 +130,7 @@ class _RegistrationPageState extends State<RegistrationPage>
                         }
                       },
                       controller: birthDateController,
-                      hintText: 'Data de Nascimento',
+                      hintText: 'birthdate-hint'.i18n(),
                       validator: isNotEmpty,
                     ),
                     const SizedBox(
@@ -139,7 +140,7 @@ class _RegistrationPageState extends State<RegistrationPage>
                     PetcetDropdownButton(
                       items: genderItems,
                       seletedItem: genderText,
-                      hintText: 'Gênero',
+                      hintText: 'gender-hint'.i18n(),
                       onChanged: (value) {
                         genderText = value;
                       },
@@ -152,7 +153,7 @@ class _RegistrationPageState extends State<RegistrationPage>
                     // Email
                     PetctTextFormField(
                       controller: emailController,
-                      hintText: 'Email',
+                      hintText: 'email-hint'.i18n(),
                       textInputType: TextInputType.emailAddress,
                       validator: (val) => combine([
                         () => isNotEmpty(val),
@@ -165,7 +166,7 @@ class _RegistrationPageState extends State<RegistrationPage>
                     // Password
                     PetctTextFormField(
                       controller: passwordController,
-                      hintText: 'Senha',
+                      hintText: 'password-hint'.i18n(),
                       obscureText: obscurePassword,
                       suffixIcon: IconButton(
                         onPressed: () {
@@ -191,7 +192,7 @@ class _RegistrationPageState extends State<RegistrationPage>
                     // Repeat Password
                     PetctTextFormField(
                       controller: repeatPasswordController,
-                      hintText: 'Digite a senha novamente',
+                      hintText: 'repeat-password-hint'.i18n(),
                       obscureText: true,
                       validator: (val) => combine([
                         () => isNotEmpty(val),
@@ -231,8 +232,8 @@ class _RegistrationPageState extends State<RegistrationPage>
                                               .onPrimary,
                                         ),
                                       )
-                                    : const Text(
-                                        'Cadastrar',
+                                    : Text(
+                                        'register-label'.i18n(),
                                       ),
                               ),
                             ),
