@@ -1,4 +1,6 @@
+import 'package:cardiac_petct/features/auth/data/datasources/auth_remote_datasource.dart';
 import 'package:cardiac_petct/features/auth/widgets/petct_about_diet_dialog.dart';
+import 'package:cardiac_petct/src/services/firebase_autorizator_service.dart';
 import 'package:cardiac_petct/src/ui/petct_elevated_button.dart';
 import 'package:cardiac_petct/src/ui/petct_logo_titled.dart';
 import 'package:cardiac_petct/src/ui/petct_outlined_button.dart';
@@ -8,9 +10,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-class AuthPage extends StatelessWidget {
+class AuthPage extends StatefulWidget {
   const AuthPage({super.key});
+  @override
+  State<AuthPage> createState() => _AuthPageState();
+}
 
+class _AuthPageState extends State<AuthPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

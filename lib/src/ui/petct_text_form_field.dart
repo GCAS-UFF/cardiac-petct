@@ -11,10 +11,11 @@ class PetctTextFormField extends StatelessWidget {
   final int? maxLength;
   final Widget? suffixIcon;
   final bool? readOnly;
+  final Function(String)? onChanged;
   const PetctTextFormField({
     Key? key,
     required this.controller,
-    this.hintText,
+    this.hintText = '',
     this.textInputType = TextInputType.text,
     this.obscureText = false,
     this.inputFormatters,
@@ -22,6 +23,7 @@ class PetctTextFormField extends StatelessWidget {
     this.maxLength,
     this.suffixIcon,
     this.readOnly = false,
+    this.onChanged,
   }) : super(key: key);
 
   @override
@@ -34,7 +36,9 @@ class PetctTextFormField extends StatelessWidget {
       keyboardType: textInputType,
       obscureText: obscureText!,
       readOnly: readOnly!,
-      decoration: InputDecoration(hintText: hintText, suffixIcon: suffixIcon),
+      onChanged: onChanged,
+      decoration: InputDecoration(
+          hintText: hintText, suffixIcon: suffixIcon, label: Text(hintText!)),
     );
   }
 }

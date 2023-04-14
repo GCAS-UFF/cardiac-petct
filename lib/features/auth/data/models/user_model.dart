@@ -4,17 +4,13 @@ import 'package:cardiac_petct/features/auth/domain/entities/user_entity.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 class UserModel extends UserEntity {
-  // String? id;
-  // String name;
-  // String email;
-  // DateTime birthdate;
-  // String gender;
   UserModel(
       {super.id,
       required super.name,
       required super.email,
       required super.birthdate,
-      required super.gender});
+      required super.gender,
+      required super.anamnesisForm});
 
   UserModel copyWith({
     String? id,
@@ -22,7 +18,7 @@ class UserModel extends UserEntity {
     String? email,
     DateTime? birthdate,
     String? gender,
-    e,
+    bool? anamnesisForm,
   }) {
     return UserModel(
       id: id ?? id,
@@ -30,6 +26,7 @@ class UserModel extends UserEntity {
       email: email ?? this.email,
       birthdate: birthdate ?? this.birthdate,
       gender: gender ?? this.gender,
+      anamnesisForm: anamnesisForm ?? this.anamnesisForm,
     );
   }
 
@@ -40,6 +37,7 @@ class UserModel extends UserEntity {
       'email': email,
       'birthdate': birthdate.millisecondsSinceEpoch,
       'gender': gender,
+      'anamnesisForm': anamnesisForm,
     };
   }
 
@@ -49,7 +47,8 @@ class UserModel extends UserEntity {
       name: map['name'] ?? '',
       email: map['email'] ?? '',
       birthdate: DateTime.fromMillisecondsSinceEpoch(map['birthdate']),
-      gender: map['gender']?.toInt() ?? 0,
+      gender: map['gender'] ?? '',
+      anamnesisForm: map['anamnesisForm'] ?? false,
     );
   }
 
@@ -60,6 +59,7 @@ class UserModel extends UserEntity {
       email: userEntity.email,
       birthdate: userEntity.birthdate,
       gender: userEntity.gender,
+      anamnesisForm: userEntity.anamnesisForm,
     );
   }
 
