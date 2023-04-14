@@ -1,0 +1,13 @@
+{
+    "login-title": "Login",
+    "email-title": "Email",
+    "password-hint": "Password",
+    "sign-in-label": "Sign in",
+    "forgot-password-label": "Forgot password?",
+    "recover-password-title": "Password recovery",
+    "email-hint": "Email",
+    "send-label": "Send",
+    "back-label": "Back",
+    "recover-email-sent": "Password recovery email sent",
+    "ok-label": "Okay"
+}

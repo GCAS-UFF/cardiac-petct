@@ -6,7 +6,6 @@ version: 1.0.0+1
 environment:
   sdk: ">=2.19.5 <3.0.0"
 
-
 dependencies:
   flutter:
     sdk: flutter
@@ -30,7 +29,6 @@ dependencies:
   flutter_localization: ^0.1.10
   flutter_localizations:
     sdk: flutter
-    
 
 dev_dependencies:
   flutter_test:
@@ -38,16 +36,16 @@ dev_dependencies:
 
   flutter_lints: ^2.0.0
 
-
-
 flutter:
   uses-material-design: true
 
   assets:
     - assets/images/
     - lib/features/auth/i18n/
+    - lib/features/auth/submodules/login/i18n/
+    - lib/features/auth/domain/erros/i18n/
 
-  fonts: 
+  fonts:
     - family: Montserrat
-      fonts: 
+      fonts:
         - asset: assets/fonts/Montserrat-Regular.ttf

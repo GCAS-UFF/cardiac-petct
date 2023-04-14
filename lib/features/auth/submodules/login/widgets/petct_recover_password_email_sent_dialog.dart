@@ -1,6 +1,7 @@
 import 'package:cardiac_petct/src/ui/petct_outlined_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:localization/localization.dart';
 
 class PetctRecoverPasswordEmailSentDialog extends StatelessWidget {
   const PetctRecoverPasswordEmailSentDialog({super.key});
@@ -21,7 +22,7 @@ class PetctRecoverPasswordEmailSentDialog extends StatelessWidget {
             height: 32,
           ),
           Text(
-            'Email de recuperação de senha enviado',
+            'recover-email-sent'.i18n(),
             style: Theme.of(context).textTheme.titleMedium,
           ),
           const SizedBox(
@@ -34,8 +35,8 @@ class PetctRecoverPasswordEmailSentDialog extends StatelessWidget {
                   onPressed: () {
                     Modular.to.pop();
                   },
-                  child: const Text(
-                    'Ok',
+                  child: Text(
+                    'ok-label'.i18n(),
                   ),
                 ),
               ),
