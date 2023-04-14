@@ -66,14 +66,9 @@ class _EmailVerifyPageState extends State<EmailVerifyPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SizedBox(
-                      width: 200,
-                      child: FittedBox(
-                        fit: BoxFit.fitWidth,
-                        child: SvgPicture.asset(
-                          Images.emailVerifyIllustration,
-                        ),
-                      ),
+                    SvgPicture.asset(
+                      Images.emailVerifyIllustration,
+                      width: 250,
                     ),
                   ],
                 ),
