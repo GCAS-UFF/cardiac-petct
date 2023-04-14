@@ -1,0 +1,7 @@
+{
+    "email-already-in-use": "User already registered with this email.",
+    "email-not-confirmed-yet": "Email not confirmed.",
+    "wrong-password": "Wrong password.",
+    "user-not-found": "User not found.",
+    "invalid-email": "Invalid email"
+}

@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:localization/localization.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -70,8 +71,8 @@ class _LoginPageState extends State<LoginPage> with ValidationsMixin {
                     const SizedBox(
                       height: 68,
                     ),
-                    const PetctLogoTitled(
-                      title: 'Login',
+                    PetctLogoTitled(
+                      title: 'login-title'.i18n(),
                     ),
                     const SizedBox(
                       height: 48,
@@ -82,7 +83,7 @@ class _LoginPageState extends State<LoginPage> with ValidationsMixin {
                         children: [
                           PetctTextFormField(
                             controller: emailController,
-                            hintText: 'Email',
+                            hintText: 'email-title'.i18n(),
                             textInputType: TextInputType.emailAddress,
                             validator: (value) => combine([
                               () => isNotEmpty(value),
@@ -96,7 +97,7 @@ class _LoginPageState extends State<LoginPage> with ValidationsMixin {
                             controller: passwordController,
                             obscureText: obscureText,
                             textInputType: TextInputType.text,
-                            hintText: 'Password',
+                            hintText: 'password-hint'.i18n(),
                             suffixIcon: IconButton(
                               onPressed: () {
                                 setState(() {
@@ -139,8 +140,8 @@ class _LoginPageState extends State<LoginPage> with ValidationsMixin {
                                           .onPrimary,
                                     ),
                                   )
-                                : const Text(
-                                    'Entrar',
+                                : Text(
+                                    'sign-in-label'.i18n(),
                                   ),
                           ),
                         ),
@@ -161,8 +162,8 @@ class _LoginPageState extends State<LoginPage> with ValidationsMixin {
                                 },
                               );
                             },
-                            child: const Text(
-                              'Esqueceu a senha?',
+                            child: Text(
+                              'forgot-password-label'.i18n(),
                             ),
                           ),
                         ),
