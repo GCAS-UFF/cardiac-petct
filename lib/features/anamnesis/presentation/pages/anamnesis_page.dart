@@ -1,10 +1,10 @@
 import 'package:cardiac_petct/features/anamnesis/anamnesis_cubit.dart';
-import 'package:cardiac_petct/features/anamnesis/domain/entities/anamnesis_entity.dart';
 import 'package:cardiac_petct/src/shared/resources/images.dart';
 import 'package:cardiac_petct/src/ui/petct_elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:localization/localization.dart';
 
 class AnamnesisPage extends StatefulWidget {
   const AnamnesisPage({super.key});
@@ -25,8 +25,8 @@ class _AnamnesisPageState extends State<AnamnesisPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            const Text(
-              'Precisamos que você responda algumas perguntas rápidas',
+            Text(
+              'answer-form-text'.i18n(),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -47,7 +47,7 @@ class _AnamnesisPageState extends State<AnamnesisPage> {
                     onPressed: () {
                       Modular.to.navigate('/anamnesis-form');
                     },
-                    child: const Text('Começar'),
+                    child: Text('start-label'.i18n()),
                   ),
                 ),
               ],

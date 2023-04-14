@@ -8,6 +8,7 @@ import 'package:cardiac_petct/src/ui/petct_elevated_button.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:localization/localization.dart';
 
 class AnamnesisFormPage extends StatefulWidget {
   const AnamnesisFormPage({super.key});
@@ -71,7 +72,7 @@ class _AnamnesisFormPageState extends State<AnamnesisFormPage> {
     }
 
     if (isValid) {
-      if (currentForm == _buildFormPages().length-1) {
+      if (currentForm == _buildFormPages().length - 1) {
         Modular.to.navigate('anamnesis-done');
       } else {
         carouselController.nextPage(
@@ -137,7 +138,7 @@ class _AnamnesisFormPageState extends State<AnamnesisFormPage> {
                         });
                       }
                     },
-                    child: const Text('Voltar'),
+                    child: Text('back-label'.i18n()),
                   ),
                 ),
                 const SizedBox(
@@ -149,7 +150,7 @@ class _AnamnesisFormPageState extends State<AnamnesisFormPage> {
                       _submitForm();
                       FocusManager.instance.primaryFocus?.unfocus();
                     },
-                    child: const Text('Próximo'),
+                    child: Text('next-label'.i18n()),
                   ),
                 ),
               ],

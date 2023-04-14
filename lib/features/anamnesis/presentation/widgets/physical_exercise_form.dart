@@ -3,6 +3,7 @@ import 'package:cardiac_petct/src/input_validators/validations_mixin.dart';
 import 'package:cardiac_petct/src/ui/petct_radio_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:localization/localization.dart';
 
 class PhysicalExerciseForm extends StatefulWidget {
   const PhysicalExerciseForm({super.key});
@@ -14,24 +15,25 @@ class PhysicalExerciseForm extends StatefulWidget {
 class _SmokeFormState extends State<PhysicalExerciseForm>
     with ValidationsMixin {
   final AnamnesisCubit cubit = Modular.get();
-  final TextEditingController drinksController = TextEditingController();
+  final TextEditingController doPhysicalExerciseController =
+      TextEditingController();
   final TextEditingController exerciseFrequencyController =
       TextEditingController();
-  bool get shouldValidate => (drinksController.text == 'sim');
+  bool get shouldValidate => (doPhysicalExerciseController.text == 'yes');
   String? selectedExerciseFrequency;
 
   final List<String> exerciseFrequency = [
-    '1  a 2 dias',
-    '3 a 4 dias',
-    '5 a 6 dias',
-    '7 dias',
+    'physical-exercises-frequency-option-one'.i18n(),
+    'physical-exercises-frequency-option-two'.i18n(),
+    'physical-exercises-frequency-option-three'.i18n(),
+    'physical-exercises-frequency-option-four'.i18n(),
   ];
 
   @override
   void initState() {
     super.initState();
-    drinksController.text =
-        cubit.anamnesisEntity.drinks == true ? 'sim' : 'não';
+    doPhysicalExerciseController.text =
+        cubit.anamnesisEntity.doPhysicalExercisesPerDay == true ? 'yes' : 'no';
     if (cubit.anamnesisEntity.physicalExerciseFrequency != null) {
       exerciseFrequencyController.text =
           cubit.anamnesisEntity.physicalExerciseFrequency!;
@@ -49,7 +51,7 @@ class _SmokeFormState extends State<PhysicalExerciseForm>
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Text(
-          'Pratica atividade física por pelo menos 30 minutos por dia?',
+          'practice-physical-exercises-question'.i18n(),
           style: Theme.of(context).textTheme.titleMedium,
         ),
         const SizedBox(
@@ -58,33 +60,33 @@ class _SmokeFormState extends State<PhysicalExerciseForm>
         Row(
           children: [
             PetctRadioButton(
-              title: 'Sim',
-              groupValue: drinksController.text,
+              title: 'yes-answer'.i18n(),
+              groupValue: doPhysicalExerciseController.text,
               onChanged: (value) {
                 setState(() {
                   if (value != null) {
-                    drinksController.text = value;
-                    cubit.anamnesisEntity =
-                        cubit.anamnesisEntity.copyWith(drinks: true);
+                    doPhysicalExerciseController.text = value;
+                    cubit.anamnesisEntity = cubit.anamnesisEntity
+                        .copyWith(doPhysicalExercisesPerDay: true);
                   }
                 });
               },
-              value: 'sim',
+              value: 'yes',
             ),
             PetctRadioButton(
-              title: 'Não',
-              groupValue: drinksController.text,
+              title: 'no-answer'.i18n(),
+              groupValue: doPhysicalExerciseController.text,
               onChanged: (value) {
                 setState(() {
                   if (value != null) {
-                    drinksController.text = value;
+                    doPhysicalExerciseController.text = value;
                     cubit.anamnesisEntity = cubit.anamnesisEntity.copyWith(
-                      drinks: false,
+                      doPhysicalExercisesPerDay: false,
                     );
                   }
                 });
               },
-              value: 'não',
+              value: 'no',
             )
           ],
         ),
@@ -96,7 +98,7 @@ class _SmokeFormState extends State<PhysicalExerciseForm>
                 height: 32,
               ),
               Text(
-                'Quantos dias na semana?',
+                'physical-exercises-frequency-question'.i18n(),
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               const SizedBox(

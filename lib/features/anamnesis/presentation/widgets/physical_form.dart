@@ -3,6 +3,7 @@ import 'package:cardiac_petct/src/input_validators/validations_mixin.dart';
 import 'package:cardiac_petct/src/ui/petct_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:localization/localization.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class PhysicalForm extends StatefulWidget {
@@ -39,7 +40,7 @@ class _PhysicalFormState extends State<PhysicalForm> with ValidationsMixin {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Text(
-          'Porte físico',
+          'physical-shape'.i18n(),
           style: Theme.of(context).textTheme.titleMedium,
         ),
         const SizedBox(
@@ -47,7 +48,7 @@ class _PhysicalFormState extends State<PhysicalForm> with ValidationsMixin {
         ),
         PetctTextFormField(
           controller: weightController,
-          hintText: 'Peso',
+          hintText: 'weight-hint'.i18n(),
           textInputType: TextInputType.number,
           maxLength: 3,
           validator: isNotEmpty,
@@ -56,8 +57,7 @@ class _PhysicalFormState extends State<PhysicalForm> with ValidationsMixin {
               cubit.anamnesisEntity =
                   cubit.anamnesisEntity.copyWith(weight: double.parse(value));
             } else {
-              cubit.anamnesisEntity =
-                  cubit.anamnesisEntity.copyWith(weight: 0);
+              cubit.anamnesisEntity = cubit.anamnesisEntity.copyWith(weight: 0);
             }
           },
         ),
@@ -66,14 +66,14 @@ class _PhysicalFormState extends State<PhysicalForm> with ValidationsMixin {
         ),
         PetctTextFormField(
             controller: heightController,
-            hintText: 'Altura',
+            hintText: 'height-hint'.i18n(),
             inputFormatters: [heightMask],
             textInputType: TextInputType.number,
             validator: isNotEmpty,
             onChanged: (value) {
               if (value.isNotEmpty) {
-                cubit.anamnesisEntity = cubit.anamnesisEntity
-                    .copyWith(height: double.parse(value));
+                cubit.anamnesisEntity =
+                    cubit.anamnesisEntity.copyWith(height: double.parse(value));
               } else {
                 cubit.anamnesisEntity =
                     cubit.anamnesisEntity.copyWith(height: 0);
