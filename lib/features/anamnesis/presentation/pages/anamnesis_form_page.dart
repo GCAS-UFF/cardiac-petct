@@ -1,4 +1,5 @@
 import 'package:cardiac_petct/features/anamnesis/anamnesis_cubit.dart';
+import 'package:cardiac_petct/features/anamnesis/constants/anamnesis_internal_route_names.dart';
 import 'package:cardiac_petct/features/anamnesis/presentation/widgets/chronical_deseases_form.dart';
 import 'package:cardiac_petct/features/anamnesis/presentation/widgets/drink_form.dart';
 import 'package:cardiac_petct/features/anamnesis/presentation/widgets/physical_exercise_form.dart';
@@ -73,7 +74,7 @@ class _AnamnesisFormPageState extends State<AnamnesisFormPage> {
 
     if (isValid) {
       if (currentForm == _buildFormPages().length - 1) {
-        Modular.to.navigate('anamnesis-done');
+        Modular.to.navigate(AnamnesisInternalRouteNames.anamnesisDone);
       } else {
         carouselController.nextPage(
           duration: const Duration(milliseconds: 300),
@@ -126,7 +127,8 @@ class _AnamnesisFormPageState extends State<AnamnesisFormPage> {
                   child: TextButton(
                     onPressed: () {
                       if (currentForm == 0) {
-                        Modular.to.navigate('/anamnesis');
+                        Modular.to
+                            .navigate(AnamnesisInternalRouteNames.anamnesis);
                       } else {
                         carouselController.previousPage(
                           duration: const Duration(milliseconds: 300),

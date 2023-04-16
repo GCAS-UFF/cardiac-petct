@@ -1,4 +1,5 @@
 import 'package:cardiac_petct/features/anamnesis/data/models/anamnesis_model.dart';
+import 'package:cardiac_petct/src/constants/firebase_keys.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 
@@ -24,7 +25,7 @@ class AnamnesisRemoteDatasourceImp extends AnamnesisRemoteDatasource {
       final firebaseUser = firebaseAuth.currentUser;
       DatabaseReference anamnesisRef = firebaseDatabase
           .ref()
-          .child('AnamnesisForm')
+          .child(FirebaseKeys.anamnesisForm)
           .child(firebaseUser!.uid);
       await anamnesisRef.set(anamnesisModel.toMap());
       await setAnamnesisComplete();
@@ -36,8 +37,10 @@ class AnamnesisRemoteDatasourceImp extends AnamnesisRemoteDatasource {
 
   Future<void> setAnamnesisComplete() async {
     final firebaseUser = firebaseAuth.currentUser;
-    DatabaseReference anamnesisRef =
-        firebaseDatabase.ref().child('Users').child(firebaseUser!.uid);
-    await anamnesisRef.update({'anamnesisForm': true});
+    DatabaseReference anamnesisRef = firebaseDatabase
+        .ref()
+        .child(FirebaseKeys.users)
+        .child(firebaseUser!.uid);
+    await anamnesisRef.update({FirebaseKeys.anamnesisFormProperty: true});
   }
 }

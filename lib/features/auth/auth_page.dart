@@ -1,3 +1,4 @@
+import 'package:cardiac_petct/features/auth/constants/auth_internal_route_names.dart';
 import 'package:cardiac_petct/features/auth/widgets/petct_about_diet_dialog.dart';
 import 'package:cardiac_petct/src/ui/petct_elevated_button.dart';
 import 'package:cardiac_petct/src/ui/petct_logo_titled.dart';
@@ -58,7 +59,8 @@ class _AuthPageState extends State<AuthPage> {
                   Expanded(
                     child: PetctElevatedButton(
                       onPressed: () {
-                        Modular.to.pushNamed('/auth/registration/');
+                        Modular.to
+                            .pushNamed(AuthInternalRouteNames.registration);
                       },
                       child: Text(
                         'first-access-label'.i18n(),
@@ -75,7 +77,7 @@ class _AuthPageState extends State<AuthPage> {
                   Expanded(
                     child: PetctOutlinedButton(
                       onPressed: () {
-                        Modular.to.pushNamed('/auth/login/');
+                        Modular.to.pushNamed(AuthInternalRouteNames.login);
                       },
                       child: Text(
                         'sign-in-label'.i18n(),

@@ -1,4 +1,5 @@
 import 'package:cardiac_petct/features/anamnesis/anamnesis_cubit.dart';
+import 'package:cardiac_petct/features/anamnesis/constants/anamnesis_internal_route_names.dart';
 import 'package:cardiac_petct/src/shared/resources/images.dart';
 import 'package:cardiac_petct/src/ui/petct_elevated_button.dart';
 import 'package:flutter/material.dart';
@@ -45,7 +46,8 @@ class _AnamnesisPageState extends State<AnamnesisPage> {
                 Expanded(
                   child: PetctElevatedButton(
                     onPressed: () {
-                      Modular.to.navigate('/anamnesis-form');
+                      Modular.to
+                          .navigate(AnamnesisInternalRouteNames.anamnesisForm);
                     },
                     child: Text('start-label'.i18n()),
                   ),

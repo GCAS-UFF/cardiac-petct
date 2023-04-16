@@ -1,5 +1,6 @@
 import 'package:cardiac_petct/features/auth/data/models/user_model.dart';
 import 'package:cardiac_petct/features/auth/domain/erros/auth_failures.dart';
+import 'package:cardiac_petct/src/constants/firebase_keys.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 
@@ -30,13 +31,15 @@ class AuthRemoteDatasourceImp implements AuthRemoteDatasource {
       final userCredential = await firebaseAuth.createUserWithEmailAndPassword(
           email: userModel.email, password: password);
       final firebaseUser = userCredential.user;
-      DatabaseReference userReference =
-          firebaseDatabase.ref().child('Users').child(firebaseUser!.uid);
+      DatabaseReference userReference = firebaseDatabase
+          .ref()
+          .child(FirebaseKeys.users)
+          .child(firebaseUser!.uid);
       userModel = userModel.copyWith(id: firebaseUser.uid);
       await userReference.set(userModel.toMap());
       sendEmailVerification();
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'email-already-in-use') {
+      if (e.code == FirebaseKeys.emailAlreadyInUseErrorMessage) {
         throw UserAlreadyInUse();
       }
     }
@@ -48,12 +51,8 @@ class AuthRemoteDatasourceImp implements AuthRemoteDatasource {
       await firebaseAuth.currentUser!.reload();
       final firebaseUser = firebaseAuth.currentUser;
       return firebaseUser!.emailVerified;
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'email-already-in-use') {
-        throw UserAlreadyInUse();
-      } else {
-        rethrow;
-      }
+    } on FirebaseAuthException {
+      rethrow;
     }
   }
 
@@ -72,10 +71,10 @@ class AuthRemoteDatasourceImp implements AuthRemoteDatasource {
       await firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'wrong-password') {
+      if (e.code == FirebaseKeys.wrongPasswordErrorMessage) {
         throw WrongPassword();
       }
-      if (e.code == 'user-not-found') {
+      if (e.code == FirebaseKeys.userNotFoundErrorMessage) {
         throw UserNotFound();
       }
       rethrow;
@@ -87,10 +86,10 @@ class AuthRemoteDatasourceImp implements AuthRemoteDatasource {
     try {
       await firebaseAuth.sendPasswordResetEmail(email: email);
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
+      if (e.code == FirebaseKeys.userNotFoundErrorMessage) {
         throw UserNotFound();
       }
-      if (e.code == 'invalid-email') {
+      if (e.code == FirebaseKeys.invalidEmailErrorMessage) {
         throw InvalidEmail();
       }
       rethrow;
