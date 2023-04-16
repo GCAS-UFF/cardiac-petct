@@ -1,3 +1,4 @@
+import 'package:cardiac_petct/features/auth/submodules/registration/constants/registration_internal_route_names.dart';
 import 'package:cardiac_petct/features/auth/submodules/registration/registration_cubit.dart';
 import 'package:cardiac_petct/src/input_validators/validations_mixin.dart';
 import 'package:cardiac_petct/features/auth/domain/entities/user_entity.dart';
@@ -78,7 +79,7 @@ class _RegistrationPageState extends State<RegistrationPage>
         bloc: cubit,
         listener: (context, state) {
           if (state.runtimeType == RegistrationSuccessState) {
-            Modular.to.navigate('/email-verify');
+            Modular.to.navigate(RegistartionInternalRouteNames.emailVerify);
           } else if (state.runtimeType == RegistrationErrorState) {
             final errorState = state as RegistrationErrorState;
             var snackBar = SnackBar(
