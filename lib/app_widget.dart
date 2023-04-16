@@ -27,6 +27,7 @@ class AppWidget extends StatelessWidget {
             Locale('en', 'US'),
             Locale('es', 'ES'),
             Locale('pt', 'BR'),
+            Locale('it', 'IT')
           ],
           localizationsDelegates: [
             GlobalMaterialLocalizations.delegate,

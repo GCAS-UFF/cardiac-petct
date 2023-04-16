@@ -1,0 +1,7 @@
+{
+    "email-already-in-use": "Utente già registrato con questa email.",
+    "email-not-confirmed-yet": "Email non confermata.",
+    "wrong-password": "Password errata.",
+    "user-not-found": "Utente non trovato.",
+    "invalid-email": "E-mail non valido"
+}

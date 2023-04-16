@@ -1,0 +1,13 @@
+{
+    "male-gender": "Uomo",
+    "female-gender": "Donna",
+    "not-informed-gender": "Preferisco non informare",
+    "registration-title": "Registrati",
+    "name-hint": "Nome",
+    "birthdate-hint": "Compleanno",
+    "email-hint": "E-mail",
+    "password-hint": "Parola d'ordine",
+    "repeat-password-hint": "Ripeti la password",
+    "gender-hint": "Genere",
+    "register-label": "Registrati"
+}
