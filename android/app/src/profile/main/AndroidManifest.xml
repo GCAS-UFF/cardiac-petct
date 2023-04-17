@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.cardiac_petct">
    <application
-        android:label="App Endocardite"
+        android:label="cardiac_petct"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <activity
