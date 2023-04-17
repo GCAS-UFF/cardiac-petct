@@ -11,8 +11,9 @@ class AppWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final AppController controller = Modular.get();
     return ValueListenableBuilder(
-      valueListenable: AppController.instance.themeSwitch,
+      valueListenable: controller.themeSwitch,
       builder: (context, value, child) {
         LocalJsonLocalization.delegate.directories =
             LocalizationsDirectories.localizationsDirectoriesList;

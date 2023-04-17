@@ -1,6 +1,7 @@
 import 'package:cardiac_petct/app_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 class PetctSwitchThemeMode extends StatefulWidget {
   const PetctSwitchThemeMode({super.key});
@@ -10,20 +11,19 @@ class PetctSwitchThemeMode extends StatefulWidget {
 }
 
 class _PetctSwitchThemeModeState extends State<PetctSwitchThemeMode> {
+  final AppController controller = Modular.get();
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         Switch(
-          value: AppController.instance.themeSwitch.value,
+          value: controller.themeSwitch.value,
           onChanged: (bool value) => setState(() {
-            AppController.instance.changeTheme(value);
+            controller.changeTheme(value);
           }),
         ),
         Icon(
-          AppController.instance.themeSwitch.value
-              ? FeatherIcons.sun
-              : FeatherIcons.moon,
+          controller.themeSwitch.value ? FeatherIcons.sun : FeatherIcons.moon,
         ),
       ],
     );
