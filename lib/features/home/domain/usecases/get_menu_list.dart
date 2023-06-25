@@ -1,5 +1,5 @@
 import 'package:cardiac_petct/features/home/domain/entities/menu.dart';
-import 'package:cardiac_petct/features/home/domain/repositories/menu_repository.dart';
+import 'package:cardiac_petct/features/home/domain/repositories/home_repository.dart';
 import 'package:dartz/dartz.dart';
 
 abstract class GetMenuListUsecase {
@@ -7,7 +7,7 @@ abstract class GetMenuListUsecase {
 }
 
 class GetMenuUsecaseImp implements GetMenuListUsecase {
-  final MenuRepository repository;
+  final HomeRepository repository;
 
   GetMenuUsecaseImp(this.repository);
 
