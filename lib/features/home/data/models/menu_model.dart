@@ -12,7 +12,8 @@ class MenuModel extends Menu {
   MenuModel(
     super.id,
     super.allowedFood,
-    super.meals, {
+    super.meals,
+    super.breakFasts, {
     required super.allowedFoodIds,
     required super.mealIds,
     required super.country,
@@ -23,6 +24,7 @@ class MenuModel extends Menu {
     String? id,
     List<Food>? allowedFood,
     List<Meal>? meals,
+    List<Meal>? breakFasts,
     List<String>? allowedFoodIds,
     List<String>? mealIds,
     String? country,
@@ -32,6 +34,7 @@ class MenuModel extends Menu {
       id ?? this.id,
       allowedFood ?? this.allowedFood,
       meals ?? this.meals,
+      breakFasts ?? this.breakFasts,
       allowedFoodIds: allowedFoodIds ?? this.allowedFoodIds,
       mealIds: mealIds ?? this.mealIds,
       country: country ?? this.country,
@@ -45,6 +48,7 @@ class MenuModel extends Menu {
       'allowedFoodsItens':
           allowedFood!.map((e) => (e as FoodModel).toMap()).toList(),
       'mealsItens': meals!.map((e) => (e as MealModel).toMap()).toList(),
+      'breakFasts': breakFasts!.map((e) => (e as MealModel).toMap()).toList(),
       'country': country,
       'durationInDays': durationInDays,
     };
@@ -60,6 +64,11 @@ class MenuModel extends Menu {
       (map['mealsItens'] != null)
           ? List<MealModel>.from(
               map['mealsItens']?.map((x) => MealModel.fromMap(x)),
+            )
+          : [],
+      (map['breakFasts'] != null)
+          ? List<MealModel>.from(
+              map['breakFasts']?.map((x) => MealModel.fromMap(x)),
             )
           : [],
       allowedFoodIds: (map['allowedFoods'] != null)

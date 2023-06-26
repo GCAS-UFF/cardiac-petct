@@ -42,6 +42,23 @@ extension MealTypeExtension on MealTypeEnum {
         return 'AFTERNOON_SNACK';
     }
   }
+
+  static List<MealTypeEnum> listTypes() {
+    return [
+      MealTypeEnum.breakfast,
+      MealTypeEnum.morningSnack,
+      MealTypeEnum.lunch,
+      MealTypeEnum.afternoonSnack,
+      MealTypeEnum.dinner,
+      MealTypeEnum.supper,
+    ];
+  }
+
+  static int customCompare(MealType meal1, MealType meal2) {
+    int index1 = listTypes().indexOf(meal1.mealType);
+    int index2 = listTypes().indexOf(meal2.mealType);
+    return index1.compareTo(index2);
+  }
 }
 
 class MealTypeModel extends MealType {

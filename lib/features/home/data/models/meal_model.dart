@@ -59,6 +59,7 @@ class MealModel extends Meal {
     super.imageUrl,
     super.type, {
     required super.currency,
+    required super.isRegistered,
     required super.typeId,
     required super.price,
     required super.itemsIds,
@@ -70,6 +71,7 @@ class MealModel extends Meal {
     String? imageUrl,
     MealType? type,
     CurrencyEnum? currency,
+    bool? isRegistered,
     String? typeId,
     double? price,
     List<String>? itemsIds,
@@ -80,6 +82,7 @@ class MealModel extends Meal {
       imageUrl ?? this.imageUrl,
       type ?? this.type,
       currency: currency ?? this.currency,
+      isRegistered: isRegistered ?? this.isRegistered,
       typeId: typeId ?? this.typeId,
       price: price ?? this.price,
       itemsIds: itemsIds ?? this.itemsIds,
@@ -111,6 +114,7 @@ class MealModel extends Meal {
           ? MealTypeModel.fromMap(map['mealTypeItem'])
           : null,
       currency: CurrencyExtension.typeFromString(map['currency']),
+      isRegistered: map['isRegistered'] ?? false,
       typeId: map['mealType'] ?? '',
       price: double.tryParse(map['totalPrice'].toString()) as double,
       itemsIds: List<String>.from(map['items']?.map((x) => x as String)),

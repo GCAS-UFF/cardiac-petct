@@ -1,11 +1,17 @@
+import 'package:cardiac_petct/features/home/domain/entities/meal.dart';
+import 'package:cardiac_petct/features/home/domain/entities/meal_type.dart';
 import 'package:cardiac_petct/src/ui/petct_elevated_button.dart';
 import 'package:cardiac_petct/src/ui/petct_outlined_button.dart';
+import 'package:cardiac_petct/src/utils/string_formatter.dart';
+import 'package:cardiac_petct/src/utils/word_translator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 
 class PetctLateMealCard extends StatefulWidget {
-  final String title;
-  const PetctLateMealCard({super.key, required this.title});
+  final MealType mealType;
+  final Meal meal;
+  const PetctLateMealCard(
+      {super.key, required this.mealType, required this.meal});
 
   @override
   State<PetctLateMealCard> createState() => _PetctLateMealCardState();
@@ -52,7 +58,9 @@ class _PetctLateMealCardState extends State<PetctLateMealCard> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      widget.title,
+                      WordTranslator.wordByDeviceLocale(
+                        widget.mealType.translatedWord!,
+                      ),
                       textAlign: TextAlign.center,
                       style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                             fontSize: 14,
@@ -61,7 +69,7 @@ class _PetctLateMealCardState extends State<PetctLateMealCard> {
                           ),
                     ),
                     Text(
-                      'Adicionada',
+                      'Pendente',
                       textAlign: TextAlign.center,
                       style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                             fontSize: 16,
@@ -98,7 +106,8 @@ class _PetctLateMealCardState extends State<PetctLateMealCard> {
                     children: [
                       Expanded(
                         child: Text(
-                          'Ovos mexidos com manteiga + xícara de café sem açucar e sem adoçante',
+                          StringFormatter.listMealItemsNames(
+                              widget.meal.items!),
                           textAlign: TextAlign.center,
                           style: Theme.of(context)
                               .textTheme
