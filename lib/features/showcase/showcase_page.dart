@@ -1,11 +1,9 @@
 import 'package:cardiac_petct/src/ui/petct_allowed_food_card.dart';
 import 'package:cardiac_petct/src/ui/petct_date_picker.dart';
-import 'package:cardiac_petct/src/ui/petct_done_meal_card.dart';
 import 'package:cardiac_petct/src/ui/petct_dropdown_button.dart';
 import 'package:cardiac_petct/src/ui/petct_elevated_button.dart';
 import 'package:cardiac_petct/src/ui/petct_food_group_card.dart';
 import 'package:cardiac_petct/src/ui/petct_forbidden_food_card.dart';
-import 'package:cardiac_petct/src/ui/petct_late_meal_card.dart';
 import 'package:cardiac_petct/src/ui/petct_notification_card.dart';
 import 'package:cardiac_petct/src/ui/petct_outlined_button.dart';
 import 'package:cardiac_petct/src/ui/petct_percent_indicator.dart';
@@ -16,7 +14,6 @@ import 'package:cardiac_petct/src/ui/petct_switch_theme_mode.dart';
 import 'package:cardiac_petct/src/ui/petct_text_button.dart';
 import 'package:cardiac_petct/src/ui/petct_text_form_field.dart';
 import 'package:cardiac_petct/src/ui/petct_time_picker.dart';
-import 'package:cardiac_petct/src/ui/petct_waiting_meal_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 
@@ -445,43 +442,43 @@ class _ShowcasePageState extends State<ShowcasePage> {
                 height: 22,
               ),
               //Done Meal card
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Done Meal card',
-                    style: Theme.of(context).textTheme.titleLarge,
-                  ),
-                  const PetctDoneMealCard(title: 'Café da manhã - 09:00'),
-                ],
-              ),
-              const SizedBox(
-                height: 22,
-              ), //Late Meal card
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Late Meal card',
-                    style: Theme.of(context).textTheme.titleLarge,
-                  ),
-                  const PetctLateMealCard(title: 'Lanche da manhã - 10:30'),
-                ],
-              ),
-              const SizedBox(
-                height: 22,
-              ),
+              // Column(
+              //   crossAxisAlignment: CrossAxisAlignment.start,
+              //   children: [
+              //     Text(
+              //       'Done Meal card',
+              //       style: Theme.of(context).textTheme.titleLarge,
+              //     ),
+              //     const PetctDoneMealCard(meal: 'Café da manhã - 09:00'),
+              //   ],
+              // ),
+              // const SizedBox(
+              //   height: 22,
+              // ), //Late Meal card
+              // Column(
+              //   crossAxisAlignment: CrossAxisAlignment.start,
+              //   children: [
+              //     Text(
+              //       'Late Meal card',
+              //       style: Theme.of(context).textTheme.titleLarge,
+              //     ),
+              //     const PetctLateMealCard(title: 'Lanche da manhã - 10:30'),
+              //   ],
+              // ),
+              // const SizedBox(
+              //   height: 22,
+              // ),
               //Waiting Meal card
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Waiting Meal card',
-                    style: Theme.of(context).textTheme.titleLarge,
-                  ),
-                  const PetctWaitingMealCard(title: 'Almoço - 12:30'),
-                ],
-              ),
+              // Column(
+              //   crossAxisAlignment: CrossAxisAlignment.start,
+              //   children: [
+              //     Text(
+              //       'Waiting Meal card',
+              //       style: Theme.of(context).textTheme.titleLarge,
+              //     ),
+              //     const PetctWaitingMealCard(title: 'Almoço - 12:30'),
+              //   ],
+              // ),
               const SizedBox(
                 height: 22,
               ),

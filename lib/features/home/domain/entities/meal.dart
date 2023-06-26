@@ -9,13 +9,20 @@ class Meal {
   final String? imageUrl;
   final MealType? type;
   final CurrencyEnum currency;
+  final bool isRegistered;
   final String typeId;
   final double price;
   final List<String> itemsIds;
 
-  Meal(this.id, this.items, this.imageUrl, this.type,
-      {required this.currency,
-      required this.price,
-      required this.typeId,
-      required this.itemsIds});
+  Meal(
+    this.id,
+    this.items,
+    this.imageUrl,
+    this.type, {
+    required this.currency,
+    required this.isRegistered,
+    required this.price,
+    required this.typeId,
+    required this.itemsIds,
+  });
 }

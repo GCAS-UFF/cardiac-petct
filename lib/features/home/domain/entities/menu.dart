@@ -5,6 +5,7 @@ class Menu {
   final String? id;
   final List<Food>? allowedFood;
   final List<Meal>? meals;
+  final List<Meal>? breakFasts;
   final List<String> allowedFoodIds;
   final List<String> mealIds;
   final String country;
@@ -13,7 +14,8 @@ class Menu {
   Menu(
     this.id,
     this.allowedFood,
-    this.meals, {
+    this.meals,
+    this.breakFasts, {
     required this.allowedFoodIds,
     required this.mealIds,
     required this.country,
