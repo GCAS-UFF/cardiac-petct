@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cardiac_petct/features/home/data/datasources/constants/home_external_constants.dart';
 import 'package:cardiac_petct/features/home/data/models/translated_words_model.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -11,25 +13,22 @@ class TranslatedWordDatasourceImp implements TranslatedWordDatasource {
   late final FirebaseDatabase firebaseDatabase;
   TranslatedWordDatasourceImp() {
     firebaseDatabase = FirebaseDatabase.instance;
-    getTranslatedWordList();
   }
-
-  List<TranslatedWordModel> cachedList = [];
 
   @override
   Future<List<TranslatedWordModel>> getTranslatedWordList() async {
     try {
-      final ref = firebaseDatabase.ref();
-      final translateWordRef = ref
+      final DatabaseReference ref = firebaseDatabase.ref();
+      final DatabaseReference translateWordRef = ref
           .child(HomeExternalConstants.universal)
           .child(HomeExternalConstants.translatedNames);
-      final response = await translateWordRef.get();
-      final map = response.value as Map<String, dynamic>;
+      final DataSnapshot response = await translateWordRef.get();
+      final String json = jsonEncode(response.value);
+      final Map<String, dynamic> map = jsonDecode(json);
       List<TranslatedWordModel> list = [];
       map.forEach((key, value) {
         list.add(TranslatedWordModel.fromMap(value).copyWith(id: key));
       });
-      cachedList = list;
       return list;
     } catch (e) {
       rethrow;
@@ -39,9 +38,15 @@ class TranslatedWordDatasourceImp implements TranslatedWordDatasource {
   @override
   Future<TranslatedWordModel> getTranslatedWord(String id) async {
     try {
-      final translatedWord =
-          cachedList.firstWhere((element) => element.id == id);
-      return translatedWord;
+      final DatabaseReference ref = firebaseDatabase.ref();
+      final DatabaseReference translateWordRef = ref
+          .child(HomeExternalConstants.universal)
+          .child(HomeExternalConstants.translatedNames)
+          .child(id);
+      final DataSnapshot response = await translateWordRef.get();
+      final String json = jsonEncode(response.value);
+      final Map<String, dynamic> map = jsonDecode(json);
+      return TranslatedWordModel.fromMap(map).copyWith(id: id);
     } catch (e) {
       rethrow;
     }

@@ -22,8 +22,6 @@ class MealItemDatasourceImp implements MealItemDatasource {
     getMealItemList();
   }
 
-  List<MealItemModel> cachedList = [];
-
   @override
   Future<List<MealItemModel>> getMealItemList() async {
     try {
@@ -31,8 +29,9 @@ class MealItemDatasourceImp implements MealItemDatasource {
       final mealItemRef = ref
           .child(HomeExternalConstants.universal)
           .child(HomeExternalConstants.mealItem);
-      final response = await mealItemRef.get();
-      final map = response.value as Map<String, dynamic>;
+      final DataSnapshot response = await mealItemRef.get();
+      final String json = jsonEncode(response.value);
+      final Map<String, dynamic> map = jsonDecode(json);
       List<MealItemModel> list = [];
       map.forEach((key, value) async {
         list.add(MealItemModel.fromJson(jsonEncode(value)).copyWith(id: key));
@@ -50,7 +49,6 @@ class MealItemDatasourceImp implements MealItemDatasource {
         }
         list[i] = list[i].copyWith(foodsItens: foods);
       }
-      cachedList = list;
       return list;
     } catch (e) {
       rethrow;
@@ -60,8 +58,26 @@ class MealItemDatasourceImp implements MealItemDatasource {
   @override
   Future<MealItemModel> getMealItem(String id) async {
     try {
-      final mealItem = cachedList.firstWhere((element) => element.id == id);
-      return mealItem;
+      final mealItemRef = database
+          .ref()
+          .child(HomeExternalConstants.universal)
+          .child(HomeExternalConstants.mealItem)
+          .child(id);
+      final DataSnapshot response = await mealItemRef.get();
+      final String json = jsonEncode(response.value);
+      final Map<String, dynamic> map = jsonDecode(json);
+      MealItemModel mealItem = MealItemModel.fromMap(map).copyWith(id: id);
+      if (mealItem.translatedNameId != null) {
+        final translatedNames = await translatedWordsDatasource
+            .getTranslatedWord(mealItem.translatedNameId!);
+        mealItem = mealItem.copyWith(translatedWord: translatedNames);
+      }
+      List<FoodModel> foods = [];
+      for (String foodId in mealItem.foodIds) {
+        final foodItem = await foodDatasource.getFood(foodId);
+        foods.add(foodItem);
+      }
+      return mealItem.copyWith(foodsItens: foods, id: response.key);
     } catch (e) {
       rethrow;
     }

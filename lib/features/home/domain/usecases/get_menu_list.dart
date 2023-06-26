@@ -3,7 +3,7 @@ import 'package:cardiac_petct/features/home/domain/repositories/home_repository.
 import 'package:dartz/dartz.dart';
 
 abstract class GetMenuListUsecase {
-  Future<Either<Exception, List<Menu>>> getMenuList();
+  Future<Either<Exception, Menu>> getMenu();
 }
 
 class GetMenuUsecaseImp implements GetMenuListUsecase {
@@ -12,7 +12,7 @@ class GetMenuUsecaseImp implements GetMenuListUsecase {
   GetMenuUsecaseImp(this.repository);
 
   @override
-  Future<Either<Exception, List<Menu>>> getMenuList() async {
-    return await repository.getMenuList();
+  Future<Either<Exception, Menu>> getMenu() async {
+    return await repository.getMenu();
   }
 }

@@ -9,9 +9,9 @@ class HomeRepositoryImp extends HomeRepository {
   HomeRepositoryImp(this.datasource);
 
   @override
-  Future<Either<Exception, List<Menu>>> getMenuList() async {
+  Future<Either<Exception, Menu>> getMenu() async {
     try {
-      final response = await datasource.getMenuList();
+      final response = await datasource.getMenu();
       return Right(response);
     } catch (e) {
       return Left(Exception(e));

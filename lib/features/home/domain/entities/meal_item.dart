@@ -10,13 +10,13 @@ class MealItem {
   final List<String> foodIds;
   final List<Measurement> measurements;
 
-  MealItem({
-    required this.foodIds,
-    required this.measurements,
+  MealItem(
     this.id,
     this.translatedNameId,
     this.translatedWord,
-    this.foodsItens,
+    this.foodsItens, {
+    required this.foodIds,
+    required this.measurements,
   });
 
   Map<String, dynamic> toMap() {

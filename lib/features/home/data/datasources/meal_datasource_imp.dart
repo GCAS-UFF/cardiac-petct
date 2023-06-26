@@ -22,8 +22,6 @@ class MealDatasourceImp implements MealDatasource {
     getMealList();
   }
 
-  List<MealModel> cachedList = [];
-
   @override
   Future<List<MealModel>> getMealList() async {
     try {
@@ -31,8 +29,9 @@ class MealDatasourceImp implements MealDatasource {
       final mealRef = ref
           .child(HomeExternalConstants.universal)
           .child(HomeExternalConstants.meal);
-      final response = await mealRef.get();
-      final map = response.value as Map<String, dynamic>;
+      final DataSnapshot response = await mealRef.get();
+      final String json = jsonEncode(response.value);
+      final Map<String, dynamic> map = jsonDecode(json);
       List<MealModel> list = [];
       map.forEach((key, value) async {
         list.add(MealModel.fromJson(jsonEncode(value)).copyWith(id: key));
@@ -46,7 +45,6 @@ class MealDatasourceImp implements MealDatasource {
         final mealType = await mealTypeDatasource.geatMealType(list[i].typeId);
         list[i] = list[i].copyWith(items: meals, type: mealType);
       }
-      cachedList = list;
       return list;
     } catch (e) {
       rethrow;
@@ -56,7 +54,21 @@ class MealDatasourceImp implements MealDatasource {
   @override
   Future<MealModel> getMeal(String id) async {
     try {
-      return cachedList.firstWhere((element) => element.id == id);
+      final mealRef = database
+          .ref()
+          .child(HomeExternalConstants.universal)
+          .child(HomeExternalConstants.meal)
+          .child(id);
+      final DataSnapshot response = await mealRef.get();
+      final String json = jsonEncode(response.value);
+      final Map<String, dynamic> map = jsonDecode(json);
+      MealModel meal = MealModel.fromMap(map).copyWith(id: id);
+      List<MealItem> mealsItems = [];
+      for (String id in meal.itemsIds) {
+        mealsItems.add(await mealDatasource.getMealItem(id));
+      }
+      final mealType = await mealTypeDatasource.geatMealType(meal.typeId);
+      return meal.copyWith(items: mealsItems, type: mealType);
     } catch (e) {
       rethrow;
     }

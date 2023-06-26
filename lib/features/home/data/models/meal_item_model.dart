@@ -1,6 +1,8 @@
 import 'dart:convert';
 
+import 'package:cardiac_petct/features/home/data/models/food_model.dart';
 import 'package:cardiac_petct/features/home/data/models/measurement_model.dart';
+import 'package:cardiac_petct/features/home/data/models/translated_words_model.dart';
 import 'package:cardiac_petct/features/home/domain/entities/food.dart';
 import 'package:cardiac_petct/features/home/domain/entities/meal_item.dart';
 import 'package:cardiac_petct/features/home/domain/entities/measurement.dart';
@@ -8,11 +10,11 @@ import 'package:cardiac_petct/features/home/domain/entities/translated_word.dart
 import 'package:flutter/foundation.dart';
 
 class MealItemModel extends MealItem {
-  MealItemModel({
+  MealItemModel(
     super.id,
     super.translatedNameId,
     super.translatedWord,
-    super.foodsItens,
+    super.foodsItens, {
     required super.foodIds,
     required super.measurements,
   });
@@ -26,10 +28,10 @@ class MealItemModel extends MealItem {
     List<Measurement>? measurements,
   }) {
     return MealItemModel(
-      id: id ?? this.id,
-      translatedNameId: translatedNameId ?? this.translatedNameId,
-      translatedWord: translatedWord ?? this.translatedWord,
-      foodsItens: foodsItens ?? this.foodsItens,
+      id ?? this.id,
+      translatedNameId ?? this.translatedNameId,
+      translatedWord ?? this.translatedWord,
+      foodsItens ?? this.foodsItens,
       foodIds: foodIds ?? this.foodIds,
       measurements: measurements ?? this.measurements,
     );
@@ -40,19 +42,28 @@ class MealItemModel extends MealItem {
     return {
       'id': id,
       'translatedNames': translatedNameId,
-      'translatedWord': translatedWord,
-      'foodsItens': foodsItens?.map((x) => x).toList(),
+      'translatedWord': (translatedWord != null)
+          ? (translatedWord as TranslatedWordModel).toMap()
+          : translatedWord,
+      'foodsItens': foodsItens?.map((x) => (x as FoodModel).toMap()).toList(),
       'foods': foodIds,
-      'measurement': measurements.map((x) => x).toList(),
+      'measurement':
+          measurements.map((x) => (x as MeasurementModel).toMap()).toList(),
     };
   }
 
   factory MealItemModel.fromMap(Map<String, dynamic> map) {
     return MealItemModel(
-      id: map['id'],
-      translatedNameId: map['translatedNames'],
-      translatedWord: map['translatedWord'],
-      foodsItens: map['foodsItens'],
+      map['id'],
+      map['translatedNames'],
+      (map['translatedWord'] != null)
+          ? TranslatedWordModel.fromMap(map['translatedWord'])
+          : null,
+      (map['foodsItens'] != null)
+          ? List<FoodModel>.from(
+              map['foodsItens']?.map((x) => FoodModel.fromMap(x)),
+            )
+          : null,
       foodIds: List<String>.from(
         map['foods']?.map((x) => x as String),
       ),

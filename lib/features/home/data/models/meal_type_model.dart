@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:cardiac_petct/features/home/data/models/translated_words_model.dart';
 import 'package:cardiac_petct/features/home/domain/entities/meal_type.dart';
 import 'package:cardiac_petct/features/home/domain/entities/translated_word.dart';
 
@@ -20,6 +21,25 @@ extension MealTypeExtension on MealTypeEnum {
         return MealTypeEnum.breakfast;
       default:
         return MealTypeEnum.afternoonSnack;
+    }
+  }
+
+  static String stringFromType(MealTypeEnum value) {
+    switch (value) {
+      case MealTypeEnum.afternoonSnack:
+        return 'AFTERNOON_SNACK';
+      case MealTypeEnum.supper:
+        return 'SUPPER';
+      case MealTypeEnum.dinner:
+        return 'DINNER';
+      case MealTypeEnum.morningSnack:
+        return 'MORNING_SNACK';
+      case MealTypeEnum.lunch:
+        return 'LUNCH';
+      case MealTypeEnum.breakfast:
+        return 'BREAKFAST';
+      default:
+        return 'AFTERNOON_SNACK';
     }
   }
 }
@@ -49,16 +69,18 @@ class MealTypeModel extends MealType {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'translatedWord': translatedWord,
+      'translatedWord': (translatedWord as TranslatedWordModel).toMap(),
       'translatedNames': translatedWordId,
-      'type': mealType,
+      'type': MealTypeExtension.stringFromType(mealType),
     };
   }
 
   factory MealTypeModel.fromMap(Map<String, dynamic> map) {
     return MealTypeModel(
       map['id'],
-      map['translatedWord'],
+      (map['translatedWord'] != null)
+          ? TranslatedWordModel.fromMap(map['translatedWord'])
+          : null,
       translatedWordId: map['translatedNames'] ?? '',
       mealType: MealTypeExtension.typeFromString(map['type']),
     );

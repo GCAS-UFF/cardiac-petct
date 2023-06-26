@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:cardiac_petct/features/home/data/models/food_classification_model.dart';
 import 'package:cardiac_petct/features/home/data/models/translated_words_model.dart';
 import 'package:cardiac_petct/features/home/domain/entities/food.dart';
 import 'package:cardiac_petct/features/home/domain/entities/food_classification.dart';
@@ -33,8 +34,9 @@ class FoodModel extends Food {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'foodClassification': foodClassification,
-      'translatedWord': translatedWord,
+      'foodClassificationItem':
+          (foodClassification as FoodClassificationModel).toMap(),
+      'translatedWord': (translatedWord as TranslatedWordModel).toMap(),
       'foodClassificationId': foodClassificationId,
       'translatedWordId': translatedWordId,
     };
@@ -43,7 +45,9 @@ class FoodModel extends Food {
   factory FoodModel.fromMap(Map<String, dynamic> map) {
     return FoodModel(
       map['id'],
-      null,
+      (map['foodClassificationItem'] != null)
+          ? FoodClassificationModel.fromMap(map['foodClassificationItem'])
+          : null,
       map['translatedWord'] != null
           ? TranslatedWordModel.fromMap(map['translatedWord'])
           : null,

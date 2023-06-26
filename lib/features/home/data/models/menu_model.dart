@@ -1,9 +1,12 @@
 import 'dart:convert';
 
+import 'package:cardiac_petct/features/home/data/models/food_model.dart';
+import 'package:cardiac_petct/features/home/data/models/meal_model.dart';
+import 'package:flutter/foundation.dart';
+
 import 'package:cardiac_petct/features/home/domain/entities/food.dart';
 import 'package:cardiac_petct/features/home/domain/entities/meal.dart';
 import 'package:cardiac_petct/features/home/domain/entities/menu.dart';
-import 'package:flutter/foundation.dart';
 
 class MenuModel extends Menu {
   MenuModel(
@@ -39,10 +42,9 @@ class MenuModel extends Menu {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'allowedFood': allowedFood,
-      'meals': meals,
-      'allowedFoodIds': allowedFoodIds,
-      'mealIds': mealIds,
+      'allowedFoodsItens':
+          allowedFood!.map((e) => (e as FoodModel).toMap()).toList(),
+      'mealsItens': meals!.map((e) => (e as MealModel).toMap()).toList(),
       'country': country,
       'durationInDays': durationInDays,
     };
@@ -51,10 +53,19 @@ class MenuModel extends Menu {
   factory MenuModel.fromMap(Map<String, dynamic> map) {
     return MenuModel(
       null,
-      null,
-      null,
-      allowedFoodIds: List<String>.from(map['allowedFoods']),
-      mealIds: List<String>.from(map['meals']),
+      (map['allowedFoodsItens'] != null)
+          ? List<Food>.from(
+              map['allowedFoodsItens']?.map((x) => FoodModel.fromMap(x)))
+          : [],
+      (map['mealsItens'] != null)
+          ? List<MealModel>.from(
+              map['mealsItens']?.map((x) => MealModel.fromMap(x)),
+            )
+          : [],
+      allowedFoodIds: (map['allowedFoods'] != null)
+          ? List<String>.from(map['allowedFoods'])
+          : [],
+      mealIds: (map['meals'] != null) ? List<String>.from(map['meals']) : [],
       country: map['country'] ?? '',
       durationInDays: map['durationInDays']?.toInt() ?? 0,
     );

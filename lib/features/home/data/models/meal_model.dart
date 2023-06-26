@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:cardiac_petct/features/home/data/models/meal_item_model.dart';
+import 'package:cardiac_petct/features/home/data/models/meal_type_model.dart';
 import 'package:cardiac_petct/features/home/domain/entities/meal.dart';
 import 'package:cardiac_petct/features/home/domain/entities/meal_item.dart';
 import 'package:cardiac_petct/features/home/domain/entities/meal_type.dart';
@@ -87,24 +89,30 @@ class MealModel extends Meal {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'items': items,
+      'itemsList': items!.map((e) => (e as MealItemModel).toMap()).toList(),
       'imageUrl': imageUrl,
-      'currency': currency,
-      'mealType': type,
+      'currency': CurrencyExtension.stringFromType(currency),
+      'mealTypeItem': (type as MealTypeModel).toMap(),
       'totalPrice': price,
-      'itemsIds': itemsIds,
+      'items': itemsIds,
     };
   }
 
   factory MealModel.fromMap(Map<String, dynamic> map) {
     return MealModel(
-      null,
-      null,
-      null,
-      null,
+      map['id'],
+      (map['itemsList'] != null)
+          ? List<MealItemModel>.from(
+              map['itemsList']?.map((x) => MealItemModel.fromMap(x)),
+            )
+          : [],
+      map['imageUrl'],
+      (map['mealTypeItem'] != null)
+          ? MealTypeModel.fromMap(map['mealTypeItem'])
+          : null,
       currency: CurrencyExtension.typeFromString(map['currency']),
-      typeId: map['mealType'] as String,
-      price: double.tryParse(map['totalPrice']) ?? 0.0,
+      typeId: map['mealType'] ?? '',
+      price: double.tryParse(map['totalPrice'].toString()) as double,
       itemsIds: List<String>.from(map['items']?.map((x) => x as String)),
     );
   }

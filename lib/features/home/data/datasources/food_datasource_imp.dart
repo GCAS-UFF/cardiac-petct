@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cardiac_petct/features/home/data/datasources/constants/home_external_constants.dart';
 import 'package:cardiac_petct/features/home/data/datasources/translated_word_datasource.dart';
 import 'package:cardiac_petct/features/home/data/datasources/food_classification_remote_datasource_imp.dart';
@@ -21,33 +23,33 @@ class FoodsDatasourceImp implements FoodDatasource {
     getFoodList();
   }
 
-  List<FoodModel> cachedList = [];
-
   @override
   Future<List<FoodModel>> getFoodList() async {
     try {
-      final ref = database.ref();
-      final foodRef = ref
-          .child(HomeExternalConstants.universal)
-          .child(HomeExternalConstants.food);
-      final response = await foodRef.get();
-      final map = response.value as Map<String, dynamic>;
-      List<FoodModel> list = [];
-      map.forEach((key, value) async {
-        list.add(FoodModel.fromMap(value).copyWith(id: key));
-      });
-      for (var i = 0; i < list.length; i++) {
-        final translatedNames = await translatedWordDatasource
-            .getTranslatedWord(list[i].translatedWordId);
-        final foodClassification =
-            await firebaseFoodClassificationRemoteDatasource
-                .getFoodClassification(list[i].foodClassificationId);
-        list[i] = list[i].copyWith(
-            translatedWord: translatedNames,
-            foodClassification: foodClassification);
+      {
+        final ref = database.ref();
+        final foodRef = ref
+            .child(HomeExternalConstants.universal)
+            .child(HomeExternalConstants.food);
+        final DataSnapshot response = await foodRef.get();
+        final String json = jsonEncode(response.value);
+        final Map<String, dynamic> map = jsonDecode(json);
+        List<FoodModel> list = [];
+        map.forEach((key, value) async {
+          list.add(FoodModel.fromMap(value).copyWith(id: key));
+        });
+        for (var i = 0; i < list.length; i++) {
+          final translatedNames = await translatedWordDatasource
+              .getTranslatedWord(list[i].translatedWordId);
+          final foodClassification =
+              await firebaseFoodClassificationRemoteDatasource
+                  .getFoodClassification(list[i].foodClassificationId);
+          list[i] = list[i].copyWith(
+              translatedWord: translatedNames,
+              foodClassification: foodClassification);
+        }
+        return list;
       }
-      cachedList = list;
-      return list;
     } catch (e) {
       rethrow;
     }
@@ -56,7 +58,21 @@ class FoodsDatasourceImp implements FoodDatasource {
   @override
   Future<FoodModel> getFood(String id) async {
     try {
-      return cachedList.firstWhere((element) => element.id == id);
+      final foodRef = database
+          .ref()
+          .child(HomeExternalConstants.universal)
+          .child(HomeExternalConstants.food)
+          .child(id);
+      final DataSnapshot response = await foodRef.get();
+      final String json = jsonEncode(response.value);
+      final Map<String, dynamic> map = jsonDecode(json);
+      final food = FoodModel.fromMap(map).copyWith(id: id);
+      final translatedWord = await translatedWordDatasource
+          .getTranslatedWord(food.translatedWordId);
+      final classification = await firebaseFoodClassificationRemoteDatasource
+          .getFoodClassification(food.foodClassificationId);
+      return food.copyWith(
+          translatedWord: translatedWord, foodClassification: classification);
     } catch (e) {
       rethrow;
     }
