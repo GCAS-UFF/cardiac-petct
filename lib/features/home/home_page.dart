@@ -141,26 +141,32 @@ class _HomePageState extends State<HomePage>
                       controller: tabController,
                       children: success.menu.map(
                         (day) {
-                          if (day.breakFasts != null &&
-                              day.breakFasts!.isNotEmpty) {
-                            return Padding(
-                              padding: const EdgeInsets.only(top: 22),
-                              child: Column(
-                                children: [
-                                  (day.breakFasts!.first.isRegistered)
-                                      ? PetctDoneMealCard(
-                                          meal: day.breakFasts!.first,
-                                          mealType: day.breakFasts!.first.type!,
-                                        )
-                                      : PetctWaitingMealCard(
-                                          meal: day.breakFasts!.first,
-                                          mealType: day.breakFasts!.first.type!,
-                                        ),
-                                ],
-                              ),
-                            );
-                          }
-                          return Container();
+                          return Column(
+                            children: [
+                              (day.breakFasts != null &&
+                                      day.breakFasts!.isNotEmpty)
+                                  ? Padding(
+                                      padding: const EdgeInsets.only(top: 22),
+                                      child: Column(
+                                        children: [
+                                          (day.breakFasts!.first.isRegistered)
+                                              ? PetctDoneMealCard(
+                                                  meal: day.breakFasts!.first,
+                                                  mealType: day
+                                                      .breakFasts!.first.type!,
+                                                )
+                                              : PetctWaitingMealCard(
+                                                  meal: day.breakFasts!.first,
+                                                  mealType: day
+                                                      .breakFasts!.first.type!,
+                                                ),
+                                        ],
+                                      ),
+                                    )
+                                  : Container(),
+                            
+                            ],
+                          );
                         },
                       ).toList(),
                     ),
@@ -174,11 +180,3 @@ class _HomePageState extends State<HomePage>
     );
   }
 }
-                     //  children: success.mealTypes.map((type) {
-                        //       return Column(children: [
-                        //            PetctDoneMealCard(
-                        //             title: WordTranslator.wordByDeviceLocale(
-                        //               type.translatedWord!,
-                        //             );
-                        //       ]);
-                        //     }).toList(),
