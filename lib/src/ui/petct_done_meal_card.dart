@@ -1,11 +1,18 @@
+import 'package:cardiac_petct/features/home/domain/entities/meal.dart';
+import 'package:cardiac_petct/features/home/domain/entities/meal_type.dart';
 import 'package:cardiac_petct/src/ui/petct_elevated_button.dart';
+import 'package:cardiac_petct/src/ui/petct_item_quantity.dart';
 import 'package:cardiac_petct/src/ui/petct_outlined_button.dart';
+import 'package:cardiac_petct/src/utils/string_formatter.dart';
+import 'package:cardiac_petct/src/utils/word_translator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 
 class PetctDoneMealCard extends StatefulWidget {
-  final String title;
-  const PetctDoneMealCard({super.key, required this.title});
+  final MealType mealType;
+  final Meal meal;
+  const PetctDoneMealCard(
+      {super.key, required this.meal, required this.mealType});
 
   @override
   State<PetctDoneMealCard> createState() => _PetctDoneMealCardState();
@@ -52,7 +59,9 @@ class _PetctDoneMealCardState extends State<PetctDoneMealCard> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      widget.title,
+                      WordTranslator.wordByDeviceLocale(
+                        widget.mealType.translatedWord!,
+                      ),
                       textAlign: TextAlign.center,
                       style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                             fontSize: 16,
@@ -102,7 +111,8 @@ class _PetctDoneMealCardState extends State<PetctDoneMealCard> {
                     children: [
                       Expanded(
                         child: Text(
-                          'Ovos mexidos com manteiga + xícara de café sem açucar e sem adoçante',
+                          StringFormatter.listMealItemsNames(
+                              widget.meal.items!),
                           textAlign: TextAlign.center,
                           style: Theme.of(context)
                               .textTheme
@@ -115,44 +125,7 @@ class _PetctDoneMealCardState extends State<PetctDoneMealCard> {
                   const SizedBox(
                     height: 32,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Ingredientes',
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                              fontWeight: FontWeight.bold,
-                            ),
-                      ),
-                      Text(
-                        'Quantidade',
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                              fontWeight: FontWeight.bold,
-                            ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 22,
-                  ),
-                  Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Ovo',
-                            style: Theme.of(context).textTheme.bodyMedium,
-                          ),
-                          Text(
-                            '2 unidades',
-                            style: Theme.of(context).textTheme.bodyMedium,
-                          ),
-                        ],
-                      ),
-                      const Divider(),
-                    ],
-                  ),
+                  PetctItemQuantity(items: widget.meal.items!),
                   Row(
                     children: [
                       Expanded(

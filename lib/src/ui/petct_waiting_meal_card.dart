@@ -1,10 +1,17 @@
+import 'package:cardiac_petct/features/home/domain/entities/meal.dart';
+import 'package:cardiac_petct/features/home/domain/entities/meal_type.dart';
+import 'package:cardiac_petct/src/ui/petct_item_quantity.dart';
 import 'package:cardiac_petct/src/ui/petct_outlined_button.dart';
+import 'package:cardiac_petct/src/utils/string_formatter.dart';
+import 'package:cardiac_petct/src/utils/word_translator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 
 class PetctWaitingMealCard extends StatefulWidget {
-  final String title;
-  const PetctWaitingMealCard({super.key, required this.title});
+  final MealType mealType;
+  final Meal meal;
+  const PetctWaitingMealCard(
+      {super.key, required this.mealType, required this.meal});
 
   @override
   State<PetctWaitingMealCard> createState() => _PetctWaitingMealCardState();
@@ -45,7 +52,9 @@ class _PetctWaitingMealCardState extends State<PetctWaitingMealCard> {
                 ),
                 Expanded(
                     child: Text(
-                  widget.title,
+                  WordTranslator.wordByDeviceLocale(
+                    widget.mealType.translatedWord!,
+                  ),
                   textAlign: TextAlign.start,
                   style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                         fontSize: 16,
@@ -78,7 +87,8 @@ class _PetctWaitingMealCardState extends State<PetctWaitingMealCard> {
                     children: [
                       Expanded(
                         child: Text(
-                          'Ovos mexidos com manteiga + xícara de café sem açucar e sem adoçante',
+                          StringFormatter.listMealItemsNames(
+                              widget.meal.items!),
                           textAlign: TextAlign.center,
                           style: Theme.of(context)
                               .textTheme
@@ -91,44 +101,7 @@ class _PetctWaitingMealCardState extends State<PetctWaitingMealCard> {
                   const SizedBox(
                     height: 32,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Ingredientes',
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                              fontWeight: FontWeight.bold,
-                            ),
-                      ),
-                      Text(
-                        'Quantidade',
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                              fontWeight: FontWeight.bold,
-                            ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 22,
-                  ),
-                  Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Ovo',
-                            style: Theme.of(context).textTheme.bodyMedium,
-                          ),
-                          Text(
-                            '2 unidades',
-                            style: Theme.of(context).textTheme.bodyMedium,
-                          ),
-                        ],
-                      ),
-                      const Divider(),
-                    ],
-                  ),
+                  PetctItemQuantity(items: widget.meal.items!),
                   Row(
                     children: [
                       Expanded(
