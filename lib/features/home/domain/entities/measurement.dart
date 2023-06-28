@@ -61,6 +61,23 @@ extension MeasurementExtension on MeasurementUnity {
         return 'Unidades';
     }
   }
+
+  static String abbreviatedNameFromEnum(MeasurementUnity unity) {
+    switch (unity) {
+      case MeasurementUnity.unity:
+        return 'Unid.';
+      case MeasurementUnity.grams:
+        return 'g';
+      case MeasurementUnity.freely:
+        return 'Livre';
+      case MeasurementUnity.spoon:
+        return 'Colh.';
+      case MeasurementUnity.mililiters:
+        return 'ml';
+      default:
+        return 'Unid.';
+    }
+  }
 }
 
 class Measurement {

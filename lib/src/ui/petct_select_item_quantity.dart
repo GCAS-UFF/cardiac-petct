@@ -1,11 +1,17 @@
+import 'package:cardiac_petct/features/home/domain/entities/meal_item.dart';
 import 'package:cardiac_petct/src/ui/petct_counter.dart';
+import 'package:cardiac_petct/src/utils/word_translator.dart';
 import 'package:flutter/material.dart';
 
 class PetCtSelectItemQuantity extends StatelessWidget {
+  final MealItem mealItem;
   final bool isSelected;
   final Function(bool?) onSelection;
   const PetCtSelectItemQuantity(
-      {super.key, required this.isSelected, required this.onSelection});
+      {super.key,
+      required this.mealItem,
+      required this.isSelected,
+      required this.onSelection});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +35,10 @@ class PetCtSelectItemQuantity extends StatelessWidget {
                   ),
                   Expanded(
                     child: Text(
-                      'Xícara de café sem açúcar e sem adoçante',
+                      WordTranslator.wordByDeviceLocale(
+                          mealItem.translatedWord != null
+                              ? mealItem.translatedWord!
+                              : mealItem.foodsItens!.first.translatedWord!),
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium!
@@ -39,7 +48,7 @@ class PetCtSelectItemQuantity extends StatelessWidget {
                 ],
               ),
             ),
-            const PetctCounter(value: 2),
+            PetctCounter(measurement: mealItem.measurements.first),
           ],
         ),
         const Divider()

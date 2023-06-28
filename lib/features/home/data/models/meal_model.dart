@@ -57,7 +57,8 @@ class MealModel extends Meal {
     super.id,
     super.items,
     super.imageUrl,
-    super.type, {
+    super.type,
+    super.comment, {
     required super.currency,
     required super.isRegistered,
     required super.typeId,
@@ -70,6 +71,7 @@ class MealModel extends Meal {
     List<MealItem>? items,
     String? imageUrl,
     MealType? type,
+    String? comment,
     CurrencyEnum? currency,
     bool? isRegistered,
     String? typeId,
@@ -81,6 +83,7 @@ class MealModel extends Meal {
       items ?? this.items,
       imageUrl ?? this.imageUrl,
       type ?? this.type,
+      comment ?? this.comment,
       currency: currency ?? this.currency,
       isRegistered: isRegistered ?? this.isRegistered,
       typeId: typeId ?? this.typeId,
@@ -98,6 +101,8 @@ class MealModel extends Meal {
       'mealTypeItem': (type as MealTypeModel).toMap(),
       'totalPrice': price,
       'items': itemsIds,
+      'comment': comment,
+      'isRegistered': isRegistered,
     };
   }
 
@@ -113,11 +118,27 @@ class MealModel extends Meal {
       (map['mealTypeItem'] != null)
           ? MealTypeModel.fromMap(map['mealTypeItem'])
           : null,
+      map['comment'],
       currency: CurrencyExtension.typeFromString(map['currency']),
       isRegistered: map['isRegistered'] ?? false,
       typeId: map['mealType'] ?? '',
       price: double.tryParse(map['totalPrice'].toString()) as double,
       itemsIds: List<String>.from(map['items']?.map((x) => x as String)),
+    );
+  }
+
+  factory MealModel.fromEntity(Meal meal) {
+    return MealModel(
+      meal.id,
+      meal.items,
+      meal.imageUrl,
+      meal.type,
+      meal.comment,
+      currency: meal.currency,
+      isRegistered: meal.isRegistered,
+      typeId: meal.typeId,
+      price: meal.price,
+      itemsIds: meal.itemsIds,
     );
   }
 
@@ -141,7 +162,8 @@ class MealModel extends Meal {
         other.imageUrl == imageUrl &&
         other.currency == currency &&
         other.type == type &&
-        other.price == price;
+        other.price == price &&
+        other.comment == comment;
   }
 
   @override
@@ -151,6 +173,7 @@ class MealModel extends Meal {
         imageUrl.hashCode ^
         currency.hashCode ^
         type.hashCode ^
-        price.hashCode;
+        price.hashCode ^
+        comment.hashCode;
   }
 }

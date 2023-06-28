@@ -1,6 +1,6 @@
 import 'package:cardiac_petct/features/home/home_cubit.dart';
 import 'package:cardiac_petct/src/ui/petct_done_meal_card.dart';
-import 'package:cardiac_petct/src/ui/petct_waiting_meal_card.dart';
+import 'package:cardiac_petct/src/ui/petct_late_meal_card.dart';
 import 'package:cardiac_petct/src/utils/date_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -155,16 +155,16 @@ class _HomePageState extends State<HomePage>
                                                   mealType: day
                                                       .breakFasts!.first.type!,
                                                 )
-                                              : PetctWaitingMealCard(
+                                              : PetctLateMealCard(
                                                   meal: day.breakFasts!.first,
                                                   mealType: day
                                                       .breakFasts!.first.type!,
+                                                  menuId: day.id!,
                                                 ),
                                         ],
                                       ),
                                     )
                                   : Container(),
-                            
                             ],
                           );
                         },
