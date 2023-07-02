@@ -8,5 +8,6 @@ class LocalizationsDirectories {
     'lib/features/anamnesis/presentation/i18n/',
     'lib/features/home/i18n/',
     'lib/features/home/submodules/meal_registration/i18n/',
+    'lib/features/home/submodules/meal_options/i18n/',
   ];
 }
