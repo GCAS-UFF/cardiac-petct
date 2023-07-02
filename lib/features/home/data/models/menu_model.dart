@@ -13,7 +13,12 @@ class MenuModel extends Menu {
     super.id,
     super.allowedFood,
     super.meals,
-    super.breakFasts, {
+    super.breakFasts,
+    super.morningSnacks,
+    super.lunchs,
+    super.afternoonSnacks,
+    super.dinners,
+    super.suppers, {
     required super.allowedFoodIds,
     required super.mealIds,
     required super.country,
@@ -25,6 +30,11 @@ class MenuModel extends Menu {
     List<Food>? allowedFood,
     List<Meal>? meals,
     List<Meal>? breakFasts,
+    List<Meal>? morningSnacks,
+    List<Meal>? lunchs,
+    List<Meal>? afternoonSnacks,
+    List<Meal>? dinners,
+    List<Meal>? suppers,
     List<String>? allowedFoodIds,
     List<String>? mealIds,
     String? country,
@@ -35,6 +45,11 @@ class MenuModel extends Menu {
       allowedFood ?? this.allowedFood,
       meals ?? this.meals,
       breakFasts ?? this.breakFasts,
+      morningSnacks ?? this.morningSnacks,
+      lunchs ?? this.lunchs,
+      afternoonSnacks ?? this.afternoonSnacks,
+      dinners ?? this.dinners,
+      suppers ?? this.suppers,
       allowedFoodIds: allowedFoodIds ?? this.allowedFoodIds,
       mealIds: mealIds ?? this.mealIds,
       country: country ?? this.country,
@@ -49,6 +64,13 @@ class MenuModel extends Menu {
           allowedFood!.map((e) => (e as FoodModel).toMap()).toList(),
       'mealsItens': meals!.map((e) => (e as MealModel).toMap()).toList(),
       'breakFasts': breakFasts!.map((e) => (e as MealModel).toMap()).toList(),
+      'morningSnacks':
+          morningSnacks!.map((e) => (e as MealModel).toMap()).toList(),
+      'lunchs': lunchs!.map((e) => (e as MealModel).toMap()).toList(),
+      'afternoonSnacks':
+          afternoonSnacks!.map((e) => (e as MealModel).toMap()).toList(),
+      'dinners': dinners!.map((e) => (e as MealModel).toMap()).toList(),
+      'suppers': suppers!.map((e) => (e as MealModel).toMap()).toList(),
       'country': country,
       'durationInDays': durationInDays,
     };
@@ -69,6 +91,31 @@ class MenuModel extends Menu {
       (map['breakFasts'] != null)
           ? List<MealModel>.from(
               map['breakFasts']?.map((x) => MealModel.fromMap(x)),
+            )
+          : [],
+      (map['morningSnacks'] != null)
+          ? List<MealModel>.from(
+              map['morningSnacks']?.map((x) => MealModel.fromMap(x)),
+            )
+          : [],
+      (map['lunchs'] != null)
+          ? List<MealModel>.from(
+              map['lunchs']?.map((x) => MealModel.fromMap(x)),
+            )
+          : [],
+      (map['afternoonSnacks'] != null)
+          ? List<MealModel>.from(
+              map['afternoonSnacks']?.map((x) => MealModel.fromMap(x)),
+            )
+          : [],
+      (map['dinners'] != null)
+          ? List<MealModel>.from(
+              map['dinners']?.map((x) => MealModel.fromMap(x)),
+            )
+          : [],
+      (map['suppers'] != null)
+          ? List<MealModel>.from(
+              map['suppers']?.map((x) => MealModel.fromMap(x)),
             )
           : [],
       allowedFoodIds: (map['allowedFoods'] != null)

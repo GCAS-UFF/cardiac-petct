@@ -6,6 +6,11 @@ class Menu {
   final List<Food>? allowedFood;
   final List<Meal>? meals;
   final List<Meal>? breakFasts;
+  final List<Meal>? morningSnacks;
+  final List<Meal>? lunchs;
+  final List<Meal>? afternoonSnacks;
+  final List<Meal>? dinners;
+  final List<Meal>? suppers;
   final List<String> allowedFoodIds;
   final List<String> mealIds;
   final String country;
@@ -15,7 +20,12 @@ class Menu {
     this.id,
     this.allowedFood,
     this.meals,
-    this.breakFasts, {
+    this.breakFasts,
+    this.morningSnacks,
+    this.lunchs,
+    this.afternoonSnacks,
+    this.dinners,
+    this.suppers, {
     required this.allowedFoodIds,
     required this.mealIds,
     required this.country,

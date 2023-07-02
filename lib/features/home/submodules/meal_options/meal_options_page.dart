@@ -49,7 +49,6 @@ class _MealOptionsPageState extends State<MealOptionsPage>
       body: BlocConsumer(
         bloc: cubit,
         listener: (context, state) {
-          print('### state: $state');
           if (state.runtimeType == MealOptionsEditedState) {
             homeCubit.initialize();
             Modular.to.pop();
