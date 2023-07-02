@@ -1,12 +1,13 @@
 import 'dart:convert';
 
+import 'package:cardiac_petct/features/home/data/models/meal_model.dart';
 import 'package:cardiac_petct/features/home/data/models/menu_model.dart';
 import 'package:cardiac_petct/features/home/domain/entities/meal.dart';
 import 'package:cardiac_petct/features/home/domain/entities/meal_type.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class MealLocalDatasource {
-  Future<void> registrateMeal(String menuId, Meal meal);
+  Future<void> registrateMeal(String menuId, Meal meal, String? comment);
 }
 
 class MealLocalDatasourceImp implements MealLocalDatasource {
@@ -14,19 +15,28 @@ class MealLocalDatasourceImp implements MealLocalDatasource {
       SharedPreferences.getInstance();
 
   @override
-  Future<void> registrateMeal(String menuId, Meal meal) async {
+  Future<void> registrateMeal(String menuId, Meal meal, String? comment) async {
     SharedPreferences prefs = await _preferences;
-    final map = jsonDecode(prefs.getString('dietDays') ?? '');
-    map.map((day) {
-      if (day.id == menuId) {
-        final dietDay = MenuModel.fromJson(day);
-        if (meal.type!.mealType == MealTypeEnum.breakfast) {
-          dietDay.breakFasts!.clear();
-          dietDay.breakFasts!.add(meal);
-        }
-        map[day.id] = dietDay.toMap();
-      }
+    String json = prefs.getString('dietDays') ?? '';
+    final map = jsonDecode(json);
+    List<MenuModel> dietDays = [];
+    map.map((value) async {
+      dietDays.add(MenuModel.fromJson(value));
     }).toList();
-    await prefs.setString('dietDays', jsonEncode(map));
+    for (int i = 0; i < dietDays.length; i++) {
+      final mealModel = MealModel.fromEntity(meal);
+      if (dietDays[i].id == menuId) {
+        if (meal.type!.mealType == MealTypeEnum.breakfast) {
+          dietDays[i].breakFasts!.clear();
+          dietDays[i].breakFasts!.add(
+                mealModel.copyWith(
+                  isRegistered: true,
+                  comment: comment,
+                ),
+              );
+        }
+      }
+    }
+    await prefs.setString('dietDays', jsonEncode(dietDays));
   }
 }

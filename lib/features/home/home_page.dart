@@ -1,10 +1,11 @@
 import 'package:cardiac_petct/features/home/home_cubit.dart';
 import 'package:cardiac_petct/src/ui/petct_done_meal_card.dart';
-import 'package:cardiac_petct/src/ui/petct_waiting_meal_card.dart';
+import 'package:cardiac_petct/src/ui/petct_late_meal_card.dart';
 import 'package:cardiac_petct/src/utils/date_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:localization/localization.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -74,9 +75,9 @@ class _HomePageState extends State<HomePage>
                                     DateFormatter.dateFormat(DateTime.now()),
                                     style: const TextStyle(fontSize: 12),
                                   ),
-                                  const Text(
-                                    'Primeiro dia',
-                                    style: TextStyle(fontSize: 12),
+                                  Text(
+                                    'first-day-tab'.i18n(),
+                                    style: const TextStyle(fontSize: 12),
                                   ),
                                 ],
                               ),
@@ -99,9 +100,9 @@ class _HomePageState extends State<HomePage>
                                     ),
                                     style: const TextStyle(fontSize: 12),
                                   ),
-                                  const Text(
-                                    'Segundo dia',
-                                    style: TextStyle(fontSize: 12),
+                                  Text(
+                                    'second-day-tab'.i18n(),
+                                    style: const TextStyle(fontSize: 12),
                                   ),
                                 ],
                               ),
@@ -124,9 +125,9 @@ class _HomePageState extends State<HomePage>
                                     ),
                                     style: const TextStyle(fontSize: 12),
                                   ),
-                                  const Text(
-                                    'Terceiro dia',
-                                    style: TextStyle(fontSize: 12),
+                                  Text(
+                                    'third-day-tab'.i18n(),
+                                    style: const TextStyle(fontSize: 12),
                                   ),
                                 ],
                               ),
@@ -154,17 +155,18 @@ class _HomePageState extends State<HomePage>
                                                   meal: day.breakFasts!.first,
                                                   mealType: day
                                                       .breakFasts!.first.type!,
+                                                  menuId: day.id!,
                                                 )
-                                              : PetctWaitingMealCard(
+                                              : PetctLateMealCard(
                                                   meal: day.breakFasts!.first,
                                                   mealType: day
                                                       .breakFasts!.first.type!,
+                                                  menuId: day.id!,
                                                 ),
                                         ],
                                       ),
                                     )
                                   : Container(),
-                            
                             ],
                           );
                         },

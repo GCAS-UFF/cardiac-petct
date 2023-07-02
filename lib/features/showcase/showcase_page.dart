@@ -9,7 +9,6 @@ import 'package:cardiac_petct/src/ui/petct_outlined_button.dart';
 import 'package:cardiac_petct/src/ui/petct_percent_indicator.dart';
 import 'package:cardiac_petct/src/ui/petct_progress_card.dart';
 import 'package:cardiac_petct/src/ui/petct_radio_button.dart';
-import 'package:cardiac_petct/src/ui/petct_select_item_quantity.dart';
 import 'package:cardiac_petct/src/ui/petct_switch_theme_mode.dart';
 import 'package:cardiac_petct/src/ui/petct_text_button.dart';
 import 'package:cardiac_petct/src/ui/petct_text_form_field.dart';
@@ -490,14 +489,14 @@ class _ShowcasePageState extends State<ShowcasePage> {
                     'Select Item Quantity',
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
-                  PetCtSelectItemQuantity(
-                    isSelected: itemSelected,
-                    onSelection: (isSelected) {
-                      setState(() {
-                        itemSelected = !itemSelected;
-                      });
-                    },
-                  ),
+                  // PetCtSelectItemQuantity(
+                  //   isSelected: itemSelected,
+                  //   onSelection: (isSelected) {
+                  //     setState(() {
+                  //       itemSelected = !itemSelected;
+                  //     });
+                  //   },
+                  // ),
                 ],
               ),
               const SizedBox(

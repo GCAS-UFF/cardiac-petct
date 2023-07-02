@@ -56,7 +56,7 @@ class MenuModel extends Menu {
 
   factory MenuModel.fromMap(Map<String, dynamic> map) {
     return MenuModel(
-      null,
+      map['id'],
       (map['allowedFoodsItens'] != null)
           ? List<Food>.from(
               map['allowedFoodsItens']?.map((x) => FoodModel.fromMap(x)))
