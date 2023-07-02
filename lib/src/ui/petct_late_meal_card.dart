@@ -1,17 +1,23 @@
 import 'package:cardiac_petct/features/home/domain/entities/meal.dart';
 import 'package:cardiac_petct/features/home/domain/entities/meal_type.dart';
 import 'package:cardiac_petct/src/ui/petct_elevated_button.dart';
+import 'package:cardiac_petct/src/ui/petct_item_quantity.dart';
 import 'package:cardiac_petct/src/ui/petct_outlined_button.dart';
 import 'package:cardiac_petct/src/utils/string_formatter.dart';
 import 'package:cardiac_petct/src/utils/word_translator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 class PetctLateMealCard extends StatefulWidget {
   final MealType mealType;
   final Meal meal;
+  final String menuId;
   const PetctLateMealCard(
-      {super.key, required this.mealType, required this.meal});
+      {super.key,
+      required this.mealType,
+      required this.meal,
+      required this.menuId});
 
   @override
   State<PetctLateMealCard> createState() => _PetctLateMealCardState();
@@ -120,46 +126,9 @@ class _PetctLateMealCardState extends State<PetctLateMealCard> {
                     ],
                   ),
                   const SizedBox(
-                    height: 32,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Ingredientes',
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                              fontWeight: FontWeight.bold,
-                            ),
-                      ),
-                      Text(
-                        'Quantidade',
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                              fontWeight: FontWeight.bold,
-                            ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
                     height: 22,
                   ),
-                  Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Ovo',
-                            style: Theme.of(context).textTheme.bodyMedium,
-                          ),
-                          Text(
-                            '2 unidades',
-                            style: Theme.of(context).textTheme.bodyMedium,
-                          ),
-                        ],
-                      ),
-                      const Divider(),
-                    ],
-                  ),
+                  PetctItemQuantity(items: widget.meal.items!),
                   Row(
                     children: [
                       Expanded(
@@ -176,7 +145,12 @@ class _PetctLateMealCardState extends State<PetctLateMealCard> {
                     children: [
                       Expanded(
                         child: PetctElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Modular.to.pushNamed(
+                              '/home/meal-registration/',
+                              arguments: [widget.meal, widget.menuId],
+                            );
+                          },
                           child: const Text(
                             'Adicionar ao diário',
                           ),

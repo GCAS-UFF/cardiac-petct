@@ -6,5 +6,7 @@ class LocalizationsDirectories {
     'lib/features/auth/submodules/email_verify/i18n/',
     'lib/features/auth/domain/erros/i18n/',
     'lib/features/anamnesis/presentation/i18n/',
+    'lib/features/home/i18n/',
+    'lib/features/home/submodules/meal_registration/i18n/',
   ];
 }

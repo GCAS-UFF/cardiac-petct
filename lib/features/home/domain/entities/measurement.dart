@@ -61,22 +61,43 @@ extension MeasurementExtension on MeasurementUnity {
         return 'Unidades';
     }
   }
+
+  static String abbreviatedNameFromEnum(MeasurementUnity unity) {
+    switch (unity) {
+      case MeasurementUnity.unity:
+        return 'Unid.';
+      case MeasurementUnity.grams:
+        return 'g';
+      case MeasurementUnity.freely:
+        return 'Livre';
+      case MeasurementUnity.spoon:
+        return 'Colh.';
+      case MeasurementUnity.mililiters:
+        return 'ml';
+      default:
+        return 'Unid.';
+    }
+  }
 }
 
 class Measurement {
+  final double? consumedPortion;
   final double portion;
   final MeasurementUnity measurementUnity;
 
-  Measurement({
+  Measurement(
+    this.consumedPortion, {
     required this.portion,
     required this.measurementUnity,
   });
 
   Measurement copyWith({
+    double? consumedPortion,
     double? portion,
     MeasurementUnity? measurementUnity,
   }) {
     return Measurement(
+      consumedPortion ?? this.consumedPortion,
       portion: portion ?? this.portion,
       measurementUnity: measurementUnity ?? this.measurementUnity,
     );
@@ -84,6 +105,7 @@ class Measurement {
 
   Map<String, dynamic> toMap() {
     return {
+      'consumedPortion': consumedPortion,
       'portion': portion,
       'measurementUnit': MeasurementExtension.stringFromType(measurementUnity),
     };

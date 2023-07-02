@@ -1,5 +1,6 @@
 import 'package:cardiac_petct/features/home/data/models/measurement_model.dart';
 import 'package:cardiac_petct/features/home/domain/entities/meal_item.dart';
+import 'package:cardiac_petct/src/utils/string_formatter.dart';
 import 'package:cardiac_petct/src/utils/word_translator.dart';
 import 'package:flutter/material.dart';
 
@@ -62,7 +63,7 @@ class PetctItemQuantity extends StatelessWidget {
                             Column(
                               children: item.measurements.map((measurement) {
                                 return Text(
-                                  '${measurement.portion.toInt()} ${MeasurementExtension.nameFromEnum(measurement.measurementUnity)}',
+                                  '${StringFormatter.removeDecimalZeroFormat(measurement.consumedPortion!)} ${MeasurementExtension.nameFromEnum(measurement.measurementUnity)}',
                                   style: Theme.of(context).textTheme.bodyMedium,
                                 );
                               }).toList(),

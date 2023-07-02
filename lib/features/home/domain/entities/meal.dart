@@ -8,6 +8,7 @@ class Meal {
   final List<MealItem>? items;
   final String? imageUrl;
   final MealType? type;
+  final String? comment;
   final CurrencyEnum currency;
   final bool isRegistered;
   final String typeId;
@@ -18,7 +19,8 @@ class Meal {
     this.id,
     this.items,
     this.imageUrl,
-    this.type, {
+    this.type,
+    this.comment, {
     required this.currency,
     required this.isRegistered,
     required this.price,

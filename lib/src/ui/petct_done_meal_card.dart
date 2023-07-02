@@ -7,12 +7,17 @@ import 'package:cardiac_petct/src/utils/string_formatter.dart';
 import 'package:cardiac_petct/src/utils/word_translator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 class PetctDoneMealCard extends StatefulWidget {
   final MealType mealType;
   final Meal meal;
+  final String menuId;
   const PetctDoneMealCard(
-      {super.key, required this.meal, required this.mealType});
+      {super.key,
+      required this.meal,
+      required this.mealType,
+      required this.menuId});
 
   @override
   State<PetctDoneMealCard> createState() => _PetctDoneMealCardState();
@@ -142,7 +147,12 @@ class _PetctDoneMealCardState extends State<PetctDoneMealCard> {
                     children: [
                       Expanded(
                         child: PetctElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Modular.to.pushNamed(
+                              '/home/meal-registration/',
+                              arguments: [widget.meal, widget.menuId],
+                            );
+                          },
                           child: const Text(
                             'Adicionar ao diário',
                           ),
