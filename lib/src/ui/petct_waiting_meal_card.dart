@@ -6,12 +6,17 @@ import 'package:cardiac_petct/src/utils/string_formatter.dart';
 import 'package:cardiac_petct/src/utils/word_translator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 class PetctWaitingMealCard extends StatefulWidget {
   final MealType mealType;
   final Meal meal;
+  final String menuId;
   const PetctWaitingMealCard(
-      {super.key, required this.mealType, required this.meal});
+      {super.key,
+      required this.mealType,
+      required this.meal,
+      required this.menuId});
 
   @override
   State<PetctWaitingMealCard> createState() => _PetctWaitingMealCardState();
@@ -106,7 +111,12 @@ class _PetctWaitingMealCardState extends State<PetctWaitingMealCard> {
                     children: [
                       Expanded(
                         child: PetctOutlinedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Modular.to.pushNamed(
+                              '/home/meal-options/',
+                              arguments: [widget.meal, widget.menuId],
+                            );
+                          },
                           child: const Text(
                             'Escolher prato',
                           ),

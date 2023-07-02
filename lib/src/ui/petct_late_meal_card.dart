@@ -106,6 +106,7 @@ class _PetctLateMealCardState extends State<PetctLateMealCard> {
             child: Container(
               padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 22),
               height: isCardOpen ? null : 0,
+              width: double.infinity,
               child: Column(
                 children: [
                   Row(
@@ -133,7 +134,12 @@ class _PetctLateMealCardState extends State<PetctLateMealCard> {
                     children: [
                       Expanded(
                         child: PetctOutlinedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Modular.to.pushNamed(
+                              '/home/meal-options/',
+                              arguments: [widget.meal, widget.menuId],
+                            );
+                          },
                           child: const Text(
                             'Escolher prato',
                           ),

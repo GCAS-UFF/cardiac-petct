@@ -50,15 +50,22 @@ class PetctItemQuantity extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  WordTranslator.wordByDeviceLocale(
-                                      food.translatedWord!),
-                                  style: Theme.of(context).textTheme.bodyMedium,
-                                ),
-                              ],
+                            Expanded(
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      WordTranslator.wordByDeviceLocale(
+                                          food.translatedWord!),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                             Column(
                               children: item.measurements.map((measurement) {

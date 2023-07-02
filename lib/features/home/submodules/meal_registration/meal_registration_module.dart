@@ -10,7 +10,7 @@ class MealRegistrationModule extends Module {
   List<Bind<Object>> get binds => [
         Bind.lazySingleton((i) => MealRegistrationCubit(i())),
         Bind.lazySingleton((i) => RegistrateMealUsecaseImp(i())),
-        Bind.lazySingleton((i) => MealRepositoryImp(i())),
+        Bind.lazySingleton((i) => MealRepositoryImp(i(), i())),
         Bind.lazySingleton((i) => MealLocalDatasourceImp())
       ];
 

@@ -2,7 +2,6 @@ import 'package:cardiac_petct/features/home/domain/entities/meal.dart';
 import 'package:cardiac_petct/features/home/domain/entities/meal_type.dart';
 import 'package:cardiac_petct/src/ui/petct_elevated_button.dart';
 import 'package:cardiac_petct/src/ui/petct_item_quantity.dart';
-import 'package:cardiac_petct/src/ui/petct_outlined_button.dart';
 import 'package:cardiac_petct/src/utils/string_formatter.dart';
 import 'package:cardiac_petct/src/utils/word_translator.dart';
 import 'package:flutter/material.dart';
@@ -131,18 +130,6 @@ class _PetctDoneMealCardState extends State<PetctDoneMealCard> {
                     height: 32,
                   ),
                   PetctItemQuantity(items: widget.meal.items!),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: PetctOutlinedButton(
-                          onPressed: () {},
-                          child: const Text(
-                            'Escolher prato',
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
                   Row(
                     children: [
                       Expanded(
