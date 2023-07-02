@@ -7,8 +7,8 @@ class MealRegistrationCubit extends Cubit<MealRegistrationState> {
   MealRegistrationCubit(this.registrateMealUsecase)
       : super(MealRegistrationSuccessState());
 
-  void registrateMeal(String menuId, Meal meal) async {
-    final response = await registrateMealUsecase(menuId, meal);
+  void registrateMeal(String menuId, Meal meal, String? comment) async {
+    final response = await registrateMealUsecase(menuId, meal, comment);
     response.fold(
         (error) => emit(
               MealRegistrationErrorState(),

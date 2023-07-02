@@ -10,9 +10,10 @@ class MealRepositoryImp implements MealRepository {
 
   @override
   Future<Either<Exception, void>> registrateMeal(
-      String menuId, Meal meal) async {
+      String menuId, Meal meal, String? comment) async {
     try {
-      final response = await localDatasource.registrateMeal(menuId, meal);
+      final response =
+          await localDatasource.registrateMeal(menuId, meal, comment);
       return Right(response);
     } catch (e) {
       return Left(Exception(e));

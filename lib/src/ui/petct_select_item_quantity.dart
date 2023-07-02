@@ -7,11 +7,15 @@ class PetCtSelectItemQuantity extends StatelessWidget {
   final MealItem mealItem;
   final bool isSelected;
   final Function(bool?) onSelection;
+  final Function() onDecrease;
+  final Function() onIncrease;
   const PetCtSelectItemQuantity(
       {super.key,
       required this.mealItem,
       required this.isSelected,
-      required this.onSelection});
+      required this.onSelection,
+      required this.onDecrease,
+      required this.onIncrease});
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +52,12 @@ class PetCtSelectItemQuantity extends StatelessWidget {
                 ],
               ),
             ),
-            PetctCounter(measurement: mealItem.measurements.first),
+            PetctCounter(
+              measurements: mealItem.measurements,
+              isSelected: isSelected,
+              onDecrease: onDecrease,
+              onIncrease: onIncrease,
+            ),
           ],
         ),
         const Divider()

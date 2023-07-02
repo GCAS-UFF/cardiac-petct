@@ -66,16 +66,19 @@ extension MeasurementExtension on MeasurementUnity {
 }
 
 class MeasurementModel extends Measurement {
-  MeasurementModel({
+  MeasurementModel(
+    super.consumedPortion, {
     required super.portion,
     required super.measurementUnity,
   });
   @override
   MeasurementModel copyWith({
+    double? consumedPortion,
     double? portion,
     MeasurementUnity? measurementUnity,
   }) {
     return MeasurementModel(
+      consumedPortion ?? this.consumedPortion,
       portion: portion ?? this.portion,
       measurementUnity: measurementUnity ?? this.measurementUnity,
     );
@@ -84,6 +87,7 @@ class MeasurementModel extends Measurement {
   @override
   Map<String, dynamic> toMap() {
     return {
+      'consumedPortion': consumedPortion ?? portion,
       'portion': portion,
       'measurementUnit': MeasurementExtension.stringFromType(measurementUnity),
     };
@@ -91,6 +95,9 @@ class MeasurementModel extends Measurement {
 
   factory MeasurementModel.fromMap(Map<String, dynamic> map) {
     return MeasurementModel(
+      double.tryParse(map['consumedPortion'].toString()) ??
+          double.tryParse(map['portion'].toString()) ??
+          0.0,
       portion: double.tryParse(map['portion'].toString()) ?? 0.0,
       measurementUnity:
           MeasurementExtension.typeFromString(map['measurementUnit']),
@@ -104,17 +111,19 @@ class MeasurementModel extends Measurement {
 
   @override
   String toString() =>
-      'MeasurementModel(portion: $portion, measurementUnity: $measurementUnity)';
+      'MeasurementModel(consumedPortion: $consumedPortion,portion: $portion, measurementUnity: $measurementUnity)';
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
     return other is MeasurementModel &&
+        other.consumedPortion == consumedPortion &&
         other.portion == portion &&
         other.measurementUnity == measurementUnity;
   }
 
   @override
-  int get hashCode => portion.hashCode ^ measurementUnity.hashCode;
+  int get hashCode =>
+      consumedPortion.hashCode ^ portion.hashCode ^ measurementUnity.hashCode;
 }

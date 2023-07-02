@@ -1,4 +1,5 @@
 import 'package:cardiac_petct/features/home/domain/entities/meal.dart';
+import 'package:cardiac_petct/features/home/domain/entities/meal_item.dart';
 import 'package:cardiac_petct/features/home/home_cubit.dart';
 import 'package:cardiac_petct/features/home/submodules/meal_registration/meal_registration_cubit.dart';
 import 'package:cardiac_petct/src/ui/petct_elevated_button.dart';
@@ -9,6 +10,7 @@ import 'package:cardiac_petct/src/utils/word_translator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:localization/localization.dart';
 
 class MealRegistrationPage extends StatefulWidget {
   final Meal meal;
@@ -23,6 +25,19 @@ class MealRegistrationPage extends StatefulWidget {
 class _MealRegistrationPageState extends State<MealRegistrationPage> {
   final MealRegistrationCubit cubit = Modular.get();
   final HomeCubit homeCubit = Modular.get();
+  final TextEditingController commentController = TextEditingController();
+
+  List<MealItem> checkedItems = [];
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.meal.items != null) checkedItems = widget.meal.items!;
+    if (widget.meal.comment != null) {
+      commentController.text = widget.meal.comment!;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +49,7 @@ class _MealRegistrationPageState extends State<MealRegistrationPage> {
             Icons.arrow_back,
           ),
         ),
-        title: const Text('Adicionar ao diário'),
+        title: Text('add-diary-label'.i18n()),
       ),
       body: Container(
         height: double.infinity,
@@ -58,7 +73,6 @@ class _MealRegistrationPageState extends State<MealRegistrationPage> {
                     onPressed: () {}, icon: const Icon(Icons.update));
               }
               if (state.runtimeType == MealRegistrationSuccessState) {
-                final successState = state as MealRegistrationSuccessState;
                 return Column(
                   children: [
                     Text(
@@ -79,7 +93,7 @@ class _MealRegistrationPageState extends State<MealRegistrationPage> {
                       height: 16,
                     ),
                     Text(
-                      'Marque os itens consumidos e suas quantidades',
+                      'portion-consumed-text'.i18n(),
                       style: Theme.of(context).textTheme.titleLarge,
                       textAlign: TextAlign.center,
                     ),
@@ -95,27 +109,116 @@ class _MealRegistrationPageState extends State<MealRegistrationPage> {
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: const [
-                        Text('Item'),
-                        Text('Quantidade'),
+                      children: [
+                        Text('item-title'.i18n()),
+                        Text('quantity-title'.i18n()),
                       ],
                     ),
                     Column(
-                      children: widget.meal.items!
-                          .map(
-                            (mealItem) => PetCtSelectItemQuantity(
-                              mealItem: mealItem,
-                              isSelected: true,
-                              onSelection: (value) {},
-                            ),
-                          )
-                          .toList(),
+                      children: List.generate(checkedItems.length, (item) {
+                        return PetCtSelectItemQuantity(
+                          mealItem: checkedItems[item],
+                          isSelected: _checkSelection(checkedItems[item]),
+                          onDecrease: () {
+                            setState(
+                              () {
+                                for (int measurement = 0;
+                                    measurement <
+                                        checkedItems[item].measurements.length;
+                                    measurement++) {
+                                  if (checkedItems[item]
+                                          .measurements[measurement]
+                                          .consumedPortion! ==
+                                      checkedItems[item]
+                                          .measurements[measurement]
+                                          .portion) {
+                                    final consumedPortion = checkedItems[item]
+                                            .measurements[measurement]
+                                            .portion /
+                                        2;
+                                    checkedItems[item]
+                                            .measurements[measurement] =
+                                        checkedItems[item]
+                                            .measurements[measurement]
+                                            .copyWith(
+                                              consumedPortion: consumedPortion,
+                                            );
+                                  } else if (checkedItems[item]
+                                          .measurements[measurement]
+                                          .consumedPortion! >
+                                      0) {
+                                    checkedItems[item]
+                                            .measurements[measurement] =
+                                        checkedItems[item]
+                                            .measurements[measurement]
+                                            .copyWith(
+                                              consumedPortion: 0,
+                                            );
+                                  }
+                                }
+                              },
+                            );
+                          },
+                          onIncrease: () {
+                            setState(
+                              () {
+                                for (int measurement = 0;
+                                    measurement <
+                                        checkedItems[item].measurements.length;
+                                    measurement++) {
+                                  if (checkedItems[item]
+                                          .measurements[measurement]
+                                          .consumedPortion! ==
+                                      checkedItems[item]
+                                              .measurements[measurement]
+                                              .portion /
+                                          2) {
+                                    checkedItems[item]
+                                            .measurements[measurement] =
+                                        checkedItems[item]
+                                            .measurements[measurement]
+                                            .copyWith(
+                                              consumedPortion:
+                                                  checkedItems[item]
+                                                      .measurements[measurement]
+                                                      .portion,
+                                            );
+                                  }
+                                }
+                              },
+                            );
+                          },
+                          onSelection: (value) {
+                            setState(() {
+                              if (value == true) {
+                                for (int i = 0; i < checkedItems.length; i++) {
+                                  checkedItems[item].measurements[i] =
+                                      checkedItems[item]
+                                          .measurements[i]
+                                          .copyWith(
+                                              consumedPortion:
+                                                  checkedItems[item]
+                                                      .measurements[i]
+                                                      .portion);
+                                }
+                              } else {
+                                for (int i = 0; i < checkedItems.length; i++) {
+                                  checkedItems[item].measurements[i] =
+                                      checkedItems[item]
+                                          .measurements[i]
+                                          .copyWith(consumedPortion: 0);
+                                }
+                              }
+                            });
+                          },
+                        );
+                      }),
                     ),
                     const SizedBox(
                       height: 16,
                     ),
                     Text(
-                      'Fez alguma alteração nos itens prato? Comente aqui ',
+                      'meal-comment-text'.i18n(),
                       style: Theme.of(context)
                           .textTheme
                           .titleLarge!
@@ -125,7 +228,8 @@ class _MealRegistrationPageState extends State<MealRegistrationPage> {
                       height: 16,
                     ),
                     PetctTextFormField(
-                      controller: TextEditingController(),
+                      controller: commentController,
+                      onChanged: (value) {},
                     ),
                     const SizedBox(
                       height: 16,
@@ -138,10 +242,13 @@ class _MealRegistrationPageState extends State<MealRegistrationPage> {
                               child: PetctElevatedButton(
                                 onPressed: () {
                                   cubit.registrateMeal(
-                                      widget.menuId, widget.meal);
+                                    widget.menuId,
+                                    widget.meal,
+                                    commentController.text,
+                                  );
                                 },
-                                child: const Text(
-                                  'Adicionar ao diário ',
+                                child: Text(
+                                  'add-diary-label'.i18n(),
                                 ),
                               ),
                             ),
@@ -151,9 +258,12 @@ class _MealRegistrationPageState extends State<MealRegistrationPage> {
                           children: [
                             Expanded(
                               child: PetctOutlinedButton(
-                                onPressed: () {},
-                                child: const Text(
-                                  'Cancelar',
+                                onPressed: () {
+                                  homeCubit.initialize();
+                                  Modular.to.pop();
+                                },
+                                child: Text(
+                                  'cancel-label'.i18n(),
                                 ),
                               ),
                             ),
@@ -170,5 +280,9 @@ class _MealRegistrationPageState extends State<MealRegistrationPage> {
         ),
       ),
     );
+  }
+
+  bool _checkSelection(MealItem mealItem) {
+    return mealItem.measurements.first.consumedPortion! > 0;
   }
 }

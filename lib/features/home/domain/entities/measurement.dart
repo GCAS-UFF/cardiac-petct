@@ -81,19 +81,23 @@ extension MeasurementExtension on MeasurementUnity {
 }
 
 class Measurement {
+  final double? consumedPortion;
   final double portion;
   final MeasurementUnity measurementUnity;
 
-  Measurement({
+  Measurement(
+    this.consumedPortion, {
     required this.portion,
     required this.measurementUnity,
   });
 
   Measurement copyWith({
+    double? consumedPortion,
     double? portion,
     MeasurementUnity? measurementUnity,
   }) {
     return Measurement(
+      consumedPortion ?? this.consumedPortion,
       portion: portion ?? this.portion,
       measurementUnity: measurementUnity ?? this.measurementUnity,
     );
@@ -101,6 +105,7 @@ class Measurement {
 
   Map<String, dynamic> toMap() {
     return {
+      'consumedPortion': consumedPortion,
       'portion': portion,
       'measurementUnit': MeasurementExtension.stringFromType(measurementUnity),
     };
