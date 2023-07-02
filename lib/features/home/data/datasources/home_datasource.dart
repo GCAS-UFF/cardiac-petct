@@ -51,20 +51,48 @@ class HomeDatasourceImp implements HomeDatasource {
         for (var i = 0; i < list.length; i++) {
           List<Meal> meals = [];
           List<Food> allowedFood = [];
+          List<Meal> breakFasts = [];
+          List<Meal> morningSnacks = [];
+          List<Meal> lunchs = [];
+          List<Meal> afternoonSnacks = [];
+          List<Meal> dinners = [];
+          List<Meal> suppers = [];
           for (String id in list[i].mealIds) {
             meals.add(await mealDatasource.getMeal(id));
           }
           for (String id in list[i].allowedFoodIds) {
             allowedFood.add(await foodDatasource.getFood(id));
           }
-          List<Meal> breakFasts = [];
           meals.map((e) {
             if (e.type!.mealType == MealTypeEnum.breakfast) {
               breakFasts.add(e);
             }
+            if (e.type!.mealType == MealTypeEnum.morningSnack) {
+              morningSnacks.add(e);
+            }
+            if (e.type!.mealType == MealTypeEnum.lunch) {
+              lunchs.add(e);
+            }
+            if (e.type!.mealType == MealTypeEnum.afternoonSnack) {
+              afternoonSnacks.add(e);
+            }
+            if (e.type!.mealType == MealTypeEnum.dinner) {
+              dinners.add(e);
+            }
+            if (e.type!.mealType == MealTypeEnum.supper) {
+              suppers.add(e);
+            }
           }).toList();
           list[i] = list[i].copyWith(
-              meals: meals, allowedFood: allowedFood, breakFasts: breakFasts);
+            meals: meals,
+            allowedFood: allowedFood,
+            breakFasts: breakFasts,
+            morningSnacks: morningSnacks,
+            lunchs: lunchs,
+            afternoonSnacks: afternoonSnacks,
+            dinners: dinners,
+            suppers: suppers,
+          );
         }
         await homeLocalDatasource.cacheMenu(list.first);
         await homeLocalDatasource.cacheDietList(list.first);
