@@ -1,11 +1,13 @@
 import 'dart:convert';
 
+import 'package:cardiac_petct/features/auth/data/models/exam_settings_model.dart';
 import 'package:cardiac_petct/features/auth/domain/entities/user_entity.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 class UserModel extends UserEntity {
   UserModel(
       {super.id,
+      super.examSettings,
       required super.name,
       required super.email,
       required super.birthdate,
@@ -19,6 +21,7 @@ class UserModel extends UserEntity {
     DateTime? birthdate,
     String? gender,
     bool? anamnesisForm,
+    ExamSettingsModel? examSettings,
   }) {
     return UserModel(
       id: id ?? id,
@@ -27,6 +30,7 @@ class UserModel extends UserEntity {
       birthdate: birthdate ?? this.birthdate,
       gender: gender ?? this.gender,
       anamnesisForm: anamnesisForm ?? this.anamnesisForm,
+      examSettings: examSettings ?? examSettings,
     );
   }
 
@@ -38,18 +42,19 @@ class UserModel extends UserEntity {
       'birthdate': birthdate.millisecondsSinceEpoch,
       'gender': gender,
       'anamnesisForm': anamnesisForm,
+      'examSettings': (examSettings as ExamSettingsModel).toMap(),
     };
   }
 
   factory UserModel.fromMap(Map<String, dynamic> map) {
     return UserModel(
-      id: map['id'],
-      name: map['name'] ?? '',
-      email: map['email'] ?? '',
-      birthdate: DateTime.fromMillisecondsSinceEpoch(map['birthdate']),
-      gender: map['gender'] ?? '',
-      anamnesisForm: map['anamnesisForm'] ?? false,
-    );
+        id: map['id'],
+        name: map['name'] ?? '',
+        email: map['email'] ?? '',
+        birthdate: DateTime.fromMillisecondsSinceEpoch(map['birthdate']),
+        gender: map['gender'] ?? '',
+        anamnesisForm: map['anamnesisForm'] ?? false,
+        examSettings: ExamSettingsModel.fromMap(map['examSettings']));
   }
 
   factory UserModel.fromEntity(UserEntity userEntity) {

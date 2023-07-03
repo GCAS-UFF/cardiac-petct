@@ -12,9 +12,15 @@ class FirebaseNavigationService {
     init();
   }
 
+  late final DatabaseReference userRef;
+
   void init() {
     firebaseAuth = FirebaseAuth.instance;
     firebaseDatabase = FirebaseDatabase.instance;
+    userRef = firebaseDatabase
+        .ref()
+        .child('Users')
+        .child(firebaseAuth.currentUser!.uid);
   }
 
   defineNavigation() {
@@ -23,7 +29,9 @@ class FirebaseNavigationService {
         if (!user.emailVerified) {
           return Modular.to.navigate(FirebaseAutorizatorRouteNames.emailVerify);
         }
-        final isAnamnesisComplete = await checkCompletionAnamnesisForm();
+        final response = await userRef.get();
+        final userData = UserModel.fromDataSnapshot(response);
+        final isAnamnesisComplete = userData.anamnesisForm;
         if (!isAnamnesisComplete) {
           return Modular.to.navigate(FirebaseAutorizatorRouteNames.anamnesis);
         }
@@ -31,15 +39,5 @@ class FirebaseNavigationService {
       }
       return Modular.to.navigate(FirebaseAutorizatorRouteNames.auth);
     });
-  }
-
-  Future<bool> checkCompletionAnamnesisForm() async {
-    final userRef = firebaseDatabase
-        .ref()
-        .child('Users')
-        .child(firebaseAuth.currentUser!.uid);
-    final response = await userRef.get();
-    final userData = UserModel.fromDataSnapshot(response);
-    return userData.anamnesisForm;
   }
 }
