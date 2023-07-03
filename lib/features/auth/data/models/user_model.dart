@@ -5,14 +5,14 @@ import 'package:cardiac_petct/features/auth/domain/entities/user_entity.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 class UserModel extends UserEntity {
-  UserModel(
-      {super.id,
-      super.examSettings,
-      required super.name,
-      required super.email,
-      required super.birthdate,
-      required super.gender,
-      required super.anamnesisForm});
+  UserModel({
+    super.id,
+    super.examSettings,
+    required super.name,
+    required super.email,
+    required super.birthdate,
+    required super.gender,
+  });
 
   UserModel copyWith({
     String? id,
@@ -20,7 +20,6 @@ class UserModel extends UserEntity {
     String? email,
     DateTime? birthdate,
     String? gender,
-    bool? anamnesisForm,
     ExamSettingsModel? examSettings,
   }) {
     return UserModel(
@@ -29,7 +28,6 @@ class UserModel extends UserEntity {
       email: email ?? this.email,
       birthdate: birthdate ?? this.birthdate,
       gender: gender ?? this.gender,
-      anamnesisForm: anamnesisForm ?? this.anamnesisForm,
       examSettings: examSettings ?? examSettings,
     );
   }
@@ -41,8 +39,9 @@ class UserModel extends UserEntity {
       'email': email,
       'birthdate': birthdate.millisecondsSinceEpoch,
       'gender': gender,
-      'anamnesisForm': anamnesisForm,
-      'examSettings': (examSettings as ExamSettingsModel).toMap(),
+      'examSettings': examSettings != null
+          ? (examSettings as ExamSettingsModel).toMap()
+          : examSettings,
     };
   }
 
@@ -53,8 +52,9 @@ class UserModel extends UserEntity {
         email: map['email'] ?? '',
         birthdate: DateTime.fromMillisecondsSinceEpoch(map['birthdate']),
         gender: map['gender'] ?? '',
-        anamnesisForm: map['anamnesisForm'] ?? false,
-        examSettings: ExamSettingsModel.fromMap(map['examSettings']));
+        examSettings: map['examSettings'] != null
+            ? ExamSettingsModel.fromMap(map['examSettings'])
+            : map['examSettings']);
   }
 
   factory UserModel.fromEntity(UserEntity userEntity) {
@@ -64,7 +64,6 @@ class UserModel extends UserEntity {
       email: userEntity.email,
       birthdate: userEntity.birthdate,
       gender: userEntity.gender,
-      anamnesisForm: userEntity.anamnesisForm,
     );
   }
 

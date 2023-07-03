@@ -218,8 +218,7 @@ class _RegistrationPageState extends State<RegistrationPage>
                                         name: nameController.text,
                                         email: emailController.text,
                                         birthdate: birthdate!,
-                                        gender: genderText!,
-                                        anamnesisForm: false);
+                                        gender: genderText!);
                                     cubit.registration(
                                         user, passwordController.text);
                                   }

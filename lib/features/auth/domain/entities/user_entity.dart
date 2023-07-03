@@ -6,7 +6,6 @@ class UserEntity {
   final String email;
   final DateTime birthdate;
   final String gender;
-  final bool anamnesisForm;
   final ExameSettingsEntity? examSettings;
   UserEntity({
     this.id,
@@ -15,6 +14,5 @@ class UserEntity {
     required this.email,
     required this.birthdate,
     required this.gender,
-    required this.anamnesisForm,
   });
 }
