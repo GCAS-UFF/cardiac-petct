@@ -1,0 +1,19 @@
+{
+    "about-exam-title": "Informazioni sull'esame",
+    "fill-info-exam-text": "Inserisci i dati del tuo esame",
+    "exam-date-hour-title": "Data e ora dell'esame",
+    "exam-address": "Luogo dell'esame",
+    "local-hint": "Locale",
+    "date-hint": "Data",
+    "hour-hint": "Ora",
+    "next-label": "Avanti",
+    "select-meals-time-text": "Seleziona gli orari dei pasti",
+    "meals-time-title": "Pasto",
+    "breakfast-hint": "Colazione",
+    "morningsnacks-hint": "Spuntino mattutino",
+    "lunch-hint": "pranzo",
+    "afternoonsnack-hint": "Spuntino pomeridiano",
+    "dinner-hint": "Cena",
+    "supper-hint": "Cena",
+    "done-label": "Fatto"
+}

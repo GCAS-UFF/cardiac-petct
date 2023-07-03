@@ -24,7 +24,7 @@ class _AnamnesisDonePageState extends State<AnamnesisDonePage> {
             bloc: cubit,
             listener: (context, state) {
               if (state.runtimeType == AnamnesisSavedAnamnesisState) {
-                Modular.to.navigate('/home/');
+                Modular.to.navigate('/exam-settings/');
               }
             },
             builder: (context, state) {

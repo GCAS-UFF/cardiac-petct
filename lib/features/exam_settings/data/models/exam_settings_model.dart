@@ -1,10 +1,12 @@
 import 'dart:convert';
 
 import 'package:cardiac_petct/features/exam_settings/domain/entities/exam_settings_entity.dart';
+import 'package:flutter/material.dart';
 
-class ExamSettingsModel extends ExameSettingsEntity {
+class ExamSettingsModel extends ExamSettingsEntity {
   ExamSettingsModel(
       {required super.examDateTime,
+      required super.examHour,
       required super.examAddress,
       required super.breakfastsHour,
       required super.morningSnacksHour,
@@ -13,18 +15,21 @@ class ExamSettingsModel extends ExameSettingsEntity {
       required super.dinnersHour,
       required super.suppersHour});
 
+  @override
   ExamSettingsModel copyWith({
     DateTime? examDateTime,
+    TimeOfDay? examHour,
     String? examAddress,
-    DateTime? breakfastsHour,
-    DateTime? morningSnacksHour,
-    DateTime? lunchsHour,
-    DateTime? afternoonSnacksHour,
-    DateTime? dinnersHour,
-    DateTime? suppersHour,
+    TimeOfDay? breakfastsHour,
+    TimeOfDay? morningSnacksHour,
+    TimeOfDay? lunchsHour,
+    TimeOfDay? afternoonSnacksHour,
+    TimeOfDay? dinnersHour,
+    TimeOfDay? suppersHour,
   }) {
     return ExamSettingsModel(
       examDateTime: examDateTime ?? this.examDateTime,
+      examHour: examHour ?? this.examHour,
       examAddress: examAddress ?? this.examAddress,
       breakfastsHour: breakfastsHour ?? this.breakfastsHour,
       morningSnacksHour: morningSnacksHour ?? this.morningSnacksHour,
@@ -35,32 +40,68 @@ class ExamSettingsModel extends ExameSettingsEntity {
     );
   }
 
+  Map<String, dynamic> _timeOfDayToMap(TimeOfDay time) {
+    return {
+      'hour': time.hour,
+      'minute': time.minute,
+    };
+  }
+
   Map<String, dynamic> toMap() {
     return {
       'examDateTime': examDateTime.millisecondsSinceEpoch,
+      'examHour': _timeOfDayToMap(examHour),
       'examAddress': examAddress,
-      'breakfastsHour': breakfastsHour.millisecondsSinceEpoch,
-      'morningSnacksHour': morningSnacksHour.millisecondsSinceEpoch,
-      'lunchsHour': lunchsHour.millisecondsSinceEpoch,
-      'afternoonSnacksHour': afternoonSnacksHour.millisecondsSinceEpoch,
-      'dinnersHour': dinnersHour.millisecondsSinceEpoch,
-      'suppersHour': suppersHour.millisecondsSinceEpoch,
+      'breakfastsHour': _timeOfDayToMap(breakfastsHour),
+      'morningSnacksHour': _timeOfDayToMap(morningSnacksHour),
+      'lunchsHour': _timeOfDayToMap(lunchsHour),
+      'afternoonSnacksHour': _timeOfDayToMap(afternoonSnacksHour),
+      'dinnersHour': _timeOfDayToMap(dinnersHour),
+      'suppersHour': _timeOfDayToMap(suppersHour),
     };
+  }
+
+  TimeOfDay timeOfDayFromMap(Map<String, dynamic> time) {
+    return TimeOfDay(hour: time['hour'], minute: time['minute']);
   }
 
   factory ExamSettingsModel.fromMap(Map<String, dynamic> map) {
     return ExamSettingsModel(
       examDateTime: DateTime.fromMillisecondsSinceEpoch(map['examDateTime']),
+      examHour: TimeOfDay(
+          hour: map['examHour']['hour'], minute: map['examHour']['minute']),
       examAddress: map['examAddress'] ?? '',
-      breakfastsHour:
-          DateTime.fromMillisecondsSinceEpoch(map['breakfastsHour']),
-      morningSnacksHour:
-          DateTime.fromMillisecondsSinceEpoch(map['morningSnacksHour']),
-      lunchsHour: DateTime.fromMillisecondsSinceEpoch(map['lunchsHour']),
-      afternoonSnacksHour:
-          DateTime.fromMillisecondsSinceEpoch(map['afternoonSnacksHour']),
-      dinnersHour: DateTime.fromMillisecondsSinceEpoch(map['dinnersHour']),
-      suppersHour: DateTime.fromMillisecondsSinceEpoch(map['suppersHour']),
+      breakfastsHour: TimeOfDay(
+          hour: map['breakfastsHour']['hour'],
+          minute: map['breakfastsHour']['minute']),
+      morningSnacksHour: TimeOfDay(
+          hour: map['morningSnacksHour']['hour'],
+          minute: map['morningSnacksHour']['minute']),
+      lunchsHour: TimeOfDay(
+          hour: map['lunchsHour']['hour'], minute: map['lunchsHour']['minute']),
+      afternoonSnacksHour: TimeOfDay(
+          hour: map['afternoonSnacksHour']['hour'],
+          minute: map['afternoonSnacksHour']['minute']),
+      dinnersHour: TimeOfDay(
+          hour: map['dinnersHour']['hour'],
+          minute: map['dinnersHour']['minute']),
+      suppersHour: TimeOfDay(
+          hour: map['suppersHour']['hour'],
+          minute: map['suppersHour']['minute']),
+    );
+  }
+
+  factory ExamSettingsModel.fromEntity(ExamSettingsEntity entity) {
+    return ExamSettingsModel(
+      afternoonSnacksHour: entity.afternoonSnacksHour,
+      dinnersHour: entity.dinnersHour,
+      examAddress: entity.examAddress,
+      examHour: entity.examHour,
+      lunchsHour: entity.lunchsHour,
+      examDateTime: entity.examDateTime,
+      morningSnacksHour: entity.morningSnacksHour,
+      breakfastsHour: entity.breakfastsHour,
+      suppersHour: entity.suppersHour,
     );
   }
 

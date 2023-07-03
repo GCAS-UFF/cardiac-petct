@@ -9,10 +9,10 @@ class ExamSettingsRepositoryImp implements ExamSettingsRepository {
   ExamSettingsRepositoryImp(this.datasource);
 
   @override
-  Future<Either<Exception, void>> call(
-      ExameSettingsEntity exameSettings) async {
+  Future<Either<Exception, void>> cacheExamSettings(
+      ExamSettingsEntity exameSettings) async {
     try {
-      final response = await datasource(exameSettings);
+      final response = await datasource.cacheExamSettings(exameSettings);
       return Right(response);
     } catch (e) {
       return Left(Exception(e));
