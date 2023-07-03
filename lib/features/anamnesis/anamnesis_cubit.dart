@@ -13,7 +13,7 @@ class AnamnesisCubit extends Cubit<AnamnesisState> {
   Future<void> sendAnamnesisForm() async {
     final result = await sendAnamnesisAnswersUsecase(anamnesisEntity);
     result.fold((l) => emit(AnamnesisErrorState(l)),
-        (r) => emit(AnamnesisSuccessState()));
+        (r) => emit(AnamnesisSavedAnamnesisState()));
   }
 }
 
@@ -24,6 +24,8 @@ class AnamnesisInitialState extends AnamnesisState {}
 class AnamnesisLoadingState extends AnamnesisState {}
 
 class AnamnesisSuccessState extends AnamnesisState {}
+
+class AnamnesisSavedAnamnesisState extends AnamnesisState {}
 
 class AnamnesisErrorState extends AnamnesisState {
   final Failure failure;

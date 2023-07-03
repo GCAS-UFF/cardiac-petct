@@ -1,0 +1,19 @@
+{
+    "about-exam-title": "Sobre o exame",
+    "fill-info-exam-text": "Digite os dados dos seu exame",
+    "exam-date-hour-title": "Data e hora do exame",
+    "exam-address": "Local do exame",
+    "local-hint": "Local",
+    "date-hint": "Data",
+    "hour-hint": "Hora",
+    "next-label": "Próximo",
+    "select-meals-time-text": "Selecione os horários de suas refeições",
+    "meals-time-title": "Horário das refeições",
+    "breakfast-hint": "Café da manhã",
+    "morningsnacks-hint": "Lanche da manhã",
+    "lunch-hint": "Almoço",
+    "afternoonsnack-hint": "Lanche da tarde",
+    "dinner-hint": "Jantar",
+    "supper-hint": "Ceia",
+    "done-label": "Pronto"
+}
