@@ -6,7 +6,7 @@ class UserEntity {
   final String email;
   final DateTime birthdate;
   final String gender;
-  final ExameSettingsEntity? examSettings;
+  final ExamSettingsEntity? examSettings;
   UserEntity({
     this.id,
     this.examSettings,

@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:cardiac_petct/features/auth/data/models/exam_settings_model.dart';
+import 'package:cardiac_petct/features/exam_settings/data/models/exam_settings_model.dart';
 import 'package:cardiac_petct/features/auth/domain/entities/user_entity.dart';
 import 'package:firebase_database/firebase_database.dart';
 

@@ -4,7 +4,6 @@ import 'package:cardiac_petct/features/auth/data/models/user_model.dart';
 import 'package:cardiac_petct/src/services/constants/firebase_autorizator_route_names.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class FirebaseNavigationService {
@@ -47,16 +46,8 @@ class FirebaseNavigationService {
           }
           final hasExamSettings = userData.examSettings != null;
           if (!hasExamSettings) {
-            Modular.to.push(
-              MaterialPageRoute(
-                builder: (context) => Center(
-                  child: Container(
-                    color: Colors.red,
-                  ),
-                ),
-              ),
-            );
-            return;
+            return Modular.to
+                .navigate(FirebaseAutorizatorRouteNames.examSettings);
           }
           return Modular.to.navigate(FirebaseAutorizatorRouteNames.home);
         }
@@ -69,15 +60,7 @@ class FirebaseNavigationService {
       }
       final hasExamSettings = userCached.examSettings != null;
       if (!hasExamSettings) {
-        return Modular.to.push(
-          MaterialPageRoute(
-            builder: (context) => Center(
-              child: Container(
-                color: Colors.red,
-              ),
-            ),
-          ),
-        );
+        return Modular.to.navigate(FirebaseAutorizatorRouteNames.examSettings);
       }
       return Modular.to.navigate(FirebaseAutorizatorRouteNames.home);
     }

@@ -3,7 +3,7 @@ import 'package:cardiac_petct/features/exam_settings/domain/repositories/exam_se
 import 'package:dartz/dartz.dart';
 
 abstract class SetExamSettingsUsecase {
-  Future<Either<Exception, void>> call(ExameSettingsEntity examSettings);
+  Future<Either<Exception, void>> call(ExamSettingsEntity examSettings);
 }
 
 class SetExamSettingsUsecaseImp implements SetExamSettingsUsecase {
@@ -12,7 +12,7 @@ class SetExamSettingsUsecaseImp implements SetExamSettingsUsecase {
   SetExamSettingsUsecaseImp(this.repository);
 
   @override
-  Future<Either<Exception, void>> call(ExameSettingsEntity examSettings) async {
-    return await repository(examSettings);
+  Future<Either<Exception, void>> call(ExamSettingsEntity examSettings) async {
+    return await repository.cacheExamSettings(examSettings);
   }
 }
