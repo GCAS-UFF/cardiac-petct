@@ -7,6 +7,7 @@ import 'package:cardiac_petct/features/anamnesis/presentation/pages/anamnesis_fo
 import 'package:cardiac_petct/features/auth/auth_module.dart';
 import 'package:cardiac_petct/features/auth/data/datasources/auth_local_datasource.dart';
 import 'package:cardiac_petct/features/auth/submodules/email_verify/email_verify_module.dart';
+import 'package:cardiac_petct/features/exam_settings/data/datasources/exam_settings_datasource.dart';
 import 'package:cardiac_petct/features/exam_settings/exam_settings_module.dart';
 import 'package:cardiac_petct/features/exam_settings/pages/meals_time_page.dart';
 import 'package:cardiac_petct/features/home/data/datasources/food_classification_remote_datasource_imp.dart';
@@ -45,7 +46,7 @@ class AppModule extends Module {
         Bind.lazySingleton((i) => HomeLocalDatasourceImp()),
         Bind.lazySingleton((i) => AppConfigLocalDataSourceImp()),
         Bind.lazySingleton(
-          (i) => FirebaseNavigationService(i(), i()),
+          (i) => FirebaseNavigationService(i(), i(), i()),
         ),
         Bind.lazySingleton((i) => NetworkInfoImp(InternetConnectionChecker())),
         Bind.lazySingleton((i) => AnamnesisCubit(i())),
@@ -53,6 +54,7 @@ class AppModule extends Module {
         Bind.lazySingleton((i) => AppController(i())),
         Bind.lazySingleton((i) => AuthLocalDatasourceImp()),
         Bind.lazySingleton((i) => AnamnesisLocalDatasourceImp()),
+        Bind.lazySingleton((i) => ExamSettingsDatasourceImp()),
       ];
   @override
   List<ModularRoute> get routes => [
