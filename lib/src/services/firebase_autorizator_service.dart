@@ -1,6 +1,7 @@
 import 'package:cardiac_petct/features/anamnesis/data/datasources/anamnesis_local_datasource.dart';
 import 'package:cardiac_petct/features/auth/data/datasources/auth_local_datasource.dart';
 import 'package:cardiac_petct/features/auth/data/models/user_model.dart';
+import 'package:cardiac_petct/features/exam_settings/data/datasources/exam_settings_datasource.dart';
 import 'package:cardiac_petct/src/services/constants/firebase_autorizator_route_names.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -11,9 +12,10 @@ class FirebaseNavigationService {
   late final FirebaseDatabase firebaseDatabase;
   final AuthLocalDatasource authLocalDatasource;
   final AnamnesisLocalDatasource anamnesisLocalDatasource;
+  final ExamSettingsDatasource examSettingsDatasource;
 
-  FirebaseNavigationService(
-      this.authLocalDatasource, this.anamnesisLocalDatasource) {
+  FirebaseNavigationService(this.authLocalDatasource,
+      this.anamnesisLocalDatasource, this.examSettingsDatasource) {
     init();
   }
 
@@ -44,8 +46,9 @@ class FirebaseNavigationService {
           if (anamnesis == null) {
             return Modular.to.navigate(FirebaseAutorizatorRouteNames.anamnesis);
           }
-          final hasExamSettings = userData.examSettings != null;
-          if (!hasExamSettings) {
+          final hasExamSettings =
+              await examSettingsDatasource.getExamSettings();
+          if (hasExamSettings == null) {
             return Modular.to
                 .navigate(FirebaseAutorizatorRouteNames.examSettings);
           }
@@ -58,8 +61,8 @@ class FirebaseNavigationService {
       if (anamnesis == null) {
         return Modular.to.navigate(FirebaseAutorizatorRouteNames.anamnesis);
       }
-      final hasExamSettings = userCached.examSettings != null;
-      if (!hasExamSettings) {
+      final hasExamSettings = await examSettingsDatasource.getExamSettings();
+      if (hasExamSettings == null) {
         return Modular.to.navigate(FirebaseAutorizatorRouteNames.examSettings);
       }
       return Modular.to.navigate(FirebaseAutorizatorRouteNames.home);
