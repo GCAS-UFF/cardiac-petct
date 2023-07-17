@@ -72,15 +72,17 @@ class AnamnesisModel extends AnamnesisEntity {
       weight: map['weight']?.toDouble() ?? 0.0,
       height: map['height']?.toDouble() ?? 0.0,
       smokes: map['smokes'] ?? false,
-      smokesHowLong: map['smokesHowLong']?.toInt(),
-      cigarettesPerDay: map['cigarettesPerDay']?.toInt(),
+      smokesHowLong: map['smokesHowLong']?.toInt() ?? 0,
+      cigarettesPerDay: map['cigarettesPerDay']?.toInt() ?? 0,
       drinks: map['drinks'] ?? false,
-      drinksType: map['drinksType'],
-      drinkFrequency: map['drinkFrequency'],
+      drinksType: map['drinksType'] ?? '',
+      drinkFrequency: map['drinkFrequency'] ?? '',
       doPhysicalExercisesPerDay: map['doPhysicalExercisesPerDay'] ?? false,
-      physicalExerciseFrequency: map['physicalExerciseFrequency'],
+      physicalExerciseFrequency: map['physicalExerciseFrequency'] ?? '',
       chronicDiseaseAndCommorbities:
-          List<String>.from(map['chronicDiseaseAndCommorbities']),
+          map['chronicDiseaseAndCommorbities'] != null
+              ? List<String>.from(map['chronicDiseaseAndCommorbities'])
+              : [],
     );
   }
 

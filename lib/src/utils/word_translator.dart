@@ -4,6 +4,7 @@ import 'dart:ui' as ui;
 
 class WordTranslator {
   static String wordByDeviceLocale(TranslatedWord translatedWord) {
+    // ignore: deprecated_member_use
     final languageCode = ui.window.locale.languageCode;
     switch (languageCode) {
       case 'pt':

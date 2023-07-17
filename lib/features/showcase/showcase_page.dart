@@ -118,9 +118,9 @@ class _ShowcasePageState extends State<ShowcasePage> {
                       Expanded(
                         child: PetctElevatedButton(
                           onPressed: () {},
-                          child: Row(
+                          child: const Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: const [
+                            children: [
                               Icon(
                                 Icons.arrow_forward,
                                 color: Colors.transparent,

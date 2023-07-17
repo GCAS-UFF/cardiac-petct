@@ -6,6 +6,10 @@ import 'package:cardiac_petct/features/anamnesis/presentation/pages/anamnesis_do
 import 'package:cardiac_petct/features/anamnesis/presentation/pages/anamnesis_form_page.dart';
 import 'package:cardiac_petct/features/auth/auth_module.dart';
 import 'package:cardiac_petct/features/auth/data/datasources/auth_local_datasource.dart';
+import 'package:cardiac_petct/features/auth/data/repositories/auth_repository_imp.dart';
+import 'package:cardiac_petct/features/auth/domain/usecases/confirm_email_verified_usecase/confirm_email_verified_imp.dart';
+import 'package:cardiac_petct/features/auth/domain/usecases/send_email_verification_usecase/send_email_verification_usecase_imp.dart';
+import 'package:cardiac_petct/features/auth/submodules/email_verify/email_verify_cubit.dart';
 import 'package:cardiac_petct/features/auth/submodules/email_verify/email_verify_module.dart';
 import 'package:cardiac_petct/features/exam_settings/data/datasources/exam_settings_datasource.dart';
 import 'package:cardiac_petct/features/exam_settings/exam_settings_module.dart';
@@ -55,6 +59,12 @@ class AppModule extends Module {
         Bind.lazySingleton((i) => AuthLocalDatasourceImp()),
         Bind.lazySingleton((i) => AnamnesisLocalDatasourceImp()),
         Bind.lazySingleton((i) => ExamSettingsDatasourceImp()),
+        Bind.lazySingleton((i) => AuthLocalDatasourceImp()),
+        Bind.lazySingleton((i) => EmailVerifyCubit(i(), i())),
+        Bind.lazySingleton((i) => ConfirmEmailVerifiedUsecaseImp(i())),
+        Bind.lazySingleton((i) => SendEmailVerificationUsecaseImp(i())),
+        Bind.lazySingleton((i) => AuthRepositoryImp(i(), i())),
+        Bind.lazySingleton((i) => NetworkInfoImp(i()))
       ];
   @override
   List<ModularRoute> get routes => [

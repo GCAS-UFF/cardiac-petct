@@ -15,96 +15,98 @@ class PetctAboutDietDialog extends StatelessWidget {
           Radius.circular(8.0),
         ),
       ),
-      content: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                FeatherIcons.info,
-                color: Theme.of(context).colorScheme.primary,
-              ),
-              const SizedBox(
-                width: 8,
-              ),
-              Text(
-                'about-diet-title'.i18n(),
-                style: Theme.of(context)
-                    .textTheme
-                    .titleMedium!
-                    .copyWith(fontWeight: FontWeight.w300, fontSize: 20),
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 16,
-          ),
-          RichText(
-            text: TextSpan(
+      content: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                TextSpan(
-                  text: 'about-diet-text-one'.i18n(),
+                Icon(
+                  FeatherIcons.info,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+                const SizedBox(
+                  width: 8,
+                ),
+                Text(
+                  'about-diet-title'.i18n(),
                   style: Theme.of(context)
                       .textTheme
                       .titleMedium!
-                      .copyWith(fontWeight: FontWeight.w300),
-                ),
-                TextSpan(
-                  text: ' ${'about-diet-text-two'.i18n()} ',
-                  style: Theme.of(context).textTheme.titleMedium,
-                ),
-                TextSpan(
-                  text: 'about-diet-text-three'.i18n(),
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleMedium!
-                      .copyWith(fontWeight: FontWeight.w300),
+                      .copyWith(fontWeight: FontWeight.w300, fontSize: 20),
                 ),
               ],
             ),
-          ),
-          const SizedBox(
-            height: 16,
-          ),
-          Text('about-diet-text-four'.i18n(),
-              style: Theme.of(context).textTheme.titleMedium),
-          Text(
-            'about-diet-text-five'.i18n(),
-            style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                  fontWeight: FontWeight.w300,
-                ),
-          ),
-          const SizedBox(
-            height: 16,
-          ),
-          Text('about-diet-text-six'.i18n(),
-              style: Theme.of(context).textTheme.titleMedium),
-          Text(
-            'about-diet-text-seven'.i18n(),
-            style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                  fontWeight: FontWeight.w300,
-                ),
-          ),
-          const SizedBox(
-            height: 16,
-          ),
-          Row(
-            children: [
-              Expanded(
-                child: PetctOutlinedButton(
-                  onPressed: () {
-                    Modular.to.pop();
-                  },
-                  child: Text(
-                    'ok-label'.i18n(),
+            const SizedBox(
+              height: 16,
+            ),
+            RichText(
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                    text: 'about-diet-text-one'.i18n(),
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleMedium!
+                        .copyWith(fontWeight: FontWeight.w300),
+                  ),
+                  TextSpan(
+                    text: ' ${'about-diet-text-two'.i18n()} ',
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                  TextSpan(
+                    text: 'about-diet-text-three'.i18n(),
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleMedium!
+                        .copyWith(fontWeight: FontWeight.w300),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            Text('about-diet-text-four'.i18n(),
+                style: Theme.of(context).textTheme.titleMedium),
+            Text(
+              'about-diet-text-five'.i18n(),
+              style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                    fontWeight: FontWeight.w300,
+                  ),
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            Text('about-diet-text-six'.i18n(),
+                style: Theme.of(context).textTheme.titleMedium),
+            Text(
+              'about-diet-text-seven'.i18n(),
+              style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                    fontWeight: FontWeight.w300,
+                  ),
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: PetctOutlinedButton(
+                    onPressed: () {
+                      Modular.to.pop();
+                    },
+                    child: Text(
+                      'ok-label'.i18n(),
+                    ),
                   ),
                 ),
-              ),
-            ],
-          ),
-        ],
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

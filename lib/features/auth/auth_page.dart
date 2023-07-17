@@ -21,10 +21,10 @@ class _AuthPageState extends State<AuthPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Row(
+        title: const Row(
           mainAxisAlignment: MainAxisAlignment.end,
           mainAxisSize: MainAxisSize.max,
-          children: const [
+          children: [
             PetctSwitchThemeMode(),
           ],
         ),
@@ -39,9 +39,10 @@ class _AuthPageState extends State<AuthPage> {
             children: [
               PetctLogoTitled(
                 title: 'app-name-title'.i18n(),
+                size: 88,
               ),
               const SizedBox(
-                height: 68,
+                height: 36,
               ),
               Text(
                 'create-account-text'.i18n(),
@@ -107,7 +108,7 @@ class _AuthPageState extends State<AuthPage> {
                     const SizedBox(
                       width: 8,
                     ),
-                     Text(
+                    Text(
                       'about-diet-label'.i18n(),
                     ),
                     const Icon(

@@ -65,15 +65,13 @@ class _MealOptionsPageState extends State<MealOptionsPage>
           }
           if (state.runtimeType == MealOptionsSuccessState) {
             final successState = state as MealOptionsSuccessState;
-            return Container(
-              width: double.infinity,
-              height: double.infinity,
-              padding: const EdgeInsets.only(top: 22, left: 22, right: 22),
-              child: DefaultTabController(
-                length: successState.options.length,
+            return DefaultTabController(
+              length: successState.options.length,
+              child: Container(
+                width: double.infinity,
+                padding: const EdgeInsets.only(top: 22, left: 22, right: 22),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.max,
                   children: [
                     Text(
                       '${WordTranslator.wordByDeviceLocale(
@@ -124,75 +122,77 @@ class _MealOptionsPageState extends State<MealOptionsPage>
                       child: TabBarView(
                         children: List.generate(
                           successState.options.length,
-                          (index) => Column(
-                            children: [
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: Text(
-                                      StringFormatter.listMealItemsNames(
-                                          successState.options[index].items!),
-                                      textAlign: TextAlign.center,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium!
-                                          .copyWith(fontSize: 16),
+                          (index) => SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                        StringFormatter.listMealItemsNames(
+                                            successState.options[index].items!),
+                                        textAlign: TextAlign.center,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium!
+                                            .copyWith(fontSize: 16),
+                                      ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 22),
-                                child: Image.network(
-                                  'https://www.pngkey.com/png/full/947-9471813_tilpia-empanada-imagens-de-pratos-de-comida-png.png',
-                                  width: 160,
+                                  ],
                                 ),
-                              ),
-                              const SizedBox(
-                                height: 32,
-                              ),
-                              PetctItemQuantity(
-                                  items: successState.options[index].items!),
-                              const SizedBox(
-                                height: 32,
-                              ),
-                              Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                        child: PetctElevatedButton(
-                                          onPressed: () {
-                                            cubit.setMealOption(
-                                              widget.menuId,
-                                              successState.options[index],
-                                            );
-                                          },
-                                          child: Text(
-                                            'choose-plate-title'.i18n(),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 22),
+                                  child: Image.network(
+                                    'https://www.pngkey.com/png/full/947-9471813_tilpia-empanada-imagens-de-pratos-de-comida-png.png',
+                                    width: 160,
                                   ),
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                        child: PetctOutlinedButton(
-                                          onPressed: () {
-                                            Modular.to.pop();
-                                          },
-                                          child: Text(
-                                            'cancel-label'.i18n(),
+                                ),
+                                const SizedBox(
+                                  height: 32,
+                                ),
+                                PetctItemQuantity(
+                                    items: successState.options[index].items!),
+                                const SizedBox(
+                                  height: 32,
+                                ),
+                                Column(
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          child: PetctElevatedButton(
+                                            onPressed: () {
+                                              cubit.setMealOption(
+                                                widget.menuId,
+                                                successState.options[index],
+                                              );
+                                            },
+                                            child: Text(
+                                              'choose-plate-title'.i18n(),
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    ],
-                                  )
-                                ],
-                              ),
-                            ],
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          child: PetctOutlinedButton(
+                                            onPressed: () {
+                                              Modular.to.pop();
+                                            },
+                                            child: Text(
+                                              'cancel-label'.i18n(),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
