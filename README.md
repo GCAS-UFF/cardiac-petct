@@ -1,16 +1,32 @@
-# cardiac_petct
+# App Endocardite
 
-A new Flutter project.
+![Screenshot](assets/images/app_endocardite.png)
 
-## Getting Started
+Project aims to provide a specific diet with calories counted for a medical examination. In the application it is possible to register the meals made and the amount of food ingested. In addition to following the calendar and receiving information about the exam.
 
-This project is a starting point for a Flutter application.
+## Technologies Used
+- Flutter
+- Dart
+- Cubit
+- Modular
+- Firebase
+- SharedPreferences
 
-A few resources to get you started if this is your first Flutter project:
+## Installation and Usage
+To install and use the project, follow these steps:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- Make sure you have the Flutter SDK installed on your development environment.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Clone this repository to your local environment.
+`https://github.com/GCAS-UFF/cardiac_petct.git`
+
+- Navigate to the project directory.
+`cd cardiac_petct`
+
+- Run the command to fetch the necessary dependencies.
+`flutter pub get`
+
+- Start the application on an emulator or connected device.
+`flutter run`
+
+You can now explore the App Endocardite.
