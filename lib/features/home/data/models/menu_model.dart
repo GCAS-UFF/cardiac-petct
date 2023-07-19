@@ -18,7 +18,8 @@ class MenuModel extends Menu {
     super.lunchs,
     super.afternoonSnacks,
     super.dinners,
-    super.suppers, {
+    super.suppers,
+    super.dietDay, {
     required super.allowedFoodIds,
     required super.mealIds,
     required super.country,
@@ -37,6 +38,7 @@ class MenuModel extends Menu {
     List<Meal>? suppers,
     List<String>? allowedFoodIds,
     List<String>? mealIds,
+    DateTime? dietDay,
     String? country,
     int? durationInDays,
   }) {
@@ -50,6 +52,7 @@ class MenuModel extends Menu {
       afternoonSnacks ?? this.afternoonSnacks,
       dinners ?? this.dinners,
       suppers ?? this.suppers,
+      dietDay ?? this.dietDay,
       allowedFoodIds: allowedFoodIds ?? this.allowedFoodIds,
       mealIds: mealIds ?? this.mealIds,
       country: country ?? this.country,
@@ -118,6 +121,7 @@ class MenuModel extends Menu {
               map['suppers']?.map((x) => MealModel.fromMap(x)),
             )
           : [],
+      null,
       allowedFoodIds: (map['allowedFoods'] != null)
           ? List<String>.from(map['allowedFoods'])
           : [],

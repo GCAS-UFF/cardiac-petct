@@ -3,10 +3,10 @@ import 'package:cardiac_petct/src/ui/petct_done_meal_card.dart';
 import 'package:cardiac_petct/src/ui/petct_late_meal_card.dart';
 import 'package:cardiac_petct/src/ui/petct_waiting_meal_card.dart';
 import 'package:cardiac_petct/src/utils/date_formatter.dart';
+import 'package:cardiac_petct/src/utils/string_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:localization/localization.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -64,30 +64,11 @@ class _HomePageState extends State<HomePage>
                     ),
                     labelColor: Theme.of(context).colorScheme.onPrimary,
                     controller: tabController,
-                    tabs: [
-                      Tab(
+                    tabs: List.generate(
+                      success.menu.length,
+                      (index) => Tab(
                         child: Row(
-                          children: [
-                            Expanded(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    DateFormatter.dateFormat(DateTime.now()),
-                                    style: const TextStyle(fontSize: 12),
-                                  ),
-                                  Text(
-                                    'first-day-tab'.i18n(),
-                                    style: const TextStyle(fontSize: 12),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Tab(
-                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Expanded(
                               child: Column(
@@ -95,15 +76,14 @@ class _HomePageState extends State<HomePage>
                                 children: [
                                   Text(
                                     DateFormatter.dateFormat(
-                                      DateTime.now().add(
-                                        const Duration(days: 1),
-                                      ),
-                                    ),
+                                        success.menu[index].dietDay!),
                                     style: const TextStyle(fontSize: 12),
+                                    textAlign: TextAlign.center,
                                   ),
                                   Text(
-                                    'second-day-tab'.i18n(),
+                                    StringFormatter.intToOrdinal(index + 1),
                                     style: const TextStyle(fontSize: 12),
+                                    textAlign: TextAlign.center,
                                   ),
                                 ],
                               ),
@@ -111,32 +91,7 @@ class _HomePageState extends State<HomePage>
                           ],
                         ),
                       ),
-                      Tab(
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    DateFormatter.dateFormat(
-                                      DateTime.now().add(
-                                        const Duration(days: 2),
-                                      ),
-                                    ),
-                                    style: const TextStyle(fontSize: 12),
-                                  ),
-                                  Text(
-                                    'third-day-tab'.i18n(),
-                                    style: const TextStyle(fontSize: 12),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
                   Expanded(
                     child: TabBarView(

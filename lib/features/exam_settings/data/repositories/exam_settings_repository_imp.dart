@@ -18,4 +18,17 @@ class ExamSettingsRepositoryImp implements ExamSettingsRepository {
       return Left(Exception(e));
     }
   }
+
+  @override
+  Future<Either<Exception, ExamSettingsEntity>> getExamSettings() async {
+    try {
+      final response = await datasource.getExamSettings();
+      if (response == null) {
+        return Left(Exception());
+      }
+      return Right(response);
+    } catch (e) {
+      return Left(Exception(e));
+    }
+  }
 }

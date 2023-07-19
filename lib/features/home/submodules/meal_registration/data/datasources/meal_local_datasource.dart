@@ -37,6 +37,61 @@ class MealLocalDatasourceImp implements MealLocalDatasource {
               );
         }
       }
+      if (dietDays[i].id == menuId) {
+        if (meal.type!.mealType == MealTypeEnum.morningSnack) {
+          dietDays[i].morningSnacks!.clear();
+          dietDays[i].morningSnacks!.add(
+                mealModel.copyWith(
+                  isRegistered: true,
+                  comment: comment,
+                ),
+              );
+        }
+      }
+      if (dietDays[i].id == menuId) {
+        if (meal.type!.mealType == MealTypeEnum.lunch) {
+          dietDays[i].lunchs!.clear();
+          dietDays[i].lunchs!.add(
+                mealModel.copyWith(
+                  isRegistered: true,
+                  comment: comment,
+                ),
+              );
+        }
+      }
+      if (dietDays[i].id == menuId) {
+        if (meal.type!.mealType == MealTypeEnum.afternoonSnack) {
+          dietDays[i].afternoonSnacks!.clear();
+          dietDays[i].afternoonSnacks!.add(
+                mealModel.copyWith(
+                  isRegistered: true,
+                  comment: comment,
+                ),
+              );
+        }
+      }
+      if (dietDays[i].id == menuId) {
+        if (meal.type!.mealType == MealTypeEnum.dinner) {
+          dietDays[i].dinners!.clear();
+          dietDays[i].dinners!.add(
+                mealModel.copyWith(
+                  isRegistered: true,
+                  comment: comment,
+                ),
+              );
+        }
+      }
+      if (dietDays[i].id == menuId) {
+        if (meal.type!.mealType == MealTypeEnum.supper) {
+          dietDays[i].suppers!.clear();
+          dietDays[i].suppers!.add(
+                mealModel.copyWith(
+                  isRegistered: true,
+                  comment: comment,
+                ),
+              );
+        }
+      }
     }
     await prefs.setString('dietDays', jsonEncode(dietDays));
   }

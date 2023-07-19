@@ -64,7 +64,7 @@ class AppModule extends Module {
         Bind.lazySingleton((i) => ConfirmEmailVerifiedUsecaseImp(i())),
         Bind.lazySingleton((i) => SendEmailVerificationUsecaseImp(i())),
         Bind.lazySingleton((i) => AuthRepositoryImp(i(), i())),
-        Bind.lazySingleton((i) => NetworkInfoImp(i()))
+        Bind.lazySingleton((i) => NetworkInfoImp(i())),
       ];
   @override
   List<ModularRoute> get routes => [

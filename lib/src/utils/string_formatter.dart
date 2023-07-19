@@ -1,5 +1,6 @@
 import 'package:cardiac_petct/features/home/domain/entities/meal_item.dart';
 import 'package:cardiac_petct/src/utils/word_translator.dart';
+import 'package:localization/localization.dart';
 
 class StringFormatter {
   static String capitlize(String? value) {
@@ -34,5 +35,22 @@ class StringFormatter {
 
   static String removeDecimalZeroFormat(double n) {
     return n.toStringAsFixed(n.truncateToDouble() == n ? 0 : 1);
+  }
+
+  static String intToOrdinal(int value) {
+    switch (value) {
+      case 1:
+        return 'first-day-tab'.i18n();
+      case 2:
+        return 'second-day-tab'.i18n();
+      case 3:
+        return 'third-day-tab'.i18n();
+      case 4:
+        return 'fourth-day-tab'.i18n();
+      case 5:
+        return 'fifth-day-tab'.i18n();
+      default:
+        return '';
+    }
   }
 }
