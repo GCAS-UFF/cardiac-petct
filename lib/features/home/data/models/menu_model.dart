@@ -1,12 +1,12 @@
 import 'dart:convert';
-
-import 'package:cardiac_petct/features/home/data/models/food_model.dart';
-import 'package:cardiac_petct/features/home/data/models/meal_model.dart';
 import 'package:flutter/foundation.dart';
-
 import 'package:cardiac_petct/features/home/domain/entities/food.dart';
 import 'package:cardiac_petct/features/home/domain/entities/meal.dart';
 import 'package:cardiac_petct/features/home/domain/entities/menu.dart';
+import 'package:cardiac_petct/features/home/data/models/food_model.dart';
+import 'package:cardiac_petct/features/home/data/models/meal_model.dart';
+
+
 
 class MenuModel extends Menu {
   MenuModel(
@@ -25,7 +25,7 @@ class MenuModel extends Menu {
     required super.country,
     required super.durationInDays,
   });
-
+  @override
   MenuModel copyWith({
     String? id,
     List<Food>? allowedFood,

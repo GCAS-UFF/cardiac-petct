@@ -1,12 +1,9 @@
-import 'package:cardiac_petct/features/home/home_cubit.dart';
-import 'package:cardiac_petct/src/ui/petct_done_meal_card.dart';
-import 'package:cardiac_petct/src/ui/petct_late_meal_card.dart';
-import 'package:cardiac_petct/src/ui/petct_waiting_meal_card.dart';
-import 'package:cardiac_petct/src/utils/date_formatter.dart';
-import 'package:cardiac_petct/src/utils/string_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:cardiac_petct/features/home/home_cubit.dart';
+import 'package:cardiac_petct/src/utils/date_formatter.dart';
+import 'package:cardiac_petct/src/utils/string_formatter.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -105,145 +102,54 @@ class _HomePageState extends State<HomePage>
                                         day.breakFasts!.isNotEmpty)
                                     ? Padding(
                                         padding: const EdgeInsets.only(top: 22),
-                                        child: Column(
-                                          children: [
-                                            (day.breakFasts!.first.isRegistered)
-                                                ? PetctDoneMealCard(
-                                                    meal: day.breakFasts!.first,
-                                                    mealType: day.breakFasts!
-                                                        .first.type!,
-                                                    menuId: day.id!,
-                                                  )
-                                                : PetctLateMealCard(
-                                                    meal: day.breakFasts!.first,
-                                                    mealType: day.breakFasts!
-                                                        .first.type!,
-                                                    menuId: day.id!,
-                                                  ),
-                                          ],
-                                        ),
-                                      )
+                                        child: cubit.chooseMealCard(
+                                            day.breakFasts!.first,
+                                            day.id!,
+                                            cubit.isLate(day)))
                                     : Container(),
                                 (day.morningSnacks != null &&
                                         day.morningSnacks!.isNotEmpty)
                                     ? Padding(
                                         padding: const EdgeInsets.only(top: 22),
-                                        child: Column(
-                                          children: [
-                                            (day.morningSnacks!.first
-                                                    .isRegistered)
-                                                ? PetctDoneMealCard(
-                                                    meal: day
-                                                        .morningSnacks!.first,
-                                                    mealType: day.morningSnacks!
-                                                        .first.type!,
-                                                    menuId: day.id!,
-                                                  )
-                                                : PetctLateMealCard(
-                                                    meal: day
-                                                        .morningSnacks!.first,
-                                                    mealType: day.morningSnacks!
-                                                        .first.type!,
-                                                    menuId: day.id!,
-                                                  ),
-                                          ],
-                                        ),
+                                        child: cubit.chooseMealCard(
+                                            day.morningSnacks!.first,
+                                            day.id!,
+                                            cubit.isLate(day)),
                                       )
                                     : Container(),
                                 (day.lunchs != null && day.lunchs!.isNotEmpty)
                                     ? Padding(
                                         padding: const EdgeInsets.only(top: 22),
-                                        child: Column(
-                                          children: [
-                                            (day.lunchs!.first.isRegistered)
-                                                ? PetctDoneMealCard(
-                                                    meal: day.lunchs!.first,
-                                                    mealType:
-                                                        day.lunchs!.first.type!,
-                                                    menuId: day.id!,
-                                                  )
-                                                : PetctWaitingMealCard(
-                                                    meal: day.lunchs!.first,
-                                                    mealType:
-                                                        day.lunchs!.first.type!,
-                                                    menuId: day.id!,
-                                                  ),
-                                          ],
-                                        ),
+                                        child: cubit.chooseMealCard(
+                                            day.lunchs!.first, day.id!, cubit.isLate(day)),
                                       )
                                     : Container(),
                                 (day.afternoonSnacks != null &&
                                         day.afternoonSnacks!.isNotEmpty)
                                     ? Padding(
                                         padding: const EdgeInsets.only(top: 22),
-                                        child: Column(
-                                          children: [
-                                            (day.afternoonSnacks!.first
-                                                    .isRegistered)
-                                                ? PetctDoneMealCard(
-                                                    meal: day
-                                                        .afternoonSnacks!.first,
-                                                    mealType: day
-                                                        .afternoonSnacks!
-                                                        .first
-                                                        .type!,
-                                                    menuId: day.id!,
-                                                  )
-                                                : PetctWaitingMealCard(
-                                                    meal: day
-                                                        .afternoonSnacks!.first,
-                                                    mealType: day
-                                                        .afternoonSnacks!
-                                                        .first
-                                                        .type!,
-                                                    menuId: day.id!,
-                                                  ),
-                                          ],
-                                        ),
+                                        child: cubit.chooseMealCard(
+                                            day.afternoonSnacks!.first,
+                                            day.id!,
+                                            cubit.isLate(day)),
                                       )
                                     : Container(),
                                 (day.dinners != null && day.dinners!.isNotEmpty)
                                     ? Padding(
                                         padding: const EdgeInsets.only(top: 22),
-                                        child: Column(
-                                          children: [
-                                            (day.dinners!.first.isRegistered)
-                                                ? PetctDoneMealCard(
-                                                    meal: day.dinners!.first,
-                                                    mealType: day
-                                                        .dinners!.first.type!,
-                                                    menuId: day.id!,
-                                                  )
-                                                : PetctWaitingMealCard(
-                                                    meal: day.dinners!.first,
-                                                    mealType: day
-                                                        .dinners!.first.type!,
-                                                    menuId: day.id!,
-                                                  ),
-                                          ],
-                                        ),
+                                        child: cubit.chooseMealCard(
+                                            day.dinners!.first,
+                                            day.id!,
+                                            cubit.isLate(day)),
                                       )
                                     : Container(),
                                 (day.suppers != null && day.suppers!.isNotEmpty)
                                     ? Padding(
                                         padding: const EdgeInsets.only(top: 22),
-                                        child: Column(
-                                          children: [
-                                            (day.suppers!.first.isRegistered)
-                                                ? PetctDoneMealCard(
-                                                    meal: day.suppers!.first,
-                                                    mealType: day
-                                                        .suppers!.first.type!,
-                                                    menuId: day.id!,
-                                                  )
-                                                : PetctWaitingMealCard(
-                                                    meal: day.suppers!.first,
-                                                    mealType: day
-                                                        .suppers!.first.type!,
-                                                    menuId: day.id!,
-                                                  ),
-                                          ],
-                                        ),
+                                        child: cubit.chooseMealCard(
+                                            day.suppers!.first,
+                                            day.id!,
+                                            cubit.isLate(day)),
                                       )
                                     : Container(),
                               ],
@@ -261,4 +167,6 @@ class _HomePageState extends State<HomePage>
       ),
     );
   }
+
+ 
 }

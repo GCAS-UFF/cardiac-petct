@@ -1,11 +1,16 @@
-import 'package:cardiac_petct/features/exam_settings/domain/entities/exam_settings_entity.dart';
-import 'package:cardiac_petct/features/exam_settings/domain/usecases/get_exam_settings.dart';
-import 'package:cardiac_petct/features/home/data/models/meal_type_model.dart';
-import 'package:cardiac_petct/features/home/domain/entities/meal_type.dart';
-import 'package:cardiac_petct/features/home/domain/entities/menu.dart';
-import 'package:cardiac_petct/features/home/domain/usecases/get_meal_types.dart';
-import 'package:cardiac_petct/features/home/domain/usecases/get_menu_list.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:cardiac_petct/src/ui/petct_done_meal_card.dart';
+import 'package:cardiac_petct/src/ui/petct_late_meal_card.dart';
+import 'package:cardiac_petct/src/ui/petct_waiting_meal_card.dart';
+import 'package:cardiac_petct/features/home/domain/entities/meal.dart';
+import 'package:cardiac_petct/features/home/domain/entities/menu.dart';
+import 'package:cardiac_petct/features/home/domain/entities/meal_type.dart';
+import 'package:cardiac_petct/features/home/data/models/meal_type_model.dart';
+import 'package:cardiac_petct/features/home/domain/usecases/get_menu_list.dart';
+import 'package:cardiac_petct/features/home/domain/usecases/get_meal_types.dart';
+import 'package:cardiac_petct/features/exam_settings/domain/usecases/get_exam_settings.dart';
+import 'package:cardiac_petct/features/exam_settings/domain/entities/exam_settings_entity.dart';
 
 class HomeCubit extends Cubit<HomeState> {
   final GetMenuListUsecase getMenuListUsecase;
@@ -29,18 +34,51 @@ class HomeCubit extends Cubit<HomeState> {
       examSettingsEntity = examSettings;
     });
     dietDaysResponse.fold((l) => emit(HomeErrorState()), (list) {
-      final dietDays = getNormalizedDietDays(list);
+      final dietDays = setDateToDietDays(list);
       emit(HomeSuccessState(dietDays, mealTypes, examSettingsEntity));
     });
   }
 
-  List<Menu> getNormalizedDietDays(List<Menu> dietDays) {
+  List<Menu> setDateToDietDays(List<Menu> dietDays) {
     for (int i = 0; i < dietDays[0].durationInDays; i++) {
       dietDays[i] = dietDays[i].copyWith(
           dietDay: examSettingsEntity.examDateTime
               .subtract(Duration(days: dietDays[0].durationInDays - i)));
     }
     return dietDays;
+  }
+
+  Widget chooseMealCard(Meal meal, String dayId, bool isLate) {
+    if (meal.isRegistered) {
+      return PetctDoneMealCard(
+        meal: meal,
+        mealType: meal.type!,
+        menuId: dayId,
+      );
+    }
+    if (isLate) {
+      return PetctLateMealCard(
+        meal: meal,
+        mealType: meal.type!,
+        menuId: dayId,
+      );
+    }
+    return PetctWaitingMealCard(
+      meal: meal,
+      mealType: meal.type!,
+      menuId: dayId,
+    );
+  }
+
+  bool isLate(Menu day) {
+    return DateTime(
+                day.dietDay!.year,
+                day.dietDay!.month,
+                day.dietDay!.day,
+                examSettingsEntity.breakfastsHour.hour,
+                examSettingsEntity.breakfastsHour.minute)
+            .compareTo(DateTime.now()) <
+        0;
   }
 }
 
