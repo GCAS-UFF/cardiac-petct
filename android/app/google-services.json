@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:647760557991:android:1f64679e17d4686d7ba882",
         "android_client_info": {
-          "package_name": "com.example.cardiac_petct"
+          "package_name": "com.petct.cardiac_petct"
         }
       },
       "oauth_client": [

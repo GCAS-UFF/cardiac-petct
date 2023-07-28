@@ -1,11 +1,10 @@
 import 'dart:convert';
-
-import 'package:cardiac_petct/features/home/data/datasources/constants/home_external_constants.dart';
-import 'package:cardiac_petct/features/home/data/datasources/meal_item_datasource_imp.dart';
-import 'package:cardiac_petct/features/home/data/datasources/meal_type_datasource_imp.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:cardiac_petct/features/home/data/models/meal_model.dart';
 import 'package:cardiac_petct/features/home/domain/entities/meal_item.dart';
-import 'package:firebase_database/firebase_database.dart';
+import 'package:cardiac_petct/features/home/data/datasources/meal_item_datasource_imp.dart';
+import 'package:cardiac_petct/features/home/data/datasources/meal_type_datasource_imp.dart';
+import 'package:cardiac_petct/features/home/data/datasources/constants/home_external_constants.dart';
 
 abstract class MealDatasource {
   Future<List<MealModel>> getMealList();
@@ -21,6 +20,8 @@ class MealDatasourceImp implements MealDatasource {
     database = FirebaseDatabase.instance;
     getMealList();
   }
+
+  List<MealModel> cachedList = <MealModel>[];
 
   @override
   Future<List<MealModel>> getMealList() async {
@@ -45,6 +46,7 @@ class MealDatasourceImp implements MealDatasource {
         final mealType = await mealTypeDatasource.geatMealType(list[i].typeId);
         list[i] = list[i].copyWith(items: meals, type: mealType);
       }
+      cachedList = list;
       return list;
     } catch (e) {
       rethrow;
@@ -54,21 +56,25 @@ class MealDatasourceImp implements MealDatasource {
   @override
   Future<MealModel> getMeal(String id) async {
     try {
-      final mealRef = database
-          .ref()
-          .child(HomeExternalConstants.universal)
-          .child(HomeExternalConstants.meal)
-          .child(id);
-      final DataSnapshot response = await mealRef.get();
-      final String json = jsonEncode(response.value);
-      final Map<String, dynamic> map = jsonDecode(json);
-      MealModel meal = MealModel.fromMap(map).copyWith(id: id);
-      List<MealItem> mealsItems = [];
-      for (String id in meal.itemsIds) {
-        mealsItems.add(await mealDatasource.getMealItem(id));
+      if (cachedList.isEmpty) {
+        final mealRef = database
+            .ref()
+            .child(HomeExternalConstants.universal)
+            .child(HomeExternalConstants.meal)
+            .child(id);
+        final DataSnapshot response = await mealRef.get();
+        final String json = jsonEncode(response.value);
+        final Map<String, dynamic> map = jsonDecode(json);
+        MealModel meal = MealModel.fromMap(map).copyWith(id: id);
+        List<MealItem> mealsItems = [];
+        for (String id in meal.itemsIds) {
+          mealsItems.add(await mealDatasource.getMealItem(id));
+        }
+        final mealType = await mealTypeDatasource.geatMealType(meal.typeId);
+        return meal.copyWith(items: mealsItems, type: mealType);
+      }else{
+        return cachedList.firstWhere((element) => element.id == id);
       }
-      final mealType = await mealTypeDatasource.geatMealType(meal.typeId);
-      return meal.copyWith(items: mealsItems, type: mealType);
     } catch (e) {
       rethrow;
     }

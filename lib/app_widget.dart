@@ -1,10 +1,10 @@
-import 'package:cardiac_petct/app_controller.dart';
-import 'package:cardiac_petct/src/localizations/localizations_directories.dart';
-import 'package:cardiac_petct/src/shared/themes/themes_schemes.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:localization/localization.dart';
+import 'package:cardiac_petct/app_controller.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:cardiac_petct/src/shared/themes/themes_schemes.dart';
+import 'package:cardiac_petct/src/localizations/localizations_directories.dart';
 
 class AppWidget extends StatelessWidget {
   const AppWidget({super.key});
@@ -12,16 +12,16 @@ class AppWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final AppController controller = Modular.get();
-    return ValueListenableBuilder(
+    return ValueListenableBuilder<bool>(
       valueListenable: controller.themeSwitch,
-      builder: (context, value, child) {
+      builder: (context, isDark, child) {
         LocalJsonLocalization.delegate.directories =
             LocalizationsDirectories.localizationsDirectoriesList;
         return MaterialApp.router(
           debugShowCheckedModeBanner: false,
           theme: themeLight,
           darkTheme: themeDark,
-          themeMode: value ? ThemeMode.light : ThemeMode.dark,
+          themeMode: isDark == true ? ThemeMode.dark : ThemeMode.light,
           routerDelegate: Modular.routerDelegate,
           routeInformationParser: Modular.routeInformationParser,
           supportedLocales: const [

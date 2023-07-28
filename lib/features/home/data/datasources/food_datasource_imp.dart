@@ -1,10 +1,9 @@
 import 'dart:convert';
-
-import 'package:cardiac_petct/features/home/data/datasources/constants/home_external_constants.dart';
-import 'package:cardiac_petct/features/home/data/datasources/translated_word_datasource.dart';
-import 'package:cardiac_petct/features/home/data/datasources/food_classification_remote_datasource_imp.dart';
-import 'package:cardiac_petct/features/home/data/models/food_model.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:cardiac_petct/features/home/data/models/food_model.dart';
+import 'package:cardiac_petct/features/home/data/datasources/translated_word_datasource.dart';
+import 'package:cardiac_petct/features/home/data/datasources/constants/home_external_constants.dart';
+import 'package:cardiac_petct/features/home/data/datasources/food_classification_remote_datasource_imp.dart';
 
 abstract class FoodDatasource {
   Future<List<FoodModel>> getFoodList();
@@ -22,6 +21,8 @@ class FoodsDatasourceImp implements FoodDatasource {
     database = FirebaseDatabase.instance;
     getFoodList();
   }
+
+  List<FoodModel> cachedList = <FoodModel>[];
 
   @override
   Future<List<FoodModel>> getFoodList() async {
@@ -48,6 +49,7 @@ class FoodsDatasourceImp implements FoodDatasource {
               translatedWord: translatedNames,
               foodClassification: foodClassification);
         }
+        cachedList = list;
         return list;
       }
     } catch (e) {
@@ -58,7 +60,8 @@ class FoodsDatasourceImp implements FoodDatasource {
   @override
   Future<FoodModel> getFood(String id) async {
     try {
-      final foodRef = database
+if(cachedList.isEmpty){
+        final foodRef = database
           .ref()
           .child(HomeExternalConstants.universal)
           .child(HomeExternalConstants.food)
@@ -73,6 +76,8 @@ class FoodsDatasourceImp implements FoodDatasource {
           .getFoodClassification(food.foodClassificationId);
       return food.copyWith(
           translatedWord: translatedWord, foodClassification: classification);
+}else{
+  return cachedList.firstWhere((element) => element.id == id);}
     } catch (e) {
       rethrow;
     }

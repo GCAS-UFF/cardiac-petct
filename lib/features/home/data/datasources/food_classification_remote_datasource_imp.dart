@@ -1,9 +1,8 @@
 import 'dart:convert';
-
-import 'package:cardiac_petct/features/home/data/datasources/constants/home_external_constants.dart';
-import 'package:cardiac_petct/features/home/data/datasources/translated_word_datasource.dart';
-import 'package:cardiac_petct/features/home/data/models/food_classification_model.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:cardiac_petct/features/home/data/models/food_classification_model.dart';
+import 'package:cardiac_petct/features/home/data/datasources/translated_word_datasource.dart';
+import 'package:cardiac_petct/features/home/data/datasources/constants/home_external_constants.dart';
 
 abstract class FoodClassificationRemoteDatasource {
   Future<List<FoodClassificationModel>> getFoodClassificationList();
@@ -18,6 +17,8 @@ class FoodClassificationRemoteDatasourceImp
     firebaseDatabase = FirebaseDatabase.instance;
     getFoodClassificationList();
   }
+
+  List<FoodClassificationModel> cachedList = <FoodClassificationModel>[];
 
   @override
   Future<List<FoodClassificationModel>> getFoodClassificationList() async {
@@ -38,6 +39,7 @@ class FoodClassificationRemoteDatasourceImp
             .getTranslatedWord(list[i].translatedWordId);
         list[i] = list[i].copyWith(translatedWord: translatedNames);
       }
+      cachedList = list;
       return list;
     } catch (e) {
       rethrow;
@@ -47,19 +49,23 @@ class FoodClassificationRemoteDatasourceImp
   @override
   Future<FoodClassificationModel> getFoodClassification(String id) async {
     try {
-      final ref = firebaseDatabase.ref();
-      final foodClassificationRef = ref
-          .child(HomeExternalConstants.universal)
-          .child(HomeExternalConstants.classificationFood)
-          .child(id);
-      final DataSnapshot response = await foodClassificationRef.get();
-      final String json = jsonEncode(response.value);
-      final Map<String, dynamic> map = jsonDecode(json);
-      final foodClassification =
-          FoodClassificationModel.fromMap(map).copyWith(id: id);
-      final translatedWord = await translatedWordDatasource
-          .getTranslatedWord(foodClassification.translatedWordId);
-      return foodClassification.copyWith(translatedWord: translatedWord);
+      if (cachedList.isEmpty) {
+        final ref = firebaseDatabase.ref();
+        final foodClassificationRef = ref
+            .child(HomeExternalConstants.universal)
+            .child(HomeExternalConstants.classificationFood)
+            .child(id);
+        final DataSnapshot response = await foodClassificationRef.get();
+        final String json = jsonEncode(response.value);
+        final Map<String, dynamic> map = jsonDecode(json);
+        final foodClassification =
+            FoodClassificationModel.fromMap(map).copyWith(id: id);
+        final translatedWord = await translatedWordDatasource
+            .getTranslatedWord(foodClassification.translatedWordId);
+        return foodClassification.copyWith(translatedWord: translatedWord);
+      } else {
+        return cachedList.firstWhere((element) => element.id == id);
+      }
     } catch (e) {
       rethrow;
     }

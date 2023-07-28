@@ -1,15 +1,16 @@
-import 'package:cardiac_petct/features/home/domain/entities/meal.dart';
-import 'package:cardiac_petct/features/home/home_cubit.dart';
-import 'package:cardiac_petct/features/home/submodules/meal_options/meal_options_cubit.dart';
-import 'package:cardiac_petct/src/ui/petct_elevated_button.dart';
-import 'package:cardiac_petct/src/ui/petct_item_quantity.dart';
-import 'package:cardiac_petct/src/ui/petct_outlined_button.dart';
-import 'package:cardiac_petct/src/utils/string_formatter.dart';
-import 'package:cardiac_petct/src/utils/word_translator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:localization/localization.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:cardiac_petct/features/home/home_cubit.dart';
+import 'package:cardiac_petct/src/utils/word_translator.dart';
+import 'package:cardiac_petct/src/ui/petct_item_quantity.dart';
+import 'package:cardiac_petct/src/utils/string_formatter.dart';
+import 'package:cardiac_petct/src/shared/resources/images.dart';
+import 'package:cardiac_petct/src/ui/petct_elevated_button.dart';
+import 'package:cardiac_petct/src/ui/petct_outlined_button.dart';
+import 'package:cardiac_petct/features/home/domain/entities/meal.dart';
+import 'package:cardiac_petct/features/home/submodules/meal_options/meal_options_cubit.dart';
 
 class MealOptionsPage extends StatefulWidget {
   final Meal meal;
@@ -141,13 +142,12 @@ class _MealOptionsPageState extends State<MealOptionsPage>
                                   ],
                                 ),
                                 Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 22),
-                                  child: Image.network(
-                                    'https://www.pngkey.com/png/full/947-9471813_tilpia-empanada-imagens-de-pratos-de-comida-png.png',
-                                    width: 160,
-                                  ),
-                                ),
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 22),
+                                    child: Image.asset(
+                                      Images.plateDefault,
+                                      width: 160,
+                                    )),
                                 const SizedBox(
                                   height: 32,
                                 ),

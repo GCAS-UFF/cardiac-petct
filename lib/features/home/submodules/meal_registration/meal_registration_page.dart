@@ -1,16 +1,17 @@
-import 'package:cardiac_petct/features/home/domain/entities/meal.dart';
-import 'package:cardiac_petct/features/home/domain/entities/meal_item.dart';
-import 'package:cardiac_petct/features/home/home_cubit.dart';
-import 'package:cardiac_petct/features/home/submodules/meal_registration/meal_registration_cubit.dart';
-import 'package:cardiac_petct/src/ui/petct_elevated_button.dart';
-import 'package:cardiac_petct/src/ui/petct_outlined_button.dart';
-import 'package:cardiac_petct/src/ui/petct_select_item_quantity.dart';
-import 'package:cardiac_petct/src/ui/petct_text_form_field.dart';
-import 'package:cardiac_petct/src/utils/word_translator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:localization/localization.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:cardiac_petct/features/home/home_cubit.dart';
+import 'package:cardiac_petct/src/utils/word_translator.dart';
+import 'package:cardiac_petct/src/shared/resources/images.dart';
+import 'package:cardiac_petct/src/ui/petct_elevated_button.dart';
+import 'package:cardiac_petct/src/ui/petct_outlined_button.dart';
+import 'package:cardiac_petct/src/ui/petct_text_form_field.dart';
+import 'package:cardiac_petct/src/ui/petct_select_item_quantity.dart';
+import 'package:cardiac_petct/features/home/domain/entities/meal.dart';
+import 'package:cardiac_petct/features/home/domain/entities/meal_item.dart';
+import 'package:cardiac_petct/features/home/submodules/meal_registration/meal_registration_cubit.dart';
 
 class MealRegistrationPage extends StatefulWidget {
   final Meal meal;
@@ -99,8 +100,8 @@ class _MealRegistrationPageState extends State<MealRegistrationPage> {
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 22),
-                      child: Image.network(
-                        'https://www.pngkey.com/png/full/947-9471813_tilpia-empanada-imagens-de-pratos-de-comida-png.png',
+                      child: Image.asset(
+                        Images.plateDefault,
                         width: 160,
                       ),
                     ),

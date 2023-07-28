@@ -1,11 +1,10 @@
 import 'dart:convert';
-
-import 'package:cardiac_petct/features/home/data/datasources/constants/home_external_constants.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:cardiac_petct/features/home/domain/entities/meal_type.dart';
+import 'package:cardiac_petct/features/home/data/models/meal_type_model.dart';
 import 'package:cardiac_petct/features/home/data/datasources/home_local_datasource.dart';
 import 'package:cardiac_petct/features/home/data/datasources/translated_word_datasource.dart';
-import 'package:cardiac_petct/features/home/data/models/meal_type_model.dart';
-import 'package:cardiac_petct/features/home/domain/entities/meal_type.dart';
-import 'package:firebase_database/firebase_database.dart';
+import 'package:cardiac_petct/features/home/data/datasources/constants/home_external_constants.dart';
 
 abstract class MealTypeDatasource {
   Future<List<MealTypeModel>> getMealTypeList();
@@ -22,6 +21,8 @@ class MealTypeDatasourceImp implements MealTypeDatasource {
     database = FirebaseDatabase.instance;
     getMealTypeList();
   }
+
+  List<MealTypeModel> cachedList = <MealTypeModel>[];
 
   @override
   Future<List<MealTypeModel>> getMealTypeList() async {
@@ -47,6 +48,7 @@ class MealTypeDatasourceImp implements MealTypeDatasource {
           list[i] = list[i].copyWith(translatedWord: translatedNames);
         }
         await homeLocalDatasource.cacheMealTypes(list);
+        cachedList = list;
         return list;
       }
     } catch (e) {
@@ -57,18 +59,22 @@ class MealTypeDatasourceImp implements MealTypeDatasource {
   @override
   Future<MealTypeModel> geatMealType(String id) async {
     try {
-      final mealTypeRef = database
-          .ref()
-          .child(HomeExternalConstants.universal)
-          .child(HomeExternalConstants.mealType)
-          .child(id);
-      final DataSnapshot response = await mealTypeRef.get();
-      final String json = jsonEncode(response.value);
-      final Map<String, dynamic> map = jsonDecode(json);
-      MealTypeModel mealType = MealTypeModel.fromMap(map);
-      final translatedNames = await translatedWordsDatasource
-          .getTranslatedWord(mealType.translatedWordId);
-      return mealType.copyWith(translatedWord: translatedNames, id: id);
+      if (cachedList.isEmpty) {
+        final mealTypeRef = database
+            .ref()
+            .child(HomeExternalConstants.universal)
+            .child(HomeExternalConstants.mealType)
+            .child(id);
+        final DataSnapshot response = await mealTypeRef.get();
+        final String json = jsonEncode(response.value);
+        final Map<String, dynamic> map = jsonDecode(json);
+        MealTypeModel mealType = MealTypeModel.fromMap(map);
+        final translatedNames = await translatedWordsDatasource
+            .getTranslatedWord(mealType.translatedWordId);
+        return mealType.copyWith(translatedWord: translatedNames, id: id);
+      } else {
+        return cachedList.firstWhere((element) => element.id == id);
+      }
     } catch (e) {
       rethrow;
     }
