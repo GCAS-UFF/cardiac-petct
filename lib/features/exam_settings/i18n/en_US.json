@@ -1,0 +1,19 @@
+{
+    "about-exam-title": "About the exam",
+    "fill-info-exam-text": "Enter your exam data",
+    "exam-date-hour-title": "Exam date and time",
+    "exam-address": "Exam location",
+    "local-hint": "Local",
+    "date-hint": "Date",
+    "hour-hint": "Hour",
+    "next-label": "Next",
+    "select-meals-time-text": "Select your meal times",
+    "meals-time-title": "Mealtime",
+    "breakfast-hint": "Breakfast",
+    "morningsnacks-hint": "Morning snack",
+    "lunch-hint": "lunch",
+    "afternoonsnack-hint": "Afternoon snack",
+    "dinner-hint": "Dinner",
+    "supper-hint": "Supper",
+    "done-label": "Done"
+}
