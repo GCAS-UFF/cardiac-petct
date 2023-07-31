@@ -1,5 +1,7 @@
 enum MeasurementUnity {
+  smallUnity,
   unity,
+  mediumUnity,
   bigUnity,
   grams,
   mililiters,
@@ -7,28 +9,39 @@ enum MeasurementUnity {
   spoon,
   teaSpoon,
   soupSpoon,
-  fullSoupSpoon
+  fullSoupSpoon,
+  thinSlice,
+  cup,
+  littleBranch,
 }
 
 extension MeasurementExtension on MeasurementUnity {
   static List<MeasurementUnity> measurementUnitiesList() {
     return [
+      MeasurementUnity.smallUnity,
       MeasurementUnity.unity,
+      MeasurementUnity.mediumUnity,
       MeasurementUnity.bigUnity,
       MeasurementUnity.spoon,
-      MeasurementUnity.teaSpoon,
-      MeasurementUnity.soupSpoon,
       MeasurementUnity.fullSoupSpoon,
+      MeasurementUnity.soupSpoon,
+      MeasurementUnity.teaSpoon,
       MeasurementUnity.mililiters,
       MeasurementUnity.grams,
-      MeasurementUnity.freely
+      MeasurementUnity.freely,
+      MeasurementUnity.thinSlice,
+      MeasurementUnity.cup,
     ];
   }
 
   static MeasurementUnity typeFromString(String value) {
     switch (value) {
+      case 'SMALL_UNITY':
+        return MeasurementUnity.smallUnity;
       case 'UNITY':
         return MeasurementUnity.unity;
+      case 'MEDIUM_UNITY':
+        return MeasurementUnity.mediumUnity;
       case 'BIG_UNITY':
         return MeasurementUnity.bigUnity;
       case 'GRAMS':
@@ -45,6 +58,12 @@ extension MeasurementExtension on MeasurementUnity {
         return MeasurementUnity.fullSoupSpoon;
       case 'MILILITERS':
         return MeasurementUnity.mililiters;
+      case 'THIN_SLICE':
+        return MeasurementUnity.thinSlice;
+      case 'CUP':
+        return MeasurementUnity.cup;
+      case 'LITTLE_BRANCH':
+        return MeasurementUnity.littleBranch;
       default:
         return MeasurementUnity.unity;
     }
@@ -52,9 +71,13 @@ extension MeasurementExtension on MeasurementUnity {
 
   static String stringFromType(MeasurementUnity unity) {
     switch (unity) {
+      case MeasurementUnity.smallUnity:
+        return 'SMALL_UNITY';
       case MeasurementUnity.unity:
         return 'UNITY';
       case MeasurementUnity.bigUnity:
+        return 'MEDIUM_UNITY';
+      case MeasurementUnity.mediumUnity:
         return 'BIG_UNITY';
       case MeasurementUnity.grams:
         return 'GRAMS';
@@ -70,6 +93,12 @@ extension MeasurementExtension on MeasurementUnity {
         return 'FULL_SOUP_SPOON';
       case MeasurementUnity.mililiters:
         return 'MILILITERS';
+      case MeasurementUnity.thinSlice:
+        return 'THIN_SLICE';
+      case MeasurementUnity.cup:
+        return 'CUP';
+      case MeasurementUnity.littleBranch:
+        return 'LITTLE_BRANCH';
       default:
         return 'UNITY';
     }
@@ -94,6 +123,8 @@ extension MeasurementExtension on MeasurementUnity {
 
   static String nameFromEnum(MeasurementUnity unity) {
     switch (unity) {
+      case MeasurementUnity.smallUnity:
+        return 'Unidades pequenas';
       case MeasurementUnity.unity:
         return 'Unidades';
       case MeasurementUnity.bigUnity:
@@ -112,6 +143,12 @@ extension MeasurementExtension on MeasurementUnity {
         return 'Colheres de sopa cheia';
       case MeasurementUnity.mililiters:
         return 'ml';
+      case MeasurementUnity.thinSlice:
+        return 'Fatia fina';
+      case MeasurementUnity.cup:
+        return 'Xícaras';
+      case MeasurementUnity.littleBranch:
+        return 'Ramo pequeno';
       default:
         return 'Unidades';
     }
